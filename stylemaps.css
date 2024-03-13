@@ -1,0 +1,166 @@
+@font-face {
+    font-family: valoFont;
+    src: url(Valorant\ Font.ttf);
+}
+
+*{
+    background-color: transparent;
+    padding: 0;
+    margin: 0;  
+    overflow: hidden;
+}
+svg{
+    transform: scale(1.1);
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    filter: blur(0px);
+}
+ /* #IN{
+    fill: red;
+} */
+.mapsContainer{
+    max-width: 100vw;
+    height: auto;
+    /* overflow: hidden; */
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 100vw;
+    grid-template-rows: 100vh;
+    grid-template-rows: "a"
+                        "a";
+}
+.x{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    /* top: 0;
+    justify-content: space-between;
+    z-index: 10; */
+}
+.x >div{
+   
+    position: relative;
+    top: 0;
+    z-index: 30;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    border: 0.2px solid white;
+}
+.y{
+   
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: space-around;
+}
+.y >div{
+    
+    grid-row: 1/3;
+    grid-column: 1/2;
+    position: relative;
+    top: 0;
+    z-index: 30;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    border: 0.2px solid white;
+}
+/* video{
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    z-index: 99999;
+    opacity: .5;
+    filter: invert(-1);
+} */
+.mapNames{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 5px;
+    bottom: 10px;
+    position: absolute;
+    left: 10px;
+    z-index: 40;
+    max-width: 90%;
+    height: 60px;
+    border: 0.1px solid #737850;
+    
+}
+.mapbox:hover{
+    opacity: 1;
+    background-color: #737850;
+
+}
+.mapbox{
+    opacity: 0.3;
+    color: black;
+    background-color: #232323;
+    padding: 15px 25px;
+    text-align: center;
+    font-size: 26px;
+    font-family: valoFont;
+    
+    /* border: 0.2px solid lightgreen; */
+    cursor: pointer;
+    /* justify-self: baseline; */
+    
+}
+.mapnamesVerti{
+    color: white;
+    position: absolute;
+    z-index: 40;
+    bottom: 90px;
+    left: 20px;
+}
+
+div{
+    font-family: 'Montserrat', Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    white-space: pre-line;
+}
+
+.btn:hover{
+    background-color: #002bff;
+}
+i {
+    color: #737850;
+    top: 0;
+    position: relative;
+    -webkit-animation: clickAnimation 2s ease-in-out infinite;
+    animation: clickAnimation 2s ease-in-out infinite
+}
+
+@-webkit-keyframes clickAnimation {
+    0%,20% {
+        top: 0
+    }
+
+    25%,45% {
+        top: 3px
+    }
+
+    50%,100% {
+        top: 0
+    }
+}
+
+@keyframes clickAnimation {
+    0%,20% {
+        top: 0
+    }
+
+    25%,45% {
+        top: 3px
+    }
+
+    50%,100% {
+        top: 0
+    }
+}
