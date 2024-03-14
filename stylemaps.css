@@ -8,16 +8,88 @@
     padding: 0;
     margin: 0;  
     overflow: hidden;
+    
+}
+#indiaCircle{
+    stroke: red;
+    visibility: hidden;
+    fill: transparent;
+    
+}
+circle{
+    fill: transparent;
+}
+#bindCircle{
+    stroke: red;
+    visibility: hidden;
+    fill: transparent;
+}
+#ascentCircle{
+    stroke: red;
+    visibility: hidden;
+    fill: transparent;
+}
+#havenCircle{
+    stroke: red;
+    visibility: hidden;
+    fill: transparent;
+}
+#lotusCircle{
+    stroke: red;
+    visibility: hidden;
+}
+#breezeCircle{
+    stroke: red;
+    visibility: hidden;
+}
+#pearlCircle{
+    stroke: red;
+    visibility: hidden;
+}
+#iceboxCircle{
+    stroke: red;
+    visibility: hidden;
+}
+#splitCircle{
+    stroke: red;
+    visibility: hidden;
+}
+#sunsetCircle{
+    stroke: red;
+    visibility: hidden;
+}
+#fractureCircle{
+    stroke: red;
+    visibility: hidden;
 }
 svg{
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
     position: absolute;
     top: 0;
     z-index: -1;
     grid-column: 1/2;
     grid-row: 1/2;
     filter: blur(0px);
+    transition: all 2s ease;
 }
+/* #INDIA{
+    fill: transparent;
+    stroke: #1abc9c;
+    transition: all 200ms ease;
+  } */
+
+  .dashed{
+    stroke-dasharray: 3, 3.5;
+  }
+/* .foreground {
+    fill: transparent;
+    stroke-dasharray: 377;
+    stroke-dashoffset: 377;
+    stroke: #ededed;
+    transform-origin: 50% 50%;
+    transform: rotate(-270deg);
+    transition: all 800ms ease;
+  } */
  /* #IN{
     fill: red;
 } */
@@ -100,14 +172,13 @@ svg{
 
 }
 .mapbox{
-    opacity: 0.3;
-    color: black;
+    opacity: 1;
+    color: yellow;
     background-color: #232323;
     padding: 15px 25px;
     text-align: center;
     font-size: 26px;
     font-family: valoFont;
-    
     /* border: 0.2px solid lightgreen; */
     cursor: pointer;
     /* justify-self: baseline; */
