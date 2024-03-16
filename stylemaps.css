@@ -1,86 +1,100 @@
-@font-face {
+/* @font-face {
     font-family: valoFont;
     src: url(Valorant\ Font.ttf);
+} */
+
+* {
+    
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
 }
 
-*{
-    background-color: transparent;
-    padding: 0;
-    margin: 0;  
-    overflow: hidden;
-    
-}
-#indiaCircle{
+#indiaCircle {
     stroke: red;
     visibility: hidden;
     fill: transparent;
-    
+
 }
-circle{
+
+circle {
     fill: transparent;
 }
-#bindCircle{
+
+#bindCircle {
     stroke: red;
     visibility: hidden;
     fill: transparent;
 }
-#ascentCircle{
+
+#ascentCircle {
     stroke: red;
     visibility: hidden;
     fill: transparent;
 }
-#havenCircle{
+
+#havenCircle {
     stroke: red;
     visibility: hidden;
     fill: transparent;
 }
-#lotusCircle{
+
+#lotusCircle {
     stroke: red;
     visibility: hidden;
 }
-#breezeCircle{
+
+#breezeCircle {
     stroke: red;
     visibility: hidden;
 }
-#pearlCircle{
+
+#pearlCircle {
     stroke: red;
     visibility: hidden;
 }
-#iceboxCircle{
+
+#iceboxCircle {
     stroke: red;
     visibility: hidden;
 }
-#splitCircle{
+
+#splitCircle {
     stroke: red;
     visibility: hidden;
 }
-#sunsetCircle{
+
+#sunsetCircle {
     stroke: red;
     visibility: hidden;
 }
-#fractureCircle{
+
+#fractureCircle {
     stroke: red;
     visibility: hidden;
 }
-svg{
+
+svg {
+    background: none;
+    stroke: #a6273e;
     /* transform: scale(1.1); */
     position: absolute;
     top: 0;
-    z-index: -1;
+    z-index: 30;
     grid-column: 1/2;
     grid-row: 1/2;
-    filter: blur(0px);
     transition: all 2s ease;
 }
-/* #INDIA{
-    fill: transparent;
-    stroke: #1abc9c;
-    transition: all 200ms ease;
-  } */
 
-  .dashed{
-    stroke-dasharray: 3, 3.5;
+#INDIA{
+    visibility: visible;
   }
+
+.dashed {
+    stroke-dasharray: 3, 3.5;
+}
+
 /* .foreground {
     fill: transparent;
     stroke-dasharray: 377;
@@ -90,31 +104,34 @@ svg{
     transform: rotate(-270deg);
     transition: all 800ms ease;
   } */
- /* #IN{
+/* #IN{
     fill: red;
 } */
-.mapsContainer{
+.mapsContainer {
     max-width: 100vw;
     height: auto;
     /* overflow: hidden; */
     height: 100vh;
+    background-image: linear-gradient(to right top, #051937, #09172d, #0b1423, #0b1019, #0b0c0e);
     display: grid;
     grid-template-columns: 100vw;
     grid-template-rows: 100vh;
     grid-template-rows: "a"
-                        "a";
+        "a";
 }
-.x{
+
+.x {
     width: 100%;
     height: 100%;
     display: flex;
-    position: relative;
+    position: absolute;
     /* top: 0;
     justify-content: space-between;
     z-index: 10; */
 }
-.x >div{
-   
+
+.x>div {
+
     position: relative;
     top: 0;
     z-index: 30;
@@ -123,8 +140,9 @@ svg{
     opacity: 0.1;
     border: 0.2px solid white;
 }
-.y{
-   
+
+.y {
+
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -132,8 +150,9 @@ svg{
     position: absolute;
     justify-content: space-around;
 }
-.y >div{
-    
+
+.y>div {
+
     grid-row: 1/3;
     grid-column: 1/2;
     position: relative;
@@ -144,6 +163,7 @@ svg{
     opacity: 0.1;
     border: 0.2px solid white;
 }
+
 /* video{
     width: 100vw;
     height: 100%;
@@ -152,7 +172,7 @@ svg{
     opacity: .5;
     filter: invert(-1);
 } */
-.mapNames{
+.mapNames {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -164,16 +184,18 @@ svg{
     max-width: 90%;
     height: 60px;
     border: 0.1px solid #737850;
-    
+
 }
-.mapbox:hover{
+
+.mapbox:hover {
     opacity: 1;
     background-color: #737850;
 
 }
-.mapbox{
+
+.mapbox {
     opacity: 1;
-    color: yellow;
+    /* color: yellow; */
     background-color: #232323;
     padding: 15px 25px;
     text-align: center;
@@ -182,9 +204,10 @@ svg{
     /* border: 0.2px solid lightgreen; */
     cursor: pointer;
     /* justify-self: baseline; */
-    
+
 }
-.mapnamesVerti{
+
+.mapnamesVerti {
     color: white;
     position: absolute;
     z-index: 40;
@@ -192,15 +215,16 @@ svg{
     left: 20px;
 }
 
-div{
+div {
     font-family: 'Montserrat', Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     white-space: pre-line;
 }
 
-.btn:hover{
+.btn:hover {
     background-color: #002bff;
 }
-i {
+
+/* i {
     color: #737850;
     top: 0;
     position: relative;
@@ -234,4 +258,158 @@ i {
     50%,100% {
         top: 0
     }
+} */
+/* .indiaLine {
+    stroke: white;
+    stroke-width: .3;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 1s ease-out;
+}
+
+.bindLine {
+    stroke: white;
+    stroke-width: .3;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 1s ease-out;
+}
+
+.ascentLine {
+    stroke: white;
+    stroke-width: .3;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 1s ease-out;
+}
+
+.havenLine {
+    stroke: white;
+    stroke-width: .3;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 0.3s ease-out;
+}
+
+.splitLine {
+    stroke: white;
+    stroke-width: .3;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 1s ease-out;
+}
+
+.iceboxLine {
+    stroke: white;
+    stroke-width: .3;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 1s ease-out;
+}
+
+.breezeLine {
+    stroke: white;
+    stroke-width: .3;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 1s ease-out;
+}
+
+.fractureLine {
+    stroke: white;
+    stroke-width: .3;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 1s ease-out;
+}
+
+.pearlLine {
+    stroke: white;
+    stroke-width: .3;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 1s ease-out;
+}
+
+.sunsetLine {
+    stroke: white;
+    stroke-width: .3;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 1s ease-out;
+} */
+
+/* .bindLine.animate-in {
+    transform: translate(0, 0);
+} */
+.indiaLine,
+.bindLine,
+.ascentLine,
+.havenLine,
+.splitLine,
+.iceboxLine,
+.breezeLine,
+.fractureLine,
+.pearlLine,
+.sunsetLine {
+    visibility: hidden;
+    stroke: white;
+    stroke-width: .3;
+    opacity: 0.5;
+    transform: translate(100%, 100%);
+    will-change: transform;
+    transition: transform 1s ease-out;
+}
+
+.indiaLine.animate-in,
+.bindLine.animate-in,
+.ascentLine.animate-in,
+.havenLine.animate-in,
+.splitLine.animate-in,
+.iceboxLine.animate-in,
+.breezeLine.animate-in,
+.fractureLine.animate-in,
+.pearlLine.animate-in,
+.sunsetLine.animate-in {
+    transform: translate(0, 0);
+}
+
+.coordinates {
+    transition: transform 1s ease-out;
+    stroke: white;
+    stroke-width: 0.2px;
+}
+
+.lc,
+.bc,
+.fc,
+.ac,
+.sc,
+.pc,
+.ic,
+.bic,
+.hc,
+.suc {
+    /* opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: 1.5s;
+    transition: transform 2s ease-in-out; */
+    white-space: pre-line;
+    visibility: hidden;
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.x-axis,.y-axis{
+    
+    opacity: .43;
 }
