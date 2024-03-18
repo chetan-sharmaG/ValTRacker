@@ -1,4 +1,30 @@
+let slideindex=1;
+showSlides(slideindex);
+function plusSlides(n){
+    showSlides(slideindex+=n);
+}
+function showSlides(n){
+    let i;
+    let slides=document.getElementsByClassName('mySlides');
+    var currentSlide = document.getElementById('currentIndex');
+    var totalIndex = document.getElementById('totalIndex');
+    if(n>slides.length) { slideindex=1}
+    if(n<1){slideindex=slides.length}
+    for(i=0;i<slides.length;i++){
+        slides[i].style.display="none";
+    }
+    slides[slideindex-1].style.display="block";
+    currentSlide.innerText='';
+    currentSlide.textContent=slideindex;
+    totalIndex.textContent=slides.length;
 
+
+}
+
+function imagesPopup(mapName){
+    var imageContainer = document.getElementById('imagePlayer');
+    imageContainer.style.display="inherit";
+}
 function makeHidden(element) {
 
     var ele = document.getElementById(element);
@@ -9,8 +35,8 @@ function makeVisible(element) {
     ele.style.visibility = 'visible';
 }
 document.getElementById('lotus').addEventListener('mouseenter', function () {
-    var hoverClip = document.getElementById('hoverClip');
     
+    var hoverClip = document.getElementById('hoverClip');
     zoomToPath('lotus');
     makeHidden('INDIA');
     var dta = document.querySelector('.lc');

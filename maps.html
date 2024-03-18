@@ -1566,7 +1566,7 @@
             <div></div>
         </div> -->
         <div class="mapNames">
-            <div id='lotus' class="mapbox ">LOTUS </div>
+            <div id='lotus' class="mapbox " onclick="imagesPopup('lotus')">LOTUS </div>
             <div class=" mapbox" id="ascent"> ASCENT </div>
             <div class="mapbox" id="icebox"> ICEBOX</div>
             <div class="mapbox" id="haven"> HAVEN </div>
@@ -1583,6 +1583,45 @@
         </div>
         <div class="mapnamesVerti">
             <div style="color: white;">LOAD MAPS</div>
+        </div>
+        <div class="imagePlayer" id="imagePlayer">
+            <div class="mapdetails">
+                <div>PEARL</div>
+                <div>A disaster at a local kingdom facility threatens to engulf the whole neighborhood. Stop at your favorite food truck then fight across the city in this traditional three lane map.</div>
+            </div>
+            <a class="arrow nextArrow" onclick="plusSlides(1);">
+                ></a>
+            <a class="arrow backArrow" onclick="plusSlides(-1)">
+                < </a>
+    
+            <div class="imgContainer">
+                <div class="mySlides fade">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltaa074b509450631f/64e93345b62c6fbfafc3b1d1/Sunset_Screenshot_1.png?auto=webp&width=802">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltfd30724baf6d6273/64e9335dd0af545809a84bd6/Sunset_Screenshot_3.png?auto=webp&width=802">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blte6caf7be18549145/64e933531bd12a956b06af63/Sunset_Screenshot_2.jpg?auto=webp&width=802">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltaa074b509450631f/64e93345b62c6fbfafc3b1d1/Sunset_Screenshot_1.png?auto=webp&width=802">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltfd30724baf6d6273/64e9335dd0af545809a84bd6/Sunset_Screenshot_3.png?auto=webp&width=802">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blte6caf7be18549145/64e933531bd12a956b06af63/Sunset_Screenshot_2.jpg?auto=webp&width=802">
+                </div>
+            </div>
+            <div class="imgIndex">
+                <span id="currentIndex">1</span>
+                <span>/</span>
+                <span id="totalIndex"></span>
+            </div>
+            <div class="verticalText">
+                <span>INDIA</span>
+            </div>
         </div>
     </div>
     <script src="Mapsjavascipt.js">
