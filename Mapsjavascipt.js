@@ -23,7 +23,35 @@ function showSlides(n){
 
 function imagesPopup(mapName){
     var imageContainer = document.getElementById('imagePlayer');
-    imageContainer.style.display="inherit";
+    var nav = document.getElementsByTagName('header')[0];
+    if(window.innerWidth<850){
+    // imageContainer.style.display="inherit";
+    setTimeout(function() {
+        console.error('time');
+        imageContainer.classList.add('active');
+        nav.style.visibility="hidden";
+    }, 3000); //
+    }else{
+        imageContainer.style.display="inherit";
+        imageContainer.style.opacity="1";
+        console.error('adn');
+    }
+}
+
+function closeImagePLayer(){
+    var imageContainer = document.getElementById('imagePlayer');
+    var nav = document.getElementsByTagName('header')[0];
+    // imageContainer.style.display="none";
+    if(window.innerWidth<850){
+        // imageContainer.style.display="inherit";
+        imageContainer.classList.remove('active');
+        nav.style.visibility="visible";
+        }else{
+            imageContainer.style.display="none";
+            imageContainer.style.opacity="0";
+            console.error('adn');
+        }
+    
 }
 function makeHidden(element) {
 
@@ -366,6 +394,13 @@ document.getElementById('fracture').addEventListener('mouseleave', function () {
 
 //     requestAnimationFrame(animateZoom);
 // }
+window.addEventListener('resize', function() {
+    var svg = document.querySelector('svg');
+    if (window.innerWidth <= 600) {
+      svg.setAttribute('viewBox', '710.1619873046875 99.5 40 40');
+      console.error(this.window.innerWidth);
+    } 
+  });
 function zoomToPath(location) {
     var svg = document.getElementById('map');
     const locations = {
@@ -449,3 +484,9 @@ function zoomOut() {
 
     requestAnimationFrame(animateZoom);
 }
+window.addEventListener('resize', function() {
+    
+    if (window.innerWidth <= 850) {
+      
+    } 
+  });

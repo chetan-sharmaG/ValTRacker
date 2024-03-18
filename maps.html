@@ -6,15 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="stylemaps.css">
+    <link rel="stylesheet" href="mapqueries.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
+    <header>
+        <nav>
+            <div>
+                <h3>VALTRACKER</h3>
+            </div>
+            <div>
+                <a href="valo.html">HOME</a>
+                <a href="#aa">AGENTS</a>
+                <a href="maps.html">MAPS</a>
+                <a href="#aa">GUNS</a>
+            </div>
+        </nav>
+    </header>
     <div class="mapsContainer">
         <!-- style="background-color:black;" -->
         <svg id="map" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.29" baseprofile="tiny"
-            fill="#141925" viewBox="-221.46 -221.46 1822.433 911.283">
+            fill="#141925" viewBox="-221.46 -290.46 1822.433 911.283">
             <path
                 d="M 957.062 83.1 L 958.562 84.9 L 955.662 85.7 L 953.262 86.8 L 947.362 87.6 L 942.062 88.9 L 939.662 91.7 L 941.562 94.4 L 942.962 97.6 L 940.962 100.3 L 941.762 102.8 L 940.862 105.1 L 935.662 104.9 L 938.762 109.1 L 935.662 110.8 L 934.262 114.6 L 935.362 118.5 L 933.562 120.3 L 931.462 119.7 L 927.462 120.6 L 927.262 122.3 L 923.162 122.3 L 920.862 126 L 921.662 131.4 L 915.062 134.1 L 911.162 133.5 L 910.262 134.9 L 906.862 134.1 L 901.562 135.1 L 891.962 131.8 L 895.862 126 L 894.762 121.9 L 890.462 120.8 L 889.262 116.7 L 886.562 111.6 L 888.162 108.1 L 885.662 107.1 L 886.162 102.4 L 886.762 94.4 L 892.662 96.9 L 896.562 96 L 896.962 93.1 L 900.962 92.2 L 903.562 90.2 L 903.362 85.1 L 907.562 83.8 L 907.862 81.6 L 910.762 83.3 L 912.362 83.5 L 915.362 83.5 L 919.662 84.9 L 921.462 85.6 L 924.862 83.6 L 926.962 84.8 L 927.862 81.9 L 931.062 82 L 931.662 81.1 L 931.462 78.5 L 933.162 76.3 L 936.462 77.7 L 936.362 79.7 L 938.062 80 L 938.962 85.4 L 941.662 87.5 L 943.162 86.1 L 945.362 85.5 L 947.862 82.6 L 951.662 83.1 L 957.062 83.1 L 957.062 83.1 Z"
                 id="AF" name="Afghanistan" transform="matrix(1, 0, 0, 1, 2.842170943040401e-14, 0)"></path>
@@ -1587,31 +1601,49 @@
         <div class="imagePlayer" id="imagePlayer">
             <div class="mapdetails">
                 <div>PEARL</div>
-                <div>A disaster at a local kingdom facility threatens to engulf the whole neighborhood. Stop at your favorite food truck then fight across the city in this traditional three lane map.</div>
+                <div>A disaster at a local kingdom facility threatens to engulf the whole neighborhood. Stop at your
+                    favorite food truck then fight across the city in this traditional three lane map.</div>
             </div>
-            <a class="arrow nextArrow" onclick="plusSlides(1);">
-                ></a>
-            <a class="arrow backArrow" onclick="plusSlides(-1)">
-                < </a>
-    
+            <div class="arrowContainer">
+                <a class="arrow backArrow" onclick="plusSlides(-1)">
+                    < </a>
+                        <a class="arrow nextArrow" onclick="plusSlides(1);">
+                            ></a>
+
+            </div>
+            <div class="img-con">
+                <div class="closeContainer" onclick="closeImagePLayer()">
+                    <svg id="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" xml:space="preserve">
+                        <path fill="none" stroke="#ece8e1"
+                            d="m61.5 9.5-7 7m-38 38-7 7M30.3 42l2.8-3m8.6 3L30.3 30m11.4 0-2.6 2.8"></path>
+                    </svg>
+
+                </div>
+            </div>
             <div class="imgContainer">
                 <div class="mySlides fade">
-                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltaa074b509450631f/64e93345b62c6fbfafc3b1d1/Sunset_Screenshot_1.png?auto=webp&width=802">
+                    <img
+                        src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltaa074b509450631f/64e93345b62c6fbfafc3b1d1/Sunset_Screenshot_1.png?auto=webp&width=802">
                 </div>
                 <div class="mySlides fade">
-                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltfd30724baf6d6273/64e9335dd0af545809a84bd6/Sunset_Screenshot_3.png?auto=webp&width=802">
+                    <img
+                        src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltfd30724baf6d6273/64e9335dd0af545809a84bd6/Sunset_Screenshot_3.png?auto=webp&width=802">
                 </div>
                 <div class="mySlides fade">
-                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blte6caf7be18549145/64e933531bd12a956b06af63/Sunset_Screenshot_2.jpg?auto=webp&width=802">
+                    <img
+                        src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blte6caf7be18549145/64e933531bd12a956b06af63/Sunset_Screenshot_2.jpg?auto=webp&width=802">
                 </div>
                 <div class="mySlides fade">
-                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltaa074b509450631f/64e93345b62c6fbfafc3b1d1/Sunset_Screenshot_1.png?auto=webp&width=802">
+                    <img
+                        src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltaa074b509450631f/64e93345b62c6fbfafc3b1d1/Sunset_Screenshot_1.png?auto=webp&width=802">
                 </div>
                 <div class="mySlides fade">
-                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltfd30724baf6d6273/64e9335dd0af545809a84bd6/Sunset_Screenshot_3.png?auto=webp&width=802">
+                    <img
+                        src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltfd30724baf6d6273/64e9335dd0af545809a84bd6/Sunset_Screenshot_3.png?auto=webp&width=802">
                 </div>
                 <div class="mySlides fade">
-                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blte6caf7be18549145/64e933531bd12a956b06af63/Sunset_Screenshot_2.jpg?auto=webp&width=802">
+                    <img
+                        src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blte6caf7be18549145/64e933531bd12a956b06af63/Sunset_Screenshot_2.jpg?auto=webp&width=802">
                 </div>
             </div>
             <div class="imgIndex">
