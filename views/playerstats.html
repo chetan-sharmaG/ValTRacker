@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="CssFiles/playerstats.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div>
+                <h3>VALTRACKER</h3>
+            </div>
+            <div>
+                <a href="#aa">HOME</a>
+                <a href="/agents">AGENTS</a>
+                <a href="/maps">MAPS</a>
+                <a href="#aa">GUNS</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div class="img-holder">
+                <div class="playercard-title-container">
+                    <img class="card-img"
+                        src="https://media.valorant-api.com/playercards/e6a07a97-4c48-421f-515e-288379f7a5be/smallart.png"
+                        width="40">
+                    <div class="tag-level-container">
+
+                        <span class="tagName">NPC#IRl</span>
+                        <span class="levelDetail">Lvl: 123</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="mode-holder">
+                <!-- <div class="modes-type"> -->
+                <button>Competetive</button>
+                <button>Unrated</button>
+                <button>Team Deathmatch</button>
+                <button>Deathmatch</button>
+                <button>Swift Play</button>
+                <!-- </div> -->
+            </div>
+        </section>
+        <section>
+            <div class="grid-container">
+                <div class="first-top-agent">
+                    <div class="top-agent-data">
+                        <span class="title">TOP AGENT</span>
+                        <div class="nameTime">
+                            <span>OMEN</span>
+                            <span>Played 21H 40M</span>
+                        </div>
+                        <span class="Win_Ratio align_end">Win Ratio</span>
+                        <span class="KdRatio align_end">K/D Ratio</span>
+                        <span class="dmg align_end">Dmg/Round</span>
+                        <span class="Win_Ratio_data align_end">62.11%</span>
+                        <span class="KdRatio_data align_end">1.14</span>
+                        <span class="dmgData align_end">138.2</span>
+                        <span class="abilityDetails align_end">Ability Kills/Match</span>
+                        <span class="line"></span>
+                        <div class="abilityCountContainer">
+                            <span>0.33</span>
+
+                            <span>0.78</span>
+                            <span>04.82</span>
+                        </div>
+                        <img class="top_agent_img"
+                            src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt4e5af408cc7a87b5/5eb7cdc17bedc8627eff8deb/V_AGENTS_587x900_Omen.png">
+                    </div>
+                </div>
+                <div class="other_top_agents second_top_agent">
+                    <div class="other_agents_grid_container">
+                        <div class="agent_name">
+                            <span id="second_top">JETT</span>
+                        </div>
+                        <div class="agent_win_ratio">
+                            <span>Win Ratio</span>
+                            <span>60.1%</span>
+                        </div>
+                        <img id="second_top_img" class="agent_image"
+                            src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltceaa6cf20d328bd5/5eb7cdc1b1f2e27c950d2aaa/V_AGENTS_587x900_Jett.png">
+
+                    </div>
+                </div>
+                <div class="other_top_agents third_top_agent">
+                    <div class="other_agents_grid_container">
+                        <div class="agent_name">
+                            <span id="third_top">Brimstone</span>
+                        </div>
+                        <div class="agent_win_ratio">
+                            <span>Win Ratio</span>
+                            <span>60.1%</span>
+                        </div>
+                        <img id="third_top_img" class="agent_image third"
+                            src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt26fcf1b5752514ee/5eb7cdbfc1dc88298d5d3799/V_AGENTS_587x900_Brimstone.png">
+
+                    </div>
+                </div>
+                <div class="season_stats_container">
+                    <div class="stats_grid_container">
+                        <div class="headerFlex">
+                            <h1>COMPETETIVE OVERVIEW</h1>
+                            <div class="select-menu">
+                                <div class="select">
+                                    <span>ACT 2 EP 8 </span>
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                                <div class="options-list">
+                                    <div class="option">ACT 2 EP 7</div>
+                                    <div class="option">ACT 2 EP 6</div>
+                                    <div class="option">ACT 2 EP 5</div>
+                                    <div class="option">ACT 2 EP 4</div>
+                                    <div class="option">ACT 2 EP 3</div>
+                                    <div class="option">ACT 2 EP 2</div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="winRatioFlexContainer">
+                            <div class="pie animate no-round" style="--p:60.1;--c:#24B299;">
+                                <div class="inside_pie">
+                                    <span>Win Ratio</span>
+                                    <span> 60.1%</span>
+                                </div>
+                            </div>
+                            <div class="win_loss_stats">
+                                <div class="winColor"></div>
+                                <div class="no_of_wins box_of_num"> 975 Wins</div>
+                            </div>
+                            <div class="win_loss_stats">
+                                <div class="lossColor"></div>
+                                <div class="no_of_lose box_of_num"> 75 Lose</div>
+                            </div>
+                        </div>
+                        <div class="performance_Container">
+                            <div class="performance_row">
+                                <div class="data">
+                                    <div class="sidebar"></div>
+                                    <div class="field1">
+                                        <div>Kills</div>
+                                        <div>12462</div>
+                                    </div>
+                                </div>
+                                <div class="data">
+                                    <div class="sidebar"></div>
+                                    <div class="field1">
+                                        <div>Headshots</div>
+                                        <div>7000</div>
+                                    </div>
+                                </div>
+                                <div class="data">
+                                    <div class="sidebar"></div>
+                                    <div class="field1">
+                                        <div>Deaths</div>
+                                        <div>11,500</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="performance_row">
+                                <div class="data">
+                                    <div class="sidebar"></div>
+                                    <div class="field1">
+                                        <div>Kills/Round</div>
+                                        <div>1.2</div>
+                                    </div>
+                                </div>
+                                <div class="data">
+                                    <div class="sidebar"></div>
+                                    <div class="field1">
+                                        <div>Damage/Round</div>
+                                        <div>124.1</div>
+                                    </div>
+                                </div>
+                                <div class="data">
+                                    <div class="sidebar"></div>
+                                    <div class="field1">
+                                        <div>Most Kills</div>
+                                        <div>38</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="matches_container">
+
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="Scripts/playerstats.js"></script>
+</body>
+
+</html>
