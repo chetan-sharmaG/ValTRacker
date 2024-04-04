@@ -8,6 +8,7 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="CssFiles/playerstats.css">
+    <link rel="stylesheet" href="CssFiles/playerstatsmediaqueries.css">
     <title>Document</title>
 </head>
 
@@ -62,19 +63,23 @@
                         </div>
                         <span class="Win_Ratio align_end">Win Ratio</span>
                         <span class="KdRatio align_end">K/D Ratio</span>
-                        <span class="dmg align_end">Dmg/Round</span>
+                        <span class="dmg align_end">Avg
+                            Dmg</span>
                         <span class="Win_Ratio_data align_end">62.11%</span>
                         <span class="KdRatio_data align_end">1.14</span>
                         <span class="dmgData align_end">138.2</span>
-                        <span class="abilityDetails align_end">Ability Kills/Match</span>
+                        <span class="abilityDetails align_end">
+                            <span>Total Kills</span>
+                            <span>Total Assists</span>
+                            <span>Headshot Percentage</span>
+                        </span>
                         <span class="line"></span>
                         <div class="abilityCountContainer">
-                            <span>0.33</span>
-
-                            <span>0.78</span>
-                            <span>04.82</span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
-                        <img class="top_agent_img"
+                        <img class="top_agent_img" id="first_top_img"
                             src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt4e5af408cc7a87b5/5eb7cdc17bedc8627eff8deb/V_AGENTS_587x900_Omen.png">
                     </div>
                 </div>
@@ -85,7 +90,7 @@
                         </div>
                         <div class="agent_win_ratio">
                             <span>Win Ratio</span>
-                            <span>60.1%</span>
+                            <span class="AgentWin">60.1%</span>
                         </div>
                         <img id="second_top_img" class="agent_image"
                             src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltceaa6cf20d328bd5/5eb7cdc1b1f2e27c950d2aaa/V_AGENTS_587x900_Jett.png">
@@ -99,7 +104,7 @@
                         </div>
                         <div class="agent_win_ratio">
                             <span>Win Ratio</span>
-                            <span>60.1%</span>
+                            <span class="AgentWin">60.1%</span>
                         </div>
                         <img id="third_top_img" class="agent_image third"
                             src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt26fcf1b5752514ee/5eb7cdbfc1dc88298d5d3799/V_AGENTS_587x900_Brimstone.png">
@@ -191,13 +196,100 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                </div>
-                <div class="matches_container">
 
                 </div>
+                <div class="ranked_container">
+                    <div class="ratingFlexBox">
+                        <span>RATING</span>
+                        <img
+                            src="https://media.valorant-api.com/competitivetiers/23eb970e-6408-bc0b-3f20-d8fb0e0354ea/16/largeicon.png">
+                        <span> Bronze 3</span>
+                    </div>
+                </div>
+                <div class="top_gun_container">
+                    <span class="top_gun">Top Weapon</span>
+                    <img
+                        src="https://media.valorant-api.com/weapons/ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a/displayicon.png">
+                </div>
+                <div class="matches_container">
+                    <div class="last_match_title">
+                        <h2>LAST MATCH</h2>
+                        <h6>View All Matches </h6>
+                    </div>
+                    <div class="boxFlex">
+                        <div class="marker"></div>
+
+                        <div class="matchesFlex">
+                            <div class="date">Today</div>
+                            <div class="containerBox">
+                                <div class="matchesGrid">
+                                    <img class="agent_ffs"
+                                        src="https://media.valorant-api.com/agents/cc8b64c8-4b25-4ff9-6e7f-37b4da43d235/displayicon.png"
+                                        width="40">
+                                    <div class="mapContainer box">
+                                        <div class="mapName">IceBox</div>
+                                        <div class="matchScore">11-13</div>
+                                    </div>
+                                    <div class="killsData box">
+                                        <div class="kda">K / D / A</div>
+                                        <div class="kdaData">13 / 6 / 5</div>
+                                    </div>
+                                    <img class="teir"
+                                        src="https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/13/smallicon.png">
+
+                                </div>
+                                <div class="veriticalBar"></div>
+                            </div>
+                            <div class="containerBox">
+                                <div class="matchesGrid">
+                                    <img class="agent_ffs"
+                                        src="https://media.valorant-api.com/agents/cc8b64c8-4b25-4ff9-6e7f-37b4da43d235/displayicon.png"
+                                        width="40">
+                                    <div class="mapContainer box">
+                                        <div class="mapName">IceBox</div>
+                                        <div class="matchScore">11-13</div>
+                                    </div>
+                                    <div class="killsData box">
+                                        <div class="kda">K / D / A</div>
+                                        <div class="kdaData">13 / 6 / 5</div>
+                                    </div>
+                                    <img class="teir"
+                                        src="https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/13/smallicon.png">
+
+                                </div>
+                                <div class="veriticalBar"></div>
+                            </div>
+                            <div class="date">21 Jan</div>
+                            <div class="containerBox">
+                                <div class="matchesGrid">
+                                    <img class="agent_ffs"
+                                        src="https://media.valorant-api.com/agents/cc8b64c8-4b25-4ff9-6e7f-37b4da43d235/displayicon.png"
+                                        width="40">
+                                    <div class="mapContainer box">
+                                        <div class="mapName">IceBox</div>
+                                        <div class="matchScore">11-13</div>
+                                    </div>
+                                    <div class="killsData box">
+                                        <div class="kda">K / D / A</div>
+                                        <div class="kdaData">13 / 6 / 5</div>
+                                    </div>
+                                    <img class="teir"
+                                        src="https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/13/smallicon.png">
+
+                                </div>
+                                <div class="veriticalBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </section>
+        <img
+            src="https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/13/smallicon.png">
     </main>
     <script src="Scripts/playerstats.js"></script>
 </body>
