@@ -153,7 +153,7 @@ function updateLeaderboard(server) {
                 tbody.appendChild(row);
             }
         });
-
+        
         //     tbody.innerHTML = '';
         //     const existingRows = tbody.querySelectorAll('tr');
         //     server.forEach((player, index) => {

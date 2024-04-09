@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="CssFiles/playerstats.css">
-    <link rel="stylesheet" href="CssFiles/playerstatsmediaqueries.css">
+    <link rel="stylesheet" href="/CssFiles/playerstats.css">
+    <link rel="stylesheet" href="/CssFiles/playerstatsmediaqueries.css">
     <title>Document</title>
 </head>
 
@@ -26,8 +26,15 @@
             </div>
         </nav>
     </header>
+    <div class="loadContainer">
+
+        <div class="lds-hourglass"></div>
+        <h1>Loading Reports</h1>
+        <div class="factFlex"><span>Random Fact: </span><span id="funfact"></span></div>
+    </div>
+    </div>
     <main>
-        <section>
+        <section class="visiblity">
             <div class="img-holder">
                 <div class="playercard-title-container">
                     <img class="card-img"
@@ -41,10 +48,10 @@
                 </div>
             </div>
         </section>
-        <section>
+        <section class="visiblity">
             <div class="mode-holder">
                 <!-- <div class="modes-type"> -->
-                <button>Competetive</button>
+                <button autofocus>Competetive</button>
                 <button>Unrated</button>
                 <button>Team Deathmatch</button>
                 <button>Deathmatch</button>
@@ -52,7 +59,7 @@
                 <!-- </div> -->
             </div>
         </section>
-        <section>
+        <section class="visiblity">
             <div class="grid-container">
                 <div class="first-top-agent">
                     <div class="top-agent-data">
@@ -69,9 +76,9 @@
                         <span class="KdRatio_data align_end">1.14</span>
                         <span class="dmgData align_end">138.2</span>
                         <span class="abilityDetails align_end">
-                            <span>Total Kills</span>
-                            <span>Total Assists</span>
-                            <span>Headshot Percentage</span>
+                            <span>Kills</span>
+                            <span>Assists</span>
+                            <span>Headshot</span>
                         </span>
                         <span class="line"></span>
                         <div class="abilityCountContainer">
@@ -121,12 +128,12 @@
                                     <i class="fas fa-angle-down"></i>
                                 </div>
                                 <div class="options-list">
-                                    <div class="option">ACT 2 EP 7</div>
-                                    <div class="option">ACT 2 EP 6</div>
-                                    <div class="option">ACT 2 EP 5</div>
-                                    <div class="option">ACT 2 EP 4</div>
-                                    <div class="option">ACT 2 EP 3</div>
-                                    <div class="option">ACT 2 EP 2</div>
+                                    <div class="option" season="e8a2">ACT 2 EP 8</div>
+                                    <div class="option" season="e8a1">ACT 1 EP 8</div>
+                                    <div class="option" season="e7a3">ACT 3 EP 7</div>
+                                    <div class="option" season="e7a2">ACT 2 EP 7</div>
+                                    <div class="option" season="e7a1">ACT 1 EP 7</div>
+                                    <div class="option" season="e8a2">ACT 3 EP 6</div>
 
                                 </div>
                             </div>
@@ -136,16 +143,16 @@
                             <div class="pie animate no-round" style="--p:60.1;--c:#24B299;">
                                 <div class="inside_pie">
                                     <span>Win Ratio</span>
-                                    <span> 60.1%</span>
+                                    <span id="winPercent"></span>
                                 </div>
                             </div>
                             <div class="win_loss_stats">
                                 <div class="winColor"></div>
-                                <div class="no_of_wins box_of_num"> 975 Wins</div>
+                                <div class="no_of_wins box_of_num" id="winNumber"> 975 Wins</div>
                             </div>
                             <div class="win_loss_stats">
                                 <div class="lossColor"></div>
-                                <div class="no_of_lose box_of_num"> 75 Lose</div>
+                                <div class="no_of_lose box_of_num" id="lostNumber"> 75 Lose</div>
                             </div>
                         </div>
                         <div class="performance_Container">
@@ -154,21 +161,21 @@
                                     <div class="sidebar"></div>
                                     <div class="field1">
                                         <div>Kills</div>
-                                        <div>12462</div>
+                                        <div id="totalkills">12462</div>
                                     </div>
                                 </div>
                                 <div class="data">
                                     <div class="sidebar"></div>
                                     <div class="field1">
                                         <div>Headshots</div>
-                                        <div>7000</div>
+                                        <div id="totalHead">7000</div>
                                     </div>
                                 </div>
                                 <div class="data">
                                     <div class="sidebar"></div>
                                     <div class="field1">
                                         <div>Deaths</div>
-                                        <div>11,500</div>
+                                        <div id="totalDeath">11,500</div>
                                     </div>
                                 </div>
                             </div>
@@ -177,21 +184,21 @@
                                     <div class="sidebar"></div>
                                     <div class="field1">
                                         <div>Kills/Round</div>
-                                        <div>1.2</div>
+                                        <div id="overallKd">1.2</div>
                                     </div>
                                 </div>
                                 <div class="data">
                                     <div class="sidebar"></div>
                                     <div class="field1">
                                         <div>Damage/Round</div>
-                                        <div>124.1</div>
+                                        <div id="overallDmg">124.1</div>
                                     </div>
                                 </div>
                                 <div class="data">
                                     <div class="sidebar"></div>
                                     <div class="field1">
                                         <div>Most Kills</div>
-                                        <div>38</div>
+                                        <div id="highestKill">38</div>
                                     </div>
                                 </div>
                             </div>
@@ -203,13 +210,13 @@
                 <div class="ranked_container">
                     <div class="ratingFlexBox">
                         <span>RATING</span>
-                        <img
+                        <img id="rankImage"
                             src="https://media.valorant-api.com/competitivetiers/23eb970e-6408-bc0b-3f20-d8fb0e0354ea/16/largeicon.png">
-                        <span> Bronze 3</span>
+                        <span id="rankName"> Bronze 3</span>
                     </div>
                 </div>
                 <div class="top_gun_container">
-                    <span class="top_gun">Top Weapon</span>
+                    <span class="top_gun" onclick="scrollToNaveen()">Top Weapon</span>
                     <img
                         src="https://media.valorant-api.com/weapons/ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a/displayicon.png">
                 </div>
@@ -222,7 +229,7 @@
                         <div class="marker"></div>
 
                         <div class="matchesFlex">
-                            <div class="date">Today</div>
+                            <!-- <div class="date">Today</div>
                             <div class="containerBox">
                                 <div class="matchesGrid">
                                     <img class="agent_ffs"
@@ -280,18 +287,81 @@
 
                                 </div>
                                 <div class="veriticalBar"></div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
 
+                <div class="matchHighlights">
+                    <div class="headerContainer">
+                        <div class="MatchOverView">
+                            <div class="flexfirst">
+                                <div class="ff flexEnd">
+                                    <img class="spikeicon"
+                                        src="https://imgsvc.trackercdn.com/url/max-width(48),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Fmodes%2Fnormal.png/image.png">
+                                    <div class="nameMapFlex">
+                                        <span>Competitive</span>
+                                        <span>Breeze</span>
+                                    </div>
+                                </div>
+                                <div class="box1">
+                                    <div class="TeamFlex ">
+                                        <div>Team A</div>
+                                        <div>11</div>
+                                    </div>
+                                    <div class="colon flexEnd">:</div>
+                                    <div class="TeamFlex ">
+                                        <div>Team B</div>
+                                        <div>13</div>
+                                    </div>
+                                </div>
+                                <div class="box2 ">
+                                    <div class="timestamp">3/17/24, 3:12 PM</div>
+                                    <div class="gameLength">39m 09s</div>
+                                </div>
+                                <div class="box2 ">
+                                    <div >Average Rank</div>
+                                    <div class="avgRank">Platinum II</div>
+                                </div>
+                            </div>
+                            <div class="closeFlex">
+                                <button id="closeConatiner">&#10006;</button>
+                            </div>
+                        </div>
+                        <div class="subPerformance">
+                            <button>Scoreboard</button>
+                            <button>Performance</button>
+                            <button>Economy</button>
+                            <button>Duels</button>
+                        </div>
 
+                    </div>
+                    <div class="mainContainer">
+                        <div class="mc-grid">
+                            <div class="name-Column">Team A : Platinum 1</div>
+                            <div class="matchRank-Column">Match Rank</div>
+                            <div class="acs-Column">ACS <div class="tooltip">I am a tooltip!</div> </div>
+                            <div class="kill-Column">K </div>
+                            <div class="death-Column">D </div>
+                            <div class="assist-Column">A </div>
+                            <div class="killdif-Column">+/- </div>
+                            <div class="kd-Column">K/D </div>
+                            <div class="dda-Column">DD&Delta;</div>
+                            <div class="adr-Column">ADR</div>
+                            <div class="Headshot-Column">HS%</div>
+                            <div class="firstkill-Column">FK</div>
+                            <div class="firstdeath-Column">FD</div>
+                            <div class="multikill-Column">MK</div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </section>
-        <img
-            src="https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/13/smallicon.png">
+
     </main>
-    <script src="Scripts/playerstats.js"></script>
+    <script src="/Scripts/playerstats.js"></script>
 </body>
 
 </html>
