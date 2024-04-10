@@ -1232,80 +1232,122 @@ option:active {
 }
 
 .mc-grid {
+    font-size: 0.9em !important;
     text-align: center;
     align-items: center;
     width: 100%;
     height: 60%;
     display: grid;
+    background-color: #181B29;
     /* grid-template-columns: 25.27% 9.47% 10.45% 6.31% 6.31% 6.31% 6.31% 6.31% 6.31% 9.47%; */
     grid-template-columns: 20.2% 7.5% 8.75% 5% 5% 5% 5% 5% 5% 7.5% 7.5% 7.5% 5.5% 5.5%;
     grid-template-rows: 10.6% 17.88% 17.88% 17.88% 17.88% 17.88%;
 }
 
 .name-Column {
+    position: relative;
+    z-index: 2;
     grid-column: 1/2;
     grid-row: 1/2;
 }
 
 .matchRank-Column {
+    position: relative;
+    z-index: 2;
     grid-column: 2/3;
     grid-row: 1/2;
 }
 
 .acs-Column {
+    position: relative;
+    z-index: 2;
     grid-column: 3/4;
+    grid-row: 1/2;
 }
 
 .kill-Column {
+    position: relative;
+    z-index: 2;
+    grid-row: 1/2;
     grid-column: 4/5;
 }
 
 .death-Column {
+    position: relative;
+    z-index: 2;
     grid-column: 5/6;
+    grid-row: 1/2;
     /* Incremented for death-Column */
 }
 
 .assist-Column {
+    position: relative;
+    z-index: 2;
     grid-column: 6/7;
+    grid-row: 1/2;
     /* Incremented */
 }
 
 .killdif-Column {
+    position: relative;
+    z-index: 2;
     grid-column: 7/8;
+    grid-row: 1/2;
     /* Incremented */
 }
 
 .kd-Column {
+    position: relative;
+    z-index: 2;
+    grid-row: 1/2;
     grid-column: 8/9;
     /* Incremented */
 }
 
 .dda-Column {
+    position: relative;
+    z-index: 2;
     grid-column: 9/10;
+    grid-row: 1/2;
     /* Incremented */
 }
 
 .adr-Column {
+    position: relative;
+    z-index: 2;
     grid-column: 10/11;
+    grid-row: 1/2;
     /* Incremented */
 }
 
 .Headshot-Column {
+    position: relative;
+    grid-row: 1/2;
+    z-index: 2;
     grid-column: 11/12;
     /* Incremented */
 }
 
 .firstkill-Column {
+    position: relative;
+    z-index: 2;
+    grid-row: 1/2;
     grid-column: 12/13;
     /* Incremented */
 }
 
 .firstdeath-Column {
+    position: relative;
+    z-index: 2;
     grid-column: 13/14;
+    grid-row: 1/2;
     /* Incremented */
 }
 
 .multikill-Column {
+    position: relative;
+    z-index: 2;
+    grid-row: 1/2;
     grid-column: 14/15;
     /* Incremented */
 }
@@ -1313,9 +1355,10 @@ option:active {
 .tooltip {
     opacity: 0;
     display: block;
-    background: #1496bb;
+    background:#283a4b;
     transform: translate(0, -8vh);
     position: absolute;
+    border-radius: 15px;
     margin-bottom: 15px;
     padding: 2px;
     pointer-events: none;
@@ -1341,7 +1384,7 @@ option:active {
     width: 100%;
 }
 
-.tooltip:after {
+/* .tooltip:after {
     border-left: solid transparent 10px;
     border-right: solid transparent 10px;
     border-top: solid #1496bb 10px;
@@ -1352,7 +1395,7 @@ option:active {
     margin-left: -13px;
     position: absolute;
     width: 0;
-}
+} */
 
 .acs-Column:hover .tooltip {
     opacity: 1;
@@ -1363,3 +1406,61 @@ option:active {
     -o-transform: translateY(0px);
     transform: translateY(0px); */
 }
+.rankBox{
+    gap: 2px;
+    align-items: center;
+    display: flex;
+
+}
+.rankBox img{
+    height: 17px;
+    object-fit: cover;
+}
+.Firstheader{
+    width: 100%;
+    height: 100%;
+    grid-column: 1/15;
+    grid-row: 1/2;
+    background-color: #104e48;
+}
+.firstplayerBox{
+    /* text-align: left; */
+    height: 100%;
+    grid-column:  1/2;
+    grid-row: 2/3;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.nameLevelWrapper{
+    margin-left: 4px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+.nameLevelWrapper div:first-child{
+    font-size: medium;
+}
+.nameLevelWrapper div:last-child{
+    font-size: .7em;
+}
+
+.partyIndicator{
+    margin-right: 13px;
+    border-top-right-radius:10px;
+    border-bottom-right-radius: 10px;
+    height: 80%;
+    width: 0.3vw;
+    background: blue;
+}
+.tag{
+    font-weight: 500;
+    padding: 1px 4px;
+    font-size: x-small;
+    background-color: #36414c;
+}
+/* .evenRows{
+    grid-column: 1/15;
+    grid-row: ;
+}
+//background-color: #181B29; */
