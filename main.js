@@ -3,6 +3,7 @@ const path = require('path')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
 const http = require("http").createServer(app);
+var favicon = require('serve-favicon');
 const port = process.env.PORT || 3000;
 
 async function getRandomFact() {
@@ -44,6 +45,7 @@ function encryptMatchID(matchId) {
 }
 // app.use(express.static(path.join(__dirname, '../VALO TRACKER/public')));
 app.use(express.static('public'));
+app.use(favicon(__dirname + '/public/assets/images/extras/favicon.ico'))
 app.get('/facts', (req, res) => {
 
   getRandomFact().then((fact) => {
