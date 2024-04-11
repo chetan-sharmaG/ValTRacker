@@ -228,7 +228,7 @@
                     <div class="boxFlex">
                         <div class="marker"></div>
 
-                        <div class="matchesFlex">
+                        <div class="matchesFlex" >
                             <!-- <div class="date">Today</div>
                             <div class="containerBox">
                                 <div class="matchesGrid">
@@ -293,6 +293,8 @@
                 </div>
 
                 <div class="matchHighlights">
+                    <div class="lds-circle"><div></div></div>
+                    <div class="loaderMessage">Loading the Match Data...</div>
                     <div class="headerContainer">
                         <div class="MatchOverView">
                             <div class="flexfirst">
@@ -305,12 +307,12 @@
                                     </div>
                                 </div>
                                 <div class="box1">
-                                    <div class="TeamFlex ">
+                                    <div class="TeamFlex Ascore">
                                         <div>Team A</div>
                                         <div id="teamAScore">11</div>
                                     </div>
                                     <div class="colon flexEnd">:</div>
-                                    <div class="TeamFlex ">
+                                    <div class="TeamFlex Bscore">
                                         <div>Team B</div>
                                         <div id="teamBScore">13</div>
                                     </div>
@@ -320,8 +322,11 @@
                                     <div class="gameLength">39m 09s</div>
                                 </div>
                                 <div class="box2 ">
-                                    <div >Average Rank</div>
-                                    <div class="avgRank">Platinum II</div>
+                                    <div>Average Rank</div>
+                                    <div class="rankBox"><img class="avgrankImg" src=''>
+                                        <div class="avgRank">Platinum II</div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="closeFlex">
@@ -336,24 +341,8 @@
                         </div>
 
                     </div>
-                    <div class="mainContainer">
-                        <div class="mc-grid">
-                            <div class="name-Column">Team A : Platinum 1</div>
-                            <div class="matchRank-Column">Match Rank</div>
-                            <div class="acs-Column">ACS <div class="tooltip">I am a tooltip!</div> </div>
-                            <div class="kill-Column">K </div>
-                            <div class="death-Column">D </div>
-                            <div class="assist-Column">A </div>
-                            <div class="killdif-Column">+/- </div>
-                            <div class="kd-Column">K/D </div>
-                            <div class="dda-Column">DD&Delta;</div>
-                            <div class="adr-Column">ADR</div>
-                            <div class="Headshot-Column">HS%</div>
-                            <div class="firstkill-Column">FK</div>
-                            <div class="firstdeath-Column">FD</div>
-                            <div class="multikill-Column">MK</div>
-
-                        </div>
+                    <div class="mainContainer" id="style-4">
+                        
                     </div>
                 </div>
             </div>
@@ -361,8 +350,8 @@
         </section>
 
     </main>
-    <script src="/Scripts/playerstats.js"></script>
-    <script src="/Scripts/matchData.js"></script>
+    <script  src="/Scripts/playerstats.js" type="module"></script>
+    <script  src="/Scripts/matchData.js" type="module"></script>
 </body>
 
 </html>
