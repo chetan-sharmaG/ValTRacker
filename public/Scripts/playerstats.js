@@ -18,7 +18,7 @@ options.forEach((option) => {
         const select = document.querySelector('.select');
         const optionsList = document.querySelector('.options-list');
         select.querySelector("span").innerHTML = option.innerHTML;
-        console.info(option.getAttribute('season'));
+        // console.info(option.getAttribute('season'));
         const seasonText = option.innerText; // Retrieve season text
         const seasonValue = option.getAttribute('season'); // Retrieve season value
         getData(matchesDetails, option.getAttribute('season'))
@@ -159,7 +159,6 @@ function getMatch(matchid) {
 async function updateMatchesBox(data) {
     var root = document.querySelector('.matchesFlex')
     root.innerHTML = ''
-    console.info(data)
     var filteredData = data.map(match1 => {
         var matchData = {
             matchId: match1.meta.id,
@@ -169,18 +168,24 @@ async function updateMatchesBox(data) {
             matchAgentId: match1.stats.character.id,
             matchKill: match1.stats.kills,
             matchDeath: match1.stats.deaths,
+            matchTeam: match1.stats.team,
+            matchdidWin: false,
             matchAssist: match1.stats.assists,
             matchteir: match1.stats.tier,
             matchRedScore: match1.teams.red,
             matchBlueScore: match1.teams.blue
         }
         matchData.matchAgentId = matchData.matchAgentId === "ded3520f-4264-bfed-162d-b080e2abccf9" ? '320b2a48-4d9b-a075-30f1-1f93a9b638fa' : matchData.matchAgentId
+        var teamwon = matchData.matchRedScore > matchData.matchBlueScore ? 'Red' : 'Blue'
+        if (teamwon === matchData.matchTeam)
+            matchData.matchdidWin = true
 
         return matchData
     })
-    console.warn(filteredData)
+
     var groupedMatches = groupMatchesByStartTime(filteredData);
     // Output the grouped matches
+    console.warn(groupedMatches)
     Object.keys(groupedMatches).forEach(matchDate => {
         var root = document.querySelector('.matchesFlex')
 
@@ -227,11 +232,14 @@ async function updateMatchesBox(data) {
             // var lala = await response.json();
             var lala = encryptStudentId(match.matchId)
             // onclick='scrollToNaveen()
-            containerBox.innerHTML = `<div class="matchesGrid" data-match=${lala} >
+            var Bg = match.matchdidWin ? '' : 'lostBg'
+            var BarBg = match.matchdidWin ? '' : 'matchLostBar'
+
+            containerBox.innerHTML = `<div class="matchesGrid ${Bg}" data-match=${lala} >
                                     <img class="agent_ffs" src="https://media.valorant-api.com/agents/${match.matchAgentId}/displayicon.png" width="40">
                                     <div class="mapContainer box">
                                         <div class="mapName">${match.matchMapName}</div>
-                                        <div class="matchScore"><span>${match.matchRedScore}</span><span>-</span><span>${match.matchBlueScore}</span></div>
+                                        <div class="matchScore"><span>${match.matchRedScore}</span><span>:</span><span>${match.matchBlueScore}</span></div>
                                     </div>
                                     <div class="killsData box">
                                         <div class="kda">K / D / A</div>
@@ -239,7 +247,7 @@ async function updateMatchesBox(data) {
                                     </div>
                                     <img class="teir" src="https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/${match.matchteir}/smallicon.png">
                                 </div>
-                                <div class="veriticalBar"></div>`;
+                                <div class="veriticalBar ${BarBg}"></div>`;
 
             root.appendChild(containerBox);
             // appendToMobileCOnatiner(containerBox)

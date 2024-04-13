@@ -28,11 +28,11 @@ document.querySelector('.matchesFlex').addEventListener('click', (event) => {
         grid.classList.add('removeOverFlow')
         naveenElement.classList.add('matchHighRemove')
         naveenElement.style.zIndex = '1'
-        naveenElement.scrollIntoView({ behavior: 'smooth' });
+        naveenElement.scrollIntoView({ behavior: 'smooth', 'block': 'center', inline: "nearest" });
 
         var matchId = event.target.closest('.matchesGrid').getAttribute('data-match');
         var id = decryptMatchId(matchId);
-        console.log('insdie');
+
         loadMatchData(id);
     }
 });
@@ -51,17 +51,33 @@ function decryptMatchId(encryptedId) {
             decryptedId += encryptedId.charAt(i);
         }
     }
-    console.log('h2')
+
     return decryptedId;
-}
+} let globalResponse
 let totalRounds = 0
+let firstBloods = [];
 // loadMatchData('0056293a-99a9-40c0-be29-f77aacb8c09e')
 async function loadMatchData(matchId) {
 
     let matchCall = fetch('https://api.henrikdev.xyz/valorant/v2/match/' + matchId)
         .then(response => response.json())
         .then(response => {
-
+            globalResponse = response
+            let roundsInfo = globalResponse.data.rounds;
+            for (const round of roundsInfo) {
+                let firstBlood = null;
+                round.player_stats.forEach((player) => {
+                    if (!player.kill_events) return;
+                    player.kill_events.forEach((kill) => {
+                        if (
+                            !firstBlood ||
+                            kill.kill_time_in_round < firstBlood?.kill_time_in_round
+                        )
+                            firstBlood = kill;
+                    });
+                });
+                firstBloods.push(firstBlood);
+            }
             updateHeader(response)
             totalRounds = (response.data.teams.red.rounds_won + response.data.teams.blue.rounds_won)
             updateStatsTeamARed(response)
@@ -79,7 +95,8 @@ async function loadMatchData(matchId) {
                 loadingCounter = 0
                 const butn = document.querySelector('.mode-holder button')
                 butn.focus()
-
+                // const naveenElement = document.getElementsByClassName('matchHighlights')[0];
+                // naveenElement.scrollIntoView({ behavior: 'smooth' });
             }
             const inttime = setInterval(() => {
                 checkDataIsReady(onDataLoaded);
@@ -130,7 +147,7 @@ function timestampConversion(dateString) {
         hour12: true,
         timeZone: 'Asia/Kolkata'
     });
-    console.log(newFormat)
+
     return newFormat
 
 }
@@ -149,7 +166,8 @@ async function PlayersAverageTier(Tiers) {
 
     var AverageTierName = ''
     var AverageTierImg = ''
-    var avgTier = Math.floor(sum / 10)
+    var avgTier = Math.floor(sum / Tiers.length)
+    console.warn(avgTier)
     let competitiveTiers = fetch('https://valorant-api.com/v1/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04')
         .then(response => response.json())
         .then(tierResponse => {
@@ -162,6 +180,7 @@ async function PlayersAverageTier(Tiers) {
             var tierData = { tierName: AverageTierName, tierImg: AverageTierImg }
             return tierData
         })
+       
     return competitiveTiers
 
 }
@@ -169,8 +188,8 @@ async function PlayersAverageTier(Tiers) {
 async function updateStatsTeamARed(response) {
 
     var redSortedData = getTeamData(response.data.players.red)
-    console.error(redSortedData)
-    console.error(response.data.players.red)
+    var party = allPlayerParty(response.data.players.red,'red')
+    var TierData = await PlayersAverageTier(response.data.players.red)
 
     const root = document.getElementById('style-4')
     root.innerHTML = ''
@@ -184,8 +203,8 @@ async function updateStatsTeamARed(response) {
         <!-- headings names -->
         <div class="name-Column headerColor"><span>Team
             A</span><span>&#128900;</span><span>Avg.Rank:</span><span class="TeamAvgRank"><img class="TeamAvgRankImg"
-                src="https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/20/largeicon.png"
-                width="20">Platinum</span></div>
+                src=${TierData.tierImg}
+                width="20">${TierData.tierName}</span></div>
         <div class="matchRank-Column headerColor">Match Rank</div>
         <div class="matchRank-Column headerColor">Match Rank</div>
         <div class="acs-Column headerColor ">ACS <div class="tooltip">I am a tooltip!</div>
@@ -203,11 +222,27 @@ async function updateStatsTeamARed(response) {
         <div class="multikill-Column headerColor">MK</div>`
 
     redSortedData.forEach((player, index) => {
+
+        var partyName= ''
+        console.log(player.party_id)
+        console.error(party)
+        Object.entries(party).forEach(([key, array]) => {
+            if (array.includes(player.puuid)) {
+                console.error('yes')
+                partyName = key
+            }
+        });
+
+        const fk = countFirstBloodsByName(player.puuid)
+        const fd = countFirstDeathBloodsByName(player.puuid)
+        const ace = didAce(player.puuid)
         const isSame = player.puuid === getpuuid()
-        console.log(getpuuid())
+        const redFont = player.stats.killdifference < 0 ? 'fontRed' : ''
+        const fontchange = player.stats.kd < 1 ? 'fontRed' : ''
+        const ddachange = player.stats.dda < 0 ? 'fontRed' : ''
         const backgroundHighlight = isSame ? "backgroundHighlight" : ''
         var playerData = `<div class="playerBox${index + 1} ${backgroundHighlight}">
-            <div class="partyIndicator"></div>
+            <div class="partyIndicator ${partyName}"></div>
             <img src=${player.assets.agent.small}
                 width="40">
             <div class="nameLevelWrapper">
@@ -226,7 +261,7 @@ async function updateStatsTeamARed(response) {
             </div>
 
         </div>
-        <div class="p${index + 1}acs white border">
+        <div class="p${index + 1}acs white border acsbg${index+1}">
             <div class="flexWrapper">${player.stats.avgCombatScore}</div>
         </div>
         <div class="p${index + 1}kills white border">
@@ -238,29 +273,29 @@ async function updateStatsTeamARed(response) {
         <div class="p${index + 1}assists white border">
             <div class="flexWrapper">${player.stats.assists}</div>
         </div>
-        <div class="p${index + 1}kiffdif yellow border">
-            <div class="flexWrapper">${player.stats.killdifference}</div>
+        <div class="p${index + 1}kiffdif yellow border ">
+            <div class="flexWrapper ${redFont}">${player.stats.killdifference}</div>
         </div>
-        <div class="p${index + 1}kd yellow border">
-            <div class="flexWrapper">${player.stats.kd}</div>
+        <div class="p${index + 1}kd yellow border " >
+            <div class="flexWrapper ${fontchange}">${player.stats.kd}</div>
         </div>
-        <div class="p${index + 1}dda yellow border">
-            <div class="flexWrapper">${player.stats.dda}</div>
+        <div class="p${index + 1}dda yellow border ">
+            <div class="flexWrapper ${ddachange}">${player.stats.dda}</div>
         </div>
         <div class="p${index + 1}adr white border">
             <div class="flexWrapper">${player.stats.adr}</div>
         </div>
         <div class="p${index + 1}headshot white border">
-            <div class="flexWrapper">${player.stats.headshot}</div>
+            <div class="flexWrapper">${player.stats.headshot}%</div>
         </div>
         <div class="p${index + 1}fk white border">
-            <div class="flexWrapper">NA</div>
+            <div class="flexWrapper">${fk}</div>
         </div>
         <div class="p${index + 1}fd white border">
-            <div class="flexWrapper">NA</div>
+            <div class="flexWrapper">${fd}</div>
         </div>
         <div class="p${index + 1}mk white border">
-            <div class="flexWrapper">NA</div>
+            <div class="flexWrapper">${ace}</div>
         </div>`
         header1 += playerData
     })
@@ -281,8 +316,11 @@ async function updateStatsTeamARed(response) {
 }
 async function updateStatsTeamBlue(response) {
     var blueSortedData = getTeamData(response.data.players.blue)
+    var party = allPlayerParty(response.data.players.blue,'blue')
     const root = document.getElementById('style-4')
     var grid2 = document.createElement('div')
+    var TierData = await PlayersAverageTier(response.data.players.blue)
+    console.error('Blue '+TierData)
     grid2.classList.add('mc-grid')
     var header2 = ` <div class="Firstheader teamB"></div>
         <div class="secondRow"></div>
@@ -290,8 +328,8 @@ async function updateStatsTeamBlue(response) {
        
         <div class="name-Column headerColor"><span>Team
             B</span><span>&#128900;</span><span>Avg.Rank:</span><span class="TeamAvgRank"><img class="TeamAvgRankImg"
-                src="https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/20/largeicon.png"
-                width="20">Platinum</span></div>
+                src=${TierData.tierImg}
+                width="20">${TierData.tierName}</span></div>
         <div class="matchRank-Column headerColor">Match Rank</div>
         <div class="matchRank-Column headerColor">Match Rank</div>
         <div class="acs-Column headerColor ">ACS <div class="tooltip">I am a tooltip!</div>
@@ -308,11 +346,23 @@ async function updateStatsTeamBlue(response) {
         <div class="firstdeath-Column headerColor">FD</div>
         <div class="multikill-Column headerColor">MK</div>`
     blueSortedData.forEach((player, index) => {
+        var partyName= ''
+
+        Object.entries(party).forEach(([key, array]) => {
+            if (array.includes(player.puuid)) {
+                partyName = key
+            }
+        });
+        const fk = countFirstBloodsByName(player.puuid)
+        const fd = countFirstDeathBloodsByName(player.puuid)
+        const ace = didAce(player.puuid)
         const isSame = player.puuid === getpuuid()
-        console.log(getpuuid())
         const backgroundHighlight = isSame ? "backgroundHighlight" : ''
+        const redFont = player.stats.killdifference < 0 ? 'fontRed' : ''
+        const fontchange = player.stats.kd < 1 ? 'fontRed' : ''
+        const ddachange = player.stats.dda < 0 ? 'fontRed' : ''
         var playerData = `<div class="playerBox${index + 1} ${backgroundHighlight}">
-                <div class="partyIndicator"></div>
+                <div class="partyIndicator ${partyName}"></div>
                 <img src=${player.assets.agent.small}
                     width="40">
                 <div class="nameLevelWrapper">
@@ -331,7 +381,7 @@ async function updateStatsTeamBlue(response) {
                 </div>
     
             </div>
-            <div class="p${index + 1}acs white border">
+            <div class="p${index + 1}acs white border acsbg${index+1}">
             <div class="flexWrapper">${player.stats.avgCombatScore}</div>
         </div>
         <div class="p${index + 1}kills white border">
@@ -343,29 +393,29 @@ async function updateStatsTeamBlue(response) {
         <div class="p${index + 1}assists white border">
             <div class="flexWrapper">${player.stats.assists}</div>
         </div>
-        <div class="p${index + 1}kiffdif yellow border">
-            <div class="flexWrapper">${player.stats.killdifference}</div>
+        <div class="p${index + 1}kiffdif yellow border ">
+            <div class="flexWrapper ${redFont}">${player.stats.killdifference}</div>
         </div>
-        <div class="p${index + 1}kd yellow border">
-            <div class="flexWrapper">${player.stats.kd}</div>
+        <div class="p${index + 1}kd yellow border ">
+            <div class="flexWrapper ${fontchange}">${player.stats.kd}</div>
         </div>
-        <div class="p${index + 1}dda yellow border">
-            <div class="flexWrapper">${player.stats.dda}</div>
+        <div class="p${index + 1}dda yellow border ">
+            <div class="flexWrapper ${ddachange}">${player.stats.dda}</div>
         </div>
         <div class="p${index + 1}adr white border">
             <div class="flexWrapper">${player.stats.adr}</div>
         </div>
         <div class="p${index + 1}headshot white border">
-            <div class="flexWrapper">${player.stats.headshot}</div>
+            <div class="flexWrapper">${player.stats.headshot}%</div>
         </div>
         <div class="p${index + 1}fk white border">
-            <div class="flexWrapper">NA</div>
+            <div class="flexWrapper">${fk}</div>
         </div>
         <div class="p${index + 1}fd white border">
-            <div class="flexWrapper">NA</div>
+            <div class="flexWrapper">${fd}</div>
         </div>
         <div class="p${index + 1}mk white border">
-            <div class="flexWrapper">NA</div>
+            <div class="flexWrapper">${ace}</div>
         </div>`
         header2 += playerData
     })
@@ -387,6 +437,8 @@ function getTeamData(response) {
 
     var Team = response
     // var teamSortedData = {}
+
+
     var calcutatedPlayerData = Team.map(player => {
         var teamSortedData = {
             puuid: null,
@@ -397,6 +449,7 @@ function getTeamData(response) {
             character: null,
             currenttier: null,
             party_id: null,
+            inParty: null,
             assets: {
                 card: {
                     small: null
@@ -449,6 +502,62 @@ function getTeamData(response) {
         return teamSortedData
     })
     calcutatedPlayerData.sort((a, b) => b.stats.avgCombatScore - a.stats.avgCombatScore)
-    console.error(calcutatedPlayerData)
     return calcutatedPlayerData
-}   
+}
+
+
+
+function countFirstBloodsByName(puuid) {
+    return firstBloods.filter(
+        (firstBlood) => firstBlood?.killer_puuid === puuid
+    ).length;
+}
+function didAce(puuid) {
+    var ace = 0
+    const rounds = globalResponse.data.rounds
+    for (const round of rounds)
+        round.player_stats.forEach((player) => {
+            if (player.player_puuid === puuid) {
+                if (player.kills > 2) {
+                    ace += 1
+                }
+            }
+        })
+    return ace
+    // return firstBloods.filter((firstBlood) => firstBlood?.killer_puuid === puuid && firstBlood?.kills === 5).length
+
+}
+function allPlayerParty(response , team) {
+
+    const allPlayers = response
+    const partyInfo = {};
+    allPlayers.forEach(player => {
+        // Check if the player's party_id already exists in the partyInfo object
+        if (partyInfo.hasOwnProperty(player.party_id)) {
+            // If the party_id exists, push the player's puuid to the corresponding party array
+            partyInfo[player.party_id].push(player.puuid);
+        } else {
+            // If the party_id doesn't exist, create a new entry with the party_id as key and an array containing the player's puuid as value
+            partyInfo[player.party_id] = [player.puuid];
+        }
+    });
+
+   var p=1
+    Object.keys(partyInfo).forEach((partyId, index) => {
+        if (partyInfo[partyId].length === 1) {
+            delete partyInfo[partyId];
+        } else {
+            partyInfo[`${team}party${p}`] = partyInfo[partyId];
+            delete partyInfo[partyId];
+            p+=1
+        }
+        
+    });
+
+    return partyInfo
+}
+function countFirstDeathBloodsByName(puuid) {
+    return firstBloods.filter(
+        (firstBlood) => firstBlood?.victim_puuid === puuid
+    ).length;
+}
