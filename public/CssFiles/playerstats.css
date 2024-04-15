@@ -107,7 +107,8 @@ main {
 
 
 .boxFlex::-webkit-scrollbar,
-.matches_container::-webkit-scrollbar {
+.matches_container::-webkit-scrollbar,
+.roundDetailsWrapper::-webkit-scrollbar {
     display: none;
 }
 
@@ -150,19 +151,26 @@ nav div:nth-child(2) {
     display: flex;
     gap: 100px;
 }
-
+.bannerImg{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+}
 .img-holder {
     border: black 1px solid;
     position: relative;
     width: 100vw;
-    background-image: url('https://imgsvc.trackercdn.com/url/max-width(2880),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Fimages%2Fheroes%2Fhero-omen.jpg%3Fv%3D1/image.jpg');
-    /* background-color: red; */
+
     height: 40vh;
     background-size: cover;
     background-repeat: no-repeat;
 
 }
-
+.roundCount{
+    font-size: xx-small;
+    color: #99abbf;
+}
 .playercard-title-container {
     position: absolute;
     width: auto;
@@ -1050,30 +1058,35 @@ option:active {
     flex-direction: column;
 
 }
-.mapName{
+
+.mapName {
     font-weight: 700;
     text-transform: uppercase;
     font-size: 1rem;
 }
-.matchScore{
-    
+
+.matchScore {
+
     font-weight: 600;
     gap: 3px;
     display: flex;
     font-size: .9rem;
 
 }
-.lostBg{
-    background: linear-gradient(to right, #1C1F2C, #24303B,  #822727);
+
+.lostBg {
+    background: linear-gradient(to right, #1C1F2C, #24303B, #822727);
 }
-.matchLostBar{
+
+.matchLostBar {
     background-color: red;
 }
 
-.matchScore span:first-child{
+.matchScore span:first-child {
     color: #16e5b4;
 }
-.matchScore span:last-child{
+
+.matchScore span:last-child {
     color: #E4485D;
 }
 
@@ -1169,6 +1182,7 @@ option:active {
 }
 
 .mainContainer {
+    overflow-x: hidden;
     position: relative;
     overflow-y: scroll;
     display: none;
@@ -1331,15 +1345,22 @@ option:active {
     display: grid;
     /* background-color: #181B29;
      */
-     background-color: #0f1923;
+    background-color: #0f1923;
     /* grid-template-columns: 25.27% 9.47% 10.45% 6.31% 6.31% 6.31% 6.31% 6.31% 6.31% 9.47%; */
     grid-template-columns: 20.2% 7.5% 8.75% 5% 5% 5% 5% 5% 5% 7.5% 7.5% 7.5% 5.5% 5.5%;
     grid-template-rows: 10.6% 17.88% 17.88% 17.88% 17.88% 17.88%;
 }
 
 .mainContainer .mc-grid:last-child {
-    top: 60%;
+    top: 85%;
     position: absolute;
+}
+
+.inlineBox {
+    gap: 1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .name-Column {
@@ -1472,15 +1493,21 @@ option:active {
 }
 
 .tooltip {
-    opacity: 1;
+    opacity: 0;
     display: block;
+    white-space: nowrap;
     background: #283a4b;
-    transform: translate(0, -8vh);
+    transform: translate(13px, -8vh);
     position: absolute;
-    border-radius: 15px;
+    border-radius: 8px;
     margin-bottom: 15px;
-    padding: 2px;
+    /* padding: 2px 2px 2px 2px; */
     pointer-events: none;
+    /* height: max-content; */
+    width: max-content;
+    padding: 5px 3.9px;
+    /* height: 4vh; */
+    /* height: 2rem; */
     -webkit-transition: all .25s ease-out;
     -moz-transition: all .25s ease-out;
     -ms-transition: all .25s ease-out;
@@ -1503,7 +1530,7 @@ option:active {
     width: 100%;
 }
 
-.tooltip:after {
+/* .tooltip:after {
     border-left: solid transparent 10px;
     border-right: solid transparent 10px;
     border-top: solid #1496bb 10px;
@@ -1514,24 +1541,41 @@ option:active {
     margin-left: -13px;
     position: absolute;
     width: 0;
+} */
+
+.acs-Column:hover .tooltip,
+.kill-Column:hover .tooltip,
+.death-Column:hover .tooltip,
+.assist-Column:hover .tooltip,
+.killdif-Column:hover .tooltip,
+.kd-Column:hover .tooltip,
+.dda-Column:hover .tooltip,
+.adr-Column:hover .tooltip,
+.Headshot-Column:hover .tooltip,
+.firstkill-Column:hover .tooltip,
+.firstdeath-Column:hover .tooltip,
+.multikill-Column:hover .tooltip 
+.columnWrapper img:hover{
+    opacity: 1;
+    /* pointer-events: auto; */
+    -webkit-transform: translate(13px,-8vh);
+    -moz-transform: translate(13px,-8vh);
+    -ms-transform: translate(13px,-8vh);
+    -o-transform: translate(13px,-8vh);
+    transform: translate(13px,-8vh);
 }
 
-.acs-Column:hover .tooltip {
-    opacity: 1;
-    pointer-events: auto;
-    /* -webkit-transform: translateY(0px);
-    -moz-transform: translateY(0px);
-    -ms-transform: translateY(0px);
-    -o-transform: translateY(0px);
-    transform: translateY(0px); */
-}
 /* .acs{
     background-color: #172635;
 } */
-.acsbg1 , .acsbg3 , .acsbg5{
+.acsbg1,
+.acsbg3,
+.acsbg5 {
     background-color: #172635;
 }
-.acsbg2 , .acsbg4{
+
+.acsbg2,
+.acsbg4 {
     background-color: #233950 !important;
 }
 
@@ -1660,18 +1704,23 @@ option:active {
     width: 0.3vw;
     background: transparent;
 }
-.redparty1{
+
+.redparty1 {
     background: blueviolet;
 }
-.redparty1{
+
+.redparty1 {
     background: #6ffba7;
 }
-.blueparty1{
+
+.blueparty1 {
     background: #fe6100;
 }
-.blueparty2{
+
+.blueparty2 {
     background: cyan;
 }
+
 .tag {
     font-weight: 500;
     padding: 1px 4px;
@@ -1732,9 +1781,11 @@ div[class^="p5"] {
     border-bottom: .7px solid black;
     grid-row: 6/7;
 }
-.fontRed{
+
+.fontRed {
     color: red !important;
 }
+
 .white {
     color: white;
     font-weight: 500;
@@ -1799,3 +1850,65 @@ div[class^="p5"] {
     text-align: center;
     font-size: x-large;
 }
+
+.roundDetailsWrapper {
+    overflow-x: scroll;
+    width: 100%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0f1923;
+}
+
+.TeamAScoreRounds {
+    font-size: x-large !important;
+    color: #16e5b4;
+}
+
+.TeamBScoreRounds {
+    font-size: x-large !important;
+    color: #E4485D;
+}
+
+.roundBox {
+    flex-direction: row;
+    /* gap: 10px; */
+    align-items: center;
+    justify-content: space-evenly;
+    width: 98%;
+    height: auto;
+    display: flex;
+    /* border: 1px solid wheat; */
+}
+
+.roundBox .columnWrapper:first-child span {
+
+    font-size: small;
+}
+
+.roundBox .columnWrapper:first-child {
+
+    align-self: baseline;
+    gap: 1vh;
+}
+
+.columnWrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5vh;
+}
+
+.columnWrapper span:nth-child(3) {
+    /* font-size: xx-small; */
+    color: #99abbf;
+}
+
+.dot {
+    color: #273039 !important;
+}
+
+/* .roundNumber{
+    color: #99abbf;
+} */

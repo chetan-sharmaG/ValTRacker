@@ -11,11 +11,15 @@
 }
 
 .bannerText input[type="text"]:focus {
-    outline: none;
-    background-image: url(https://static.thenounproject.com/png/101791-200.png);
-    background-position: 499px 9px;
-    background-repeat: no-repeat;
-    background-size: 34px;
+    
+    
+        outline: none;
+        background-image: url(https://static.thenounproject.com/png/101791-200.png);
+        background-position: 90%;
+        background-repeat: no-repeat;
+        background-size: 1.3rem;
+    
+   
 }
 
 
@@ -62,51 +66,197 @@ nav div:nth-child(2) {
     gap: 100px;
 }
 
-
+.searchWrapper{
+    align-items: center;
+    /* flex-grow: 1; */
+    /* flex-wrap: wrap; */
+    width: 75%;
+    /* column-gap: 10vw; */
+    height: 85%;
+    /* row-gap: 1vw; */
+    /* justify-content: center; */
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .searchCon {
 
   
-    font-size: 58px;
-    background-color: transparent;
-    position: relative;
-    
-    width: 100vw;
-    height: 85vh;
 
-   
+    background-color: transparent;
+    position: relative;  
+    width: 100vw;
+    height: 55vh;
     background-size: cover;
     background-repeat: no-repeat;
     
     /* background-image: url(jett.png); */
-    background-image: url("../assets/images/extras/jett.png");
+     background-image: url("../assets/images/extras/fade.png");
+  
 }
-
+.wallpaper{
+    width: 100%;
+    filter: brightness(0.5);
+    height: 100%;
+    object-position: top;
+    object-fit: cover;
+}
 
 
 .bannerText {
-
+    height: 100%;
+    width: 50%;
     display: none;
     text-align: center;
     display: flex;
-    align-items: baseline;
+    /* gap: 2rem; */
     justify-content: center;
     flex-direction: column;
+    
+.inlineWrapper{
     position: relative;
-    max-width: 60vw;
-    margin-left: auto;
-    padding: 73px 0px 0px 0px;
+    display: flex;
+    align-items: center;
+}
+}
+.searchIcon{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: flex;
+    border: 1px solid #1b2733;
+    width: 10%;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+    background-color: #1b2733;
 
 }
-
 .bannerText input {
-    width: 500px;
+    height: 65px;
+    width: 80%;
+    border-bottom: 1px solid #1b2733;
+    border-top: 1px solid #1b2733;
+    border-right: 1px solid #1b2733;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     padding: 16px 16px 16px 16px;
     color: black;
 }
+.searchIcon img{
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+}
+.WrapperBox{
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.WrapperBox span{
+    color: white;
+    font-weight: 700;
+    font-size: xx-large;
+}
+.WrapperBox div{
+    color: #ffffffad;
+}
+.searchboxContainer{
+    overflow: hidden;
+    border-radius: 10px;
+    visibility: hidden;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    height: 40%;
+    background-color: #161625;
+}
+.column1{
+    font-size: smaller;
+    /* padding: 15px 6px; */
+    /* justify-content: space-evenly; */
+    text-align: center;
+    align-items: baseline;
+    display: flex;
+    /* gap: 2vh; */
+    flex-direction: column;
+    width: 40%;
 
+}
+.column1 span{
+    height: 33.33%;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    gap: 2vh;
+    align-items: center;
+    justify-content: center;
+    /* margin-left: 10%; */
+}
+.column1 span:active,.column1 span:focus{
+
+        border-left: 4px solid red;
+}
+.column2{
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 60%;
+    gap: 1vh;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60%;
+    background-color: #1b2733;
+}
+.searchedPlayer,.MatchingPlayers{
+    width: 100%;
+    /* background-color: #323d48; */
+    align-items: center;
+    display: flex;
+    gap: 1vh;
+    text-align: left;
+    padding-left: 1vw;
+    height: 35%;
+}
+
+.playersTitle{
+    height: 20%;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+.searchedPlayer img{
+    height: 100%;
+    object-fit: cover;
+}
+.playersTitle span{
+    font-weight: 600;
+    font-size: medium;
+    margin-left: .5vw;
+    color: #ffffff7d;
+}
+.playersWrapper{
+    height: 80%;
+    width: 100%;
+
+    align-items: baseline;
+    display: flex;
+    flex-direction: column;
+
+}
+.column1 span div,.column1 span i{
+    color: #ffffff7d;
+}
+
+.column1 span:hover div ,.column1 span:hover i{
+    color: white;
+}
 .topPlayerCards {
 
-    padding: 60px 0px 0px 0px;
+   
+    width: 50%;
     display: flex;
     position: relative;
     flex-direction: row;
@@ -119,8 +269,6 @@ nav div:nth-child(2) {
 
 .players {
     border-radius: 10px;
-    top: 50px;
-    bottom: -71px;
     position: relative;
     padding: 0px;
     align-items: center;
@@ -132,8 +280,8 @@ nav div:nth-child(2) {
     gap: 18px;
     font-size: 20px;
     background-color: #2C3F52;
-    width: 217px;
-    height: 217px;
+    width: 160px;
+    height: 200px;
     cursor: pointer;
 }
 #showMore{
@@ -145,9 +293,9 @@ nav div:nth-child(2) {
 }
 
 /* When hovering over the container, dim all players */
-.topPlayerCards:hover .players {
+/* .topPlayerCards:hover .players {
     opacity: 0.5;
-}
+} */
 
 /* But then, specifically undo the dimming for the player that is being hovered over */
 .topPlayerCards .players:hover {
@@ -183,6 +331,9 @@ nav div:nth-child(2) {
     bottom: 10px;
     font-weight: 200;
     font-size: 14px;
+}
+.playerRedirect{
+    display: contents;
 }
 
 #playerRating {

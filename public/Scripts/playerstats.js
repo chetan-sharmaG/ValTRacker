@@ -317,7 +317,7 @@ async function getData(data, desiredSeason) {
         const mapName = item.meta.map.name;
         const totalRound = item.teams.red + item.teams.blue
         if (!(agentSelected in ad)) {
-            ad[agentSelected] = { 'maps': {}, 'agentId': null, 'headshots': 0, 'bodyshots': 0, 'legshots': 0, 'highKill': 0, 'assists': 0, 'avgDmg': 0, 'win': 0, 'loss': 0, 'matchesPlayed': 0, 'hoursPlayed': 0, 'winPercentage': 0, 'kills': 0, 'TotalDmg': 0, 'deaths': 0, 'kd': 0 };
+            ad[agentSelected] = { 'AgentName':'','maps': {}, 'agentId': null, 'headshots': 0, 'bodyshots': 0, 'legshots': 0, 'highKill': 0, 'assists': 0, 'avgDmg': 0, 'win': 0, 'loss': 0, 'matchesPlayed': 0, 'hoursPlayed': 0, 'winPercentage': 0, 'kills': 0, 'TotalDmg': 0, 'deaths': 0, 'kd': 0 };
         }
         if (!(mapName in ad[agentSelected].maps)) {
             ad[agentSelected].maps[mapName] = { 'won': 0 }; // Initialize map if not present
@@ -328,6 +328,7 @@ async function getData(data, desiredSeason) {
         } else {
             ad[agentSelected].loss += 1;
         }
+        ad[agentSelected].AgentName = item.stats.character.name
         ad[agentSelected].matchesPlayed += 1;
         ad[agentSelected].hoursPlayed += (totalRound > 15 ? totalRound * 1.8 : totalRound * 1.5)
         ad[agentSelected].winPercentage = ad[agentSelected].win / ad[agentSelected].matchesPlayed * 100
@@ -363,6 +364,24 @@ async function getData(data, desiredSeason) {
 
 async function updateTopAgents(adToArr) {
     // Fetch data about the top agent
+        let imageHolder =document.getElementsByClassName('bannerImg')[0]
+        if (imageHolder) {
+            const agent = adToArr[0].AgentName.toLowerCase();    
+            // Create a new image element
+           
+            
+            // Set the source of the image
+            const src = `https://imgsvc.trackercdn.com/url/max-width(2880),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Fimages%2Fheroes%2Fhero-${agent}.jpg%3Fv%3D1/image.jpg`;
+            
+            // Wait for the image to load
+           
+            
+            // Set the background image after the image is loaded
+            imageHolder.src = src
+        } else {
+            console.error("No element with class 'img-holder' found.");
+        }
+   
     const agentImgTag = document.getElementById('first_top_img')
     agentImgTag.src = 'https://media.valorant-api.com/agents/' + adToArr[0].agentId + '/fullportrait.png'
     const secondAgent = document.getElementById('second_top_img')
@@ -764,11 +783,21 @@ document.getElementById('closeConatiner').addEventListener('click', () => {
     matches.classList.remove('matches_container_remove')
     naveenElement.classList.remove('matchHighRemove')
     naveenElement.style.zIndex = '-1'
+    const root = document.getElementById('style-4')
+    root.innerHTML = ''
+    const roundDetailsWrapper = document.createElement('div')
+    roundDetailsWrapper.classList.add('roundDetailsWrapper')
+    const roundBox = document.createElement('div')
+    roundBox.classList.add('roundBox')
 })
 // Attach the event listener to the parent of all .matchesGrid elements
 
 
 export function getpuuid() {
     return uuid
+}
+
+export function getserver(){
+    return region
 }
 

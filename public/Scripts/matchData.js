@@ -1,5 +1,6 @@
 
-import { getpuuid } from "./playerstats.js";
+import { getpuuid,getserver  } from "./playerstats.js";
+// import { getserver } from "./playerstats.js";
 let loadingCounter = 0
 document.querySelector('.matchesFlex').addEventListener('click', (event) => {
     // Check if the clicked element has the .matchesGrid class
@@ -80,6 +81,7 @@ async function loadMatchData(matchId) {
             }
             updateHeader(response)
             totalRounds = (response.data.teams.red.rounds_won + response.data.teams.blue.rounds_won)
+             updateRoundCount(response)
             updateStatsTeamARed(response)
             updateStatsTeamBlue(response)
             function onDataLoaded() {
@@ -167,7 +169,7 @@ async function PlayersAverageTier(Tiers) {
     var AverageTierName = ''
     var AverageTierImg = ''
     var avgTier = Math.floor(sum / Tiers.length)
-    console.warn(avgTier)
+    
     let competitiveTiers = fetch('https://valorant-api.com/v1/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04')
         .then(response => response.json())
         .then(tierResponse => {
@@ -180,7 +182,7 @@ async function PlayersAverageTier(Tiers) {
             var tierData = { tierName: AverageTierName, tierImg: AverageTierImg }
             return tierData
         })
-       
+
     return competitiveTiers
 
 }
@@ -188,47 +190,45 @@ async function PlayersAverageTier(Tiers) {
 async function updateStatsTeamARed(response) {
 
     var redSortedData = getTeamData(response.data.players.red)
-    var party = allPlayerParty(response.data.players.red,'red')
+    var party = allPlayerParty(response.data.players.red, 'red')
     var TierData = await PlayersAverageTier(response.data.players.red)
 
     const root = document.getElementById('style-4')
-    root.innerHTML = ''
+    // root.innerHTML = ''
     var grid = document.createElement('div')
     grid.classList.add('mc-grid')
-    var grid2 = document.createElement('div')
-    grid2.classList.add('mc-grid')
     var header1 = ` <div class="Firstheader"></div>
         <div class="secondRow"></div>
         <div class="forthRow"></div>
         <!-- headings names -->
         <div class="name-Column headerColor"><span>Team
-            A</span><span>&#128900;</span><span>Avg.Rank:</span><span class="TeamAvgRank"><img class="TeamAvgRankImg"
+            A</span><span>&#125900;</span><span>Avg.Rank:</span><span class="TeamAvgRank"><img class="TeamAvgRankImg"
                 src=${TierData.tierImg}
                 width="20">${TierData.tierName}</span></div>
         <div class="matchRank-Column headerColor">Match Rank</div>
         <div class="matchRank-Column headerColor">Match Rank</div>
-        <div class="acs-Column headerColor ">ACS <div class="tooltip">I am a tooltip!</div>
+        <div class="acs-Column headerColor ">ACS <div class="tooltip">Average Combat Score</div>
         </div>
-        <div class="kill-Column headerColor">K </div>
-        <div class="death-Column headerColor">D </div>
-        <div class="assist-Column headerColor">A </div>
-        <div class="killdif-Column headerColor">+/- </div>
-        <div class="kd-Column headerColor">K/D </div>
-        <div class="dda-Column headerColor">DD&Delta;</div>
-        <div class="adr-Column headerColor">ADR</div>
-        <div class="Headshot-Column headerColor">HS%</div>
-        <div class="firstkill-Column headerColor">FK</div>
-        <div class="firstdeath-Column headerColor">FD</div>
-        <div class="multikill-Column headerColor">MK</div>`
+        <div class="kill-Column headerColor">K <div class="tooltip">Kills</div></div>
+        <div class="death-Column headerColor">D <div class="tooltip">Deaths</div></div>
+        <div class="assist-Column headerColor">A <div class="tooltip">Assists</div></div>
+        <div class="killdif-Column headerColor">+/- <div class="tooltip">Kill Difference</div></div>
+        <div class="kd-Column headerColor">K/D <div class="tooltip">Kill/Death Ratio</div></div>
+        <div class="dda-Column headerColor">DD&Delta;<div class="tooltip">Average Damanage Delta per Round</div></div>
+        <div class="adr-Column headerColor">ADR<div class="tooltip">Average Damage per Round</div></div>
+        <div class="Headshot-Column headerColor">HS%<div class="tooltip">Headshot Percentage</div></div>
+        <div class="firstkill-Column headerColor">FK<div class="tooltip">First Kills</div></div>
+        <div class="firstdeath-Column headerColor">FD<div class="tooltip">First Deaths</div></div>
+        <div class="multikill-Column headerColor">MK<div class="tooltip">Multi Kills</div></div>`
 
     redSortedData.forEach((player, index) => {
 
-        var partyName= ''
-        console.log(player.party_id)
-        console.error(party)
+        var partyName = ''
+       
+       
         Object.entries(party).forEach(([key, array]) => {
             if (array.includes(player.puuid)) {
-                console.error('yes')
+                
                 partyName = key
             }
         });
@@ -240,6 +240,7 @@ async function updateStatsTeamARed(response) {
         const redFont = player.stats.killdifference < 0 ? 'fontRed' : ''
         const fontchange = player.stats.kd < 1 ? 'fontRed' : ''
         const ddachange = player.stats.dda < 0 ? 'fontRed' : ''
+        const region = getserver()
         const backgroundHighlight = isSame ? "backgroundHighlight" : ''
         var playerData = `<div class="playerBox${index + 1} ${backgroundHighlight}">
             <div class="partyIndicator ${partyName}"></div>
@@ -247,7 +248,7 @@ async function updateStatsTeamARed(response) {
                 width="40">
             <div class="nameLevelWrapper">
                 <div class="NameAndTag">
-                    ${player.name} <span class="tag"> #${player.tag}</span>
+                   <a href="/profile/riot/${player.puuid}/${region}"> ${player.name} <span class="tag"> #${player.tag}</a></span>
                 </div>
                 <div class="PLayerlvl">
                     Level:${player.level}
@@ -261,7 +262,7 @@ async function updateStatsTeamARed(response) {
             </div>
 
         </div>
-        <div class="p${index + 1}acs white border acsbg${index+1}">
+        <div class="p${index + 1}acs white border acsbg${index + 1}">
             <div class="flexWrapper">${player.stats.avgCombatScore}</div>
         </div>
         <div class="p${index + 1}kills white border">
@@ -316,37 +317,37 @@ async function updateStatsTeamARed(response) {
 }
 async function updateStatsTeamBlue(response) {
     var blueSortedData = getTeamData(response.data.players.blue)
-    var party = allPlayerParty(response.data.players.blue,'blue')
+    var party = allPlayerParty(response.data.players.blue, 'blue')
     const root = document.getElementById('style-4')
     var grid2 = document.createElement('div')
     var TierData = await PlayersAverageTier(response.data.players.blue)
-    console.error('Blue '+TierData)
+    
     grid2.classList.add('mc-grid')
     var header2 = ` <div class="Firstheader teamB"></div>
         <div class="secondRow"></div>
         <div class="forthRow"></div>
        
         <div class="name-Column headerColor"><span>Team
-            B</span><span>&#128900;</span><span>Avg.Rank:</span><span class="TeamAvgRank"><img class="TeamAvgRankImg"
+            B</span><span>&#125900;</span><span>Avg.Rank:</span><span class="TeamAvgRank"><img class="TeamAvgRankImg"
                 src=${TierData.tierImg}
                 width="20">${TierData.tierName}</span></div>
         <div class="matchRank-Column headerColor">Match Rank</div>
         <div class="matchRank-Column headerColor">Match Rank</div>
-        <div class="acs-Column headerColor ">ACS <div class="tooltip">I am a tooltip!</div>
+        <div class="acs-Column headerColor ">ACS <div class="tooltip">Average Combat Score</div>
         </div>
-        <div class="kill-Column headerColor">K </div>
-        <div class="death-Column headerColor">D </div>
-        <div class="assist-Column headerColor">A </div>
-        <div class="killdif-Column headerColor">+/- </div>
-        <div class="kd-Column headerColor">K/D </div>
-        <div class="dda-Column headerColor">DD&Delta;</div>
-        <div class="adr-Column headerColor">ADR</div>
-        <div class="Headshot-Column headerColor">HS%</div>
-        <div class="firstkill-Column headerColor">FK</div>
-        <div class="firstdeath-Column headerColor">FD</div>
-        <div class="multikill-Column headerColor">MK</div>`
+        <div class="kill-Column headerColor">K <div class="tooltip">Kills</div></div>
+        <div class="death-Column headerColor">D <div class="tooltip">Deaths</div></div>
+        <div class="assist-Column headerColor">A <div class="tooltip">Assists</div></div>
+        <div class="killdif-Column headerColor">+/- <div class="tooltip">Kill Difference</div></div>
+        <div class="kd-Column headerColor">K/D <div class="tooltip">Kill/Death Ratio</div></div>
+        <div class="dda-Column headerColor">DD&Delta;<div class="tooltip">Average Damanage Delta per Round</div></div>
+        <div class="adr-Column headerColor">ADR<div class="tooltip">Average Damage per Round</div></div>
+        <div class="Headshot-Column headerColor">HS%<div class="tooltip">Headshot Percentage</div></div>
+        <div class="firstkill-Column headerColor">FK<div class="tooltip">First Kills</div></div>
+        <div class="firstdeath-Column headerColor">FD<div class="tooltip">First Deaths</div></div>
+        <div class="multikill-Column headerColor">MK<div class="tooltip">Multi Kills</div></div>`
     blueSortedData.forEach((player, index) => {
-        var partyName= ''
+        var partyName = ''
 
         Object.entries(party).forEach(([key, array]) => {
             if (array.includes(player.puuid)) {
@@ -356,6 +357,7 @@ async function updateStatsTeamBlue(response) {
         const fk = countFirstBloodsByName(player.puuid)
         const fd = countFirstDeathBloodsByName(player.puuid)
         const ace = didAce(player.puuid)
+        const region = getserver()
         const isSame = player.puuid === getpuuid()
         const backgroundHighlight = isSame ? "backgroundHighlight" : ''
         const redFont = player.stats.killdifference < 0 ? 'fontRed' : ''
@@ -367,7 +369,7 @@ async function updateStatsTeamBlue(response) {
                     width="40">
                 <div class="nameLevelWrapper">
                     <div class="NameAndTag">
-                        ${player.name} <span class="tag"> #${player.tag}</span>
+                    <a href="/profile/riot/${player.puuid}/${region}"> ${player.name} <span class="tag"> #${player.tag}</a></span>
                     </div>
                     <div class="PLayerlvl">
                         Level:${player.level}
@@ -381,7 +383,7 @@ async function updateStatsTeamBlue(response) {
                 </div>
     
             </div>
-            <div class="p${index + 1}acs white border acsbg${index+1}">
+            <div class="p${index + 1}acs white border acsbg${index + 1}">
             <div class="flexWrapper">${player.stats.avgCombatScore}</div>
         </div>
         <div class="p${index + 1}kills white border">
@@ -527,7 +529,7 @@ function didAce(puuid) {
     // return firstBloods.filter((firstBlood) => firstBlood?.killer_puuid === puuid && firstBlood?.kills === 5).length
 
 }
-function allPlayerParty(response , team) {
+function allPlayerParty(response, team) {
 
     const allPlayers = response
     const partyInfo = {};
@@ -542,16 +544,16 @@ function allPlayerParty(response , team) {
         }
     });
 
-   var p=1
+    var p = 1
     Object.keys(partyInfo).forEach((partyId, index) => {
         if (partyInfo[partyId].length === 1) {
             delete partyInfo[partyId];
         } else {
             partyInfo[`${team}party${p}`] = partyInfo[partyId];
             delete partyInfo[partyId];
-            p+=1
+            p += 1
         }
-        
+
     });
 
     return partyInfo
@@ -561,3 +563,124 @@ function countFirstDeathBloodsByName(puuid) {
         (firstBlood) => firstBlood?.victim_puuid === puuid
     ).length;
 }
+async function updateRoundCount(response) {
+    const root = document.getElementById('style-4');
+    const roundDetailsWrapper = document.createElement('div');
+    roundDetailsWrapper.classList.add('roundDetailsWrapper');
+    const roundBox = document.createElement('div');
+    roundBox.classList.add('roundBox');
+    var roundData = `<div class="columnWrapper">
+        <span class='inlineBox'>Team A <span class='TeamAScoreRounds'>${response.data.teams.red.rounds_won}</span></span>
+        <span class='inlineBox'>Team B <span class='TeamBScoreRounds'>${response.data.teams.blue.rounds_won}</span></span>
+    </div>`;
+    response.data.rounds.forEach((round, index) => {
+        var endtype;
+        if (round.winning_team === 'Red') {
+            if (round.end_type === 'Eliminated') {
+                endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Feliminationwin1.png/image.png';
+                roundData += `<div class="columnWrapper">
+                            <div class="tooltip">Average Combat Score</div>
+                            <img src=${endtype} width=25>
+                            <span class='dot'>•</span><span class='roundCount'>${index + 1}</span></div>`;
+            }
+            else if (round.end_type === 'Bomb defused') {
+                endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Fdiffusewin1.png/image.png';
+                roundData += `<div class="columnWrapper">
+                <div class="tooltip">Average Combat Score</div>
+                    <img src=${endtype} width=25>
+                    <span class='dot'>•</span><span class='roundCount'>${index + 1}</span></div>`;
+            }
+            else if (round.end_type === 'Round timer expired') {
+                endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Ftimewin1.png/image.png';
+                roundData += `<div class="columnWrapper">
+                <div class="tooltip">Average Combat Score</div>
+                    <img src=${endtype} width=25>
+                    <span class='dot'>•</span><span class='roundCount'>${index + 1}</span></div>`;
+            }
+        }
+        else {
+            if (round.end_type === 'Eliminated') {
+                endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Feliminationloss1.png/image.png';
+                roundData += `<div class="columnWrapper">
+                            <span class='dot'>•</span>
+                            
+                            <img src=${endtype} width=25><span class='roundCount'>${index + 1}</span></div>`;
+            }
+            else if (round.end_type === 'Bomb defused') {
+                endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Fdiffuseloss1.png/image.png';
+                roundData += `<div class="columnWrapper">
+                    <span class='dot'>•</span>
+                    <img src=${endtype} width=25><span class='roundCount'>${index + 1}</span></div>`;
+            }
+            else if (round.end_type === 'Round timer expired') {
+                endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Ftimeloss1.png/image.png';
+                roundData += `<div class="columnWrapper">
+                <span class='dot' >•</span><img src=${endtype} width=25>
+                    <span class='roundCount'>${index + 1}</span></div>`;
+            }
+        }
+    });
+    console.log(roundData);
+    roundBox.innerHTML = roundData;
+    roundDetailsWrapper.appendChild(roundBox);
+    root.appendChild(roundDetailsWrapper);
+}
+
+// async function updateRoundCount(response) {
+//     const root = document.getElementById('style-4')
+//     const roundDetailsWrapper = document.createElement('div')
+//     roundDetailsWrapper.classList.add('roundDetailsWrapper')
+//     const roundBox = document.createElement('div')
+//    roundBox.classList.add('roundBox')
+//     var roundData = `<div class="columnWrapper">
+//         <span>Team A</span>
+//         <span>Team B</span>
+//     </div>`
+//     response.data.rounds.forEach((round, index) => {
+//         var endtype;
+//         if (round.winning_team === 'Red') {
+//             if (round.end_type === 'Eliminated') {
+//                 endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Feliminationwin1.png/image.png'
+//                 roundData += `<div class="columnWrapper">
+//                             <img src=${endtype} width=15>
+//                             <span>•</span><span>${index + 1}</span></div>`
+//             }
+//             else if (round.end_type == 'Bomb defused') {
+//                 endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Fdiffusewin1.png/image.png'
+//                 roundData += `<div class="columnWrapper">
+//                     <img src=${endtype} width=15>
+//                     <span>•</span><span>${index + 1}</span></div>`
+//             }
+//             else if (round.end_type == 'Round timer expired') {
+//                 endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Ftimewin1.png/image.png'
+//                 roundData += `<div class="columnWrapper">
+//                     <img src=${endtype} width=15>
+//                     <span>•</span><span>${index + 1}</span></div>`
+//             }
+//         }
+//         else {
+//             if (round.end_type === 'Eliminated') {
+//                 endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Feliminationloss1.png/image.png'
+//                 roundData += `<div class="columnWrapper">
+//                             <span>•</span>
+//                             <img src=${endtype} width=15><span>${index + 1}</span></div>`
+//             }
+//             else if (round.end_type == 'Bomb defused') {
+//                 endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Fdiffuseloss1.png/image.png'
+//                 roundData += `<div class="columnWrapper">
+//                     <span>•</span>
+//                     <img src=${endtype} width=15><span>${index + 1}</span></div>`
+//             }
+//             else if (round.end_type == 'Round timer expired') {
+//                 endtype = 'https://imgsvc.trackercdn.com/url/max-width(36),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Ficons%2Ftimeloss1.png/image.png'
+//                 roundData += `<div class="columnWrapper">
+//                 <span>•</span><img src=${endtype} width=15>
+//                     <span>${index + 1}</span></div>`
+//             }
+//         }
+//     })
+//     console.log(roundData)
+//     roundBox.innerHTML=roundData
+//     roundDetailsWrapper.innerHTML = roundBox
+//     root.appendChild(roundDetailsWrapper)
+// }
