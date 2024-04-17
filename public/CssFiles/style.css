@@ -37,6 +37,8 @@
 
 
 header {
+    /* Newly added */
+    display: none;
     width: 100vw;
     position: relative;
     background-color:  #161625;
@@ -58,10 +60,19 @@ nav {
 
 }
 .logoText{
-    justify-content: center;
+    /* justify-content: center;
     align-items: center;
     display: flex;
-    gap: 10px;
+    gap: 10px; */
+    top: 2%;
+    left: 2%;
+    /* color: red; */
+    z-index: 1;
+    position: absolute;
+    /* justify-content: center; */
+    align-items: center;
+    display: flex;
+    gap: 0px;
 }
 
 nav div:nth-child(1) {
@@ -101,7 +112,8 @@ nav div:nth-child(2) {
     background-color: transparent;
     position: relative;  
     width: 100vw;
-    height: 55vh;
+    /* height: 55vh; */
+    height: 70vh;
     background-size: cover;
     background-repeat: no-repeat;
     
