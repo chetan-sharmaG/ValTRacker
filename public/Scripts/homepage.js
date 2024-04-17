@@ -35,7 +35,13 @@ async function fetchEuServerData() {
                     euServer.push(data.players[i])
                 }
             }
-            allPlayer.push(data.players)
+            var arr = data.players.map(obj => {
+                return {
+                  ...obj,
+                  server: "eu"
+                }
+              });
+            allPlayer.push(arr)
             // euServer.push(data.players[0], data.players[1], data.players[2], data.players[3], data.players[4], data.players[5]);
 
 
@@ -57,8 +63,13 @@ async function fetchApServerData() {
                     apServer.push(data.players[i])
                 }
             }
-
-            allPlayer.push(data.players)
+            var arr = data.players.map(obj => {
+                return {
+                  ...obj,
+                  server: "ap"
+                }
+              });
+            allPlayer.push(arr)
 
 
 
@@ -81,7 +92,13 @@ async function fetchNaServerData() {
             }
 
 
-            allPlayer.push(data.players)
+            var arr = data.players.map(obj => {
+                return {
+                  ...obj,
+                  server: "na"
+                }
+              });
+            allPlayer.push(arr)
 
 
         }).catch(error => {
@@ -92,14 +109,19 @@ async function fetchKrServerData() {
     let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/kr')
         .then(response => response.json())
         .then(data => {
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 10; i++) {
                 data.players[i]['server'] = 'kr';
                 if (KrServer.length < 6 && data.players[i].IsAnonymized === false) {
                     KrServer.push(data.players[i])
                 }
             }
-            allPlayer.push(data.players)
-
+            var arr = data.players.map(obj => {
+                return {
+                  ...obj,
+                  server: "kr"
+                }
+              });
+            allPlayer.push(arr)
         }).catch(error => {
             console.error(error)
         })
@@ -108,13 +130,18 @@ async function fetchBrServerData() {
     let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/br')
         .then(response => response.json())
         .then(data => {
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 10; i++) {
                 data.players[i]['server'] = 'br';
                 if (BrServer.length < 6 && data.players[i].IsAnonymized === false) {
                     BrServer.push(data.players[i])
                 }
-            }
-            allPlayer.push(data.players)
+            }var arr = data.players.map(obj => {
+                return {
+                  ...obj,
+                  server: "br"
+                }
+              });
+            allPlayer.push(arr)
 
 
         }).catch(error => {
@@ -125,16 +152,16 @@ async function fetchBrServerData() {
 
 function checkForData(server, onDataFoundCallback, spinner) {
     if (!server || server.length === 0) {
-        console.log("Server list is empty");
+        // console.log("Server list is empty");
     } else {
-        console.log("Server list has items");
+        // console.log("Server list has items");
         onDataFoundCallback();
     }
 }
 
 function checkDataIsReady(onDataLoaded) {
     if (topPlayers.length != 3) {
-        console.error('waiting for data')
+        // console.error('waiting for data')
     }
     else {
         onDataLoaded()
@@ -177,7 +204,7 @@ function updateLeaderboard(server) {
         const tbody = document.querySelector('.ll table tbody');
         server.forEach((player, index) => {
             let row;
-            console.error(player)
+           
             const server1 = player.server
             const existingRows = tbody.querySelectorAll('tr');
             if (index < existingRows.length) {
@@ -224,12 +251,22 @@ document.getElementById('searchbar').addEventListener('focusin', () => {
 const searchText = document.getElementById('searchbar')
 
 searchText.addEventListener('input', function (event) {
+    const mainROot = document.getElementsByClassName('errorSearch')[0]
+    if(mainROot)
+        mainROot.remove()
+
     var text = event.target.value;
-    console.error(text.length)
+    var splitCode = text.split('#')
     const displayText = document.getElementsByClassName('searchedPlayer')[0]
-    if (text.length > 2) {
+    if (text.length > 3) {
         displayText.style.backgroundColor = '#323d48'
-        displayText.innerHTML = `<img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${text}</span>`
+        if(splitCode[1]){
+            displayText.innerHTML = `<img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${splitCode[0]}</span><span class='tagLine'>#${splitCode[1]}</span>`   
+        }
+        else{
+            displayText.innerHTML = `<img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${text}</span>`
+        }
+        // displayText.innerHTML = `<img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${text}</span>`
         const arrayOfArrays = allPlayer
         
         const partialMatch = text; // Partial match to find
@@ -239,7 +276,7 @@ searchText.addEventListener('input', function (event) {
             return typeof obj.gameName === 'string' && obj.gameName.includes(substring);
         }
         
-        const matches=[];
+        const Players=[];
         
         // Iterate over each inner array
         for (const innerArray of arrayOfArrays) {
@@ -247,25 +284,73 @@ searchText.addEventListener('input', function (event) {
             for (const obj of innerArray) {
                 // Check if any string property in the object contains the partial match
                 if (objectContainsSubstring(obj, partialMatch)) {
-                    matches.push(obj)// Stop searching if a match is found
+                    Players.push(obj)// Stop searching if a match is found
                 }
             }
            
         }
-        var startswithName
-        if (matches.length>0) {
-            console.log('partial match found.');
-            startswithName = matches.map(player=>{
-                if (player.gameName.startsWith(partialMatch)) {
-                    console.log(`Partial match found: ${player.gameName}`);
-                    return player
+        var startswithName =[]
+        if (Players.length>0) {
+            
+            startswithName = Players.map(player=>{
+                if (player.gameName.startsWith(partialMatch) && player.IsAnonymized === false) {
+                    
+                    return {name:player.gameName,tag:player.tagLine,server:player.server,puuid:player.puuid}
                 }
             })
-            console.warn(startswithName)
+            startswithName = startswithName.filter(obj => obj !== undefined);
+            // console.warn(startswithName)
+            const root  = document.getElementsByClassName('MatchingPlayersBox')[0]
+            root.innerHTML=''
+            startswithName.forEach(individual=>{
+                const MatchingPlayers = document.createElement('div')
+                MatchingPlayers.classList.add('MatchingPlayers')
+                MatchingPlayers.innerHTML=`<a href='/profile/riot/${individual.puuid}/${individual.server}' ><img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${individual.name}</span><span class=tagLine>#${individual.tag}</span></a>`
+                root.appendChild(MatchingPlayers)
+            })
         }
         else {
             console.log('No partial matches found.');
         }
         
+    }
+})
+
+searchText.addEventListener('keydown', async function (event) {
+    if (event.key === 'Enter') {
+        const playersWrapper = document.getElementsByClassName('playersWrapper')[0]
+        // The Enter key was pressed, check if the input box is empty.
+        if (searchText.value.trim() === '' || !searchText.value.includes('#')) {
+            // The input box is empty, show an error.
+            playersWrapper.innerHTML=''
+            playersWrapper.innerHTML =`<div class='searchedPlayer'></div><div class='errorSearch'> Please Provide a valid username followed with correct Tag, like Pizza#454</div><div class='MatchingPlayersBox'></div>`
+            // console.error('Please enter Valid username provided with #');
+            // Optionally, prevent the event from doing its default action.
+            event.preventDefault();
+        }
+        else{
+            const enteredText = searchText.value.split('#')
+            const username = enteredText[0]
+            const tagline = enteredText[1]
+            let getUser = fetch('https://api.henrikdev.xyz/valorant/v1/account/'+username+'/'+tagline)
+            .then(data=>data.json())
+            .then(data =>{
+                if(data.status === 404){
+                    const playersWrapper = document.getElementsByClassName('playersWrapper')[0]
+                    playersWrapper.innerHTML=''
+                    playersWrapper.innerHTML =`<div class='searchedPlayer'></div><div class='errorSearch'> Player Not found with ${username}#${tagline}</div><div class='MatchingPlayersBox'></div>`
+                    
+                }
+                else{
+                    window.open(`/profile/riot/${data.data.puuid}/${data.data.region}`,'_self')
+                }
+            })
+            .catch(error=>{
+                const playersWrapper = document.getElementsByClassName('playersWrapper')[0]
+                playersWrapper.innerHTML=''
+                playersWrapper.innerHTML =`<div class='searchedPlayer'></div><div class='errorSearch'> The Riot Server is Down. Please Try Later </div><div class='MatchingPlayersBox'></div>`
+                
+            })
+        }
     }
 })
