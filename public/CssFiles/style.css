@@ -11,17 +11,17 @@
 }
 #style-4::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #F5F5F5;
+    background-color: #1b2733;
 }
 
 #style-4::-webkit-scrollbar {
     width: 10px;
-    background-color: #F5F5F5;
+    background-color: #1b2733;
 }
 
 #style-4::-webkit-scrollbar-thumb {
     background-color: #000000;
-    border: 2px solid #555555;
+    border: 2px solid #1b2733;
 }
 .bannerText input[type="text"]:focus {
     
@@ -131,13 +131,14 @@ nav div:nth-child(2) {
 
 
 .bannerText {
+    padding: 10vh 0px 0px 0px;
     height: 100%;
     width: 50%;
     display: none;
     text-align: center;
     display: flex;
     /* gap: 2rem; */
-    justify-content: center;
+    /* justify-content: center; */
     flex-direction: column;
     
 .inlineWrapper{
@@ -197,7 +198,20 @@ nav div:nth-child(2) {
     width: 100%;
     /* overflow-y: scroll; */
     flex-direction: column;
+    
+}
+
+.recentClass{
     display: flex;
+    align-items: center;
+    display: flex;
+    gap: 1vh;
+    text-align: left;
+    /* padding-left: 1vw; */
+    width: 100%;
+    /* overflow-y: scroll; */
+    flex-direction: column;
+    
 }
 .searchboxContainer{
     overflow: hidden;
@@ -206,13 +220,36 @@ nav div:nth-child(2) {
     width: 90%;
     display: flex;
     flex-direction: row;
-    height: 50%;
+    /* height: 50%; */
+    height: 28%;
     background-color: #161625;
 }
+span.SearchedResult{
+    display: none;
+    height: 33.3%;
+    width: 100%;
+    cursor: pointer;
+    /* display: flex; */
+    gap: 2vh;
+    align-items: center;
+    justify-content: center;
+}
+.displayFlex{
+    display: flex !important;
+}
+.displayNone{
+    display: none !important;
+}
+.searchContainerHeight{
+    height: 48%;
+}
+.addRowHeight{
+    height: 33.3% !important;
+}
 .column1{
-    font-size: smaller;
+    font-size: 1rem;
     /* padding: 15px 6px; */
-    /* justify-content: space-evenly; */
+    justify-content: space-around;
     text-align: center;
     align-items: baseline;
     display: flex;
@@ -221,8 +258,9 @@ nav div:nth-child(2) {
     width: 40%;
 
 }
-.column1 span{
-    height: 33.33%;
+.cc{
+    
+    height: 50%;
     width: 100%;
     cursor: pointer;
     display: flex;
@@ -231,12 +269,26 @@ nav div:nth-child(2) {
     justify-content: center;
     /* margin-left: 10%; */
 }
-.column1 span:active,.column1 span:focus{
+.addLeftBorder{
+    border-left: 4px solid red !important;
+}
+/* .column1 span:active,.column1 span:focus{
 
         border-left: 4px solid red;
-}
+} */
 .column2{
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 60%;
+    /* gap: 1vh; */
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60%;
+    background-color: #1b2733;
+}
+.searchedPlayerColumn{
+    /* overflow-y: scroll; */
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     width: 60%;
@@ -246,7 +298,39 @@ nav div:nth-child(2) {
     flex-basis: 60%;
     background-color: #1b2733;
 }
-.searchedPlayer,.MatchingPlayers{
+.searchedPlayerColumn{
+    /* overflow-y: scroll; */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 100%;
+    gap: 1vh;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60%;
+    background-color: #1b2733;
+}
+.ErrorColumn{
+    /* overflow-y: scroll; */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 100%;
+    gap: 1vh;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60%;
+    background-color: #1b2733;
+}
+.searchedPlayer{
+    width: 100%;
+    /* background-color: #323d48; */
+    align-items: center;
+    display: none;
+    gap: 1vh;
+    text-align: left;
+    padding-left: 1vw;
+    /* height: 35%; */
+}
+.MatchingPlayers{
     width: 100%;
     /* background-color: #323d48; */
     align-items: center;
@@ -284,7 +368,7 @@ nav div:nth-child(2) {
 
 }
 .column1 span div,.column1 span i{
-    color: #ffffff7d;
+    color: #99abbf;
 }
 
 .column1 span:hover div ,.column1 span:hover i{
@@ -372,17 +456,23 @@ nav div:nth-child(2) {
 .playerRedirect{
     display: contents;
 }.errorSearch{
-    height: 100%;
+    height: max-content;
     width: 100%;
     text-align: center;
     
 }
+
 .clearButton{
+    color: black;
     position: absolute;
-    background-color: red;
+    cursor: pointer;
+    /* background-color: red; */
     height: 41%;
     right: 13%;
     width: 10px;
+}
+.clearButton:active{
+    transform: translateY(2px);
 }
 .tagLine{
     font-size: small;

@@ -367,11 +367,18 @@ async function updateTopAgents(adToArr) {
         let imageHolder =document.getElementsByClassName('bannerImg')[0]
         if (imageHolder) {
             const agent = adToArr[0].AgentName.toLowerCase();    
+            var src
             // Create a new image element
            
-            
+            if(agent==='kay/o'){
+                src = `https://imgsvc.trackercdn.com/url/max-width(2880),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Fimages%2Fheroes%2Fhero-kayo.jpg%3Fv%3D1/image.jpg`;
+
+            }
+            else{
+                src = `https://imgsvc.trackercdn.com/url/max-width(2880),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Fimages%2Fheroes%2Fhero-${agent}.jpg%3Fv%3D1/image.jpg`;
+
+            }
             // Set the source of the image
-            const src = `https://imgsvc.trackercdn.com/url/max-width(2880),quality(66)/https%3A%2F%2Ftrackercdn.com%2Fcdn%2Ftracker.gg%2Fvalorant%2Fimages%2Fheroes%2Fhero-${agent}.jpg%3Fv%3D1/image.jpg`;
             
             // Wait for the image to load
            
