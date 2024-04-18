@@ -288,11 +288,14 @@ let DbPlayersBox = document.getElementsByClassName('MatchingPlayersBox')[0];
 let recentSearchSpan = document.getElementsByClassName('RecentSearch')[0];
 let errorDivTag = document.getElementsByClassName('errorSearch')[0];
 let cc = document.getElementsByClassName('cc');
+let recentPlayerColumn = document.getElementsByClassName('recentPlayerColumn')[0]
+let ErrorColumn = document.getElementsByClassName('ErrorColumn')[0]
+let searchedPlayerColumn = document.getElementsByClassName('searchedPlayerColumn')[0]
 
 clearButton.addEventListener('click', () => {
     searchText.value = ''
-    var errorDivTag=document.getElementsByClassName('errorSearch')[0];
-    errorDivTag.innerHTML=''
+    // var errorDivTag=document.getElementsByClassName('errorSearch')[0];
+    // errorDivTag.innerHTML=''
     // errorDivTag.textContent='11'
     // if (searchText.value.length === 0) {
     //     searchText.value = ''
@@ -302,15 +305,19 @@ clearButton.addEventListener('click', () => {
 })
 searchText.addEventListener('input', function (event) {
     
-    SearchedPlayerDiv.classList.add('displayFlex')
-    DbPlayersBox.classList.remove('displayNone')
-    recent.classList.add('displayNone')
+    // SearchedPlayerDiv.classList.add('displayFlex')
+    // DbPlayersBox.classList.remove('displayNone')
+    // recent.classList.add('displayNone')
     // if (errorDivTag){
     //     errorDivTag.remove()
     // }
+    searchedPlayerColumn.style.display='flex';
+    ErrorColumn.style.display='none';
+    recentPlayerColumn.style.display='none';
     var errorDivTag=document.getElementsByClassName('errorSearch')[0];
     errorDivTag.innerHTML=''
-
+    seachedPlayerSideBar.classList.add('addLeftBorder')
+    recentSearchSpan.classList.remove('addLeftBorder')
     var text = event.target.value;
     var splitCode = text.split('#')
 
@@ -381,9 +388,12 @@ searchText.addEventListener('input', function (event) {
 
 seachedPlayerSideBar.addEventListener('click', () => {
 
-    SearchedPlayerDiv.classList.add('displayFlex')
-    DbPlayersBox.classList.remove('displayNone')
-    recent.classList.add('displayNone')
+    // SearchedPlayerDiv.classList.add('displayFlex')
+    // DbPlayersBox.classList.remove('displayNone')
+    // recent.classList.add('displayNone')
+    ErrorColumn.style.display='none';
+     searchedPlayerColumn.style.display='flex';
+    recentPlayerColumn.style.display='none';
     seachedPlayerSideBar.classList.add('addLeftBorder')
     recentSearchSpan.classList.remove('addLeftBorder')
     // if (errorDivTag)
@@ -513,18 +523,23 @@ let recent = document.getElementsByClassName('recentClass')[0]
 
 recentSearchSpan.addEventListener('click', () => {
 
-    var errorDivTag=document.getElementsByClassName('errorSearch')[0];
-    errorDivTag.innerHTML=''
-    
+    // var errorDivTag=document.getElementsByClassName('errorSearch')[0];
+    // errorDivTag.innerHTML=''
+    recentPlayerColumn.style.display='flex'
+    ErrorColumn.style.display='none';
+    searchedPlayerColumn.style.display='none';
     seachedPlayerSideBar.classList.remove('addLeftBorder')
     recentSearchSpan.classList.add('addLeftBorder')
     if (recentPlayer != null) {
-        SearchedPlayerDiv.classList.remove('displayFlex')
+        // SearchedPlayerDiv.classList.remove('displayFlex')
+
+        // recent.classList.remove('displayNone')
         
-        recent.innerHTML = 'jhavajdbakjbda'
-        recent.classList.remove('displayNone')
-        console.log(recentPlayer.length)
-        recentPlayer.forEach(individual => {
+        const uniqueRecentPlayer = Array.from(new Set(recentPlayer.map(JSON.stringify))).map(JSON.parse);
+        if(uniqueRecentPlayer.length>1){
+            searchboxContainer.classList.add('searchContainerHeight')
+        }
+        uniqueRecentPlayer.forEach(individual => {
             var MatchingPlayers = document.createElement('div')
             MatchingPlayers.classList.add('MatchingPlayers')
             MatchingPlayers.innerHTML = `<a href='/profile/riot/${individual.puuid}/${individual.server}' onclick="addPlayer('${individual.name}','${individual.tag}','${individual.server}','${individual.puuid}');" ><img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${individual.name}</span><span class=tagLine>#${individual.tag}</span></a>`

@@ -324,7 +324,7 @@ span.SearchedResult{
     width: 100%;
     /* background-color: #323d48; */
     align-items: center;
-    display: none;
+    display: flex;
     gap: 1vh;
     text-align: left;
     padding-left: 1vw;
