@@ -29,3 +29,14 @@ let prom1 = new Promise((resolve,reject)=>{
 prom1.then((a)=>{
     console.log(a);
 })
+
+
+const agents = document.querySelectorAll('.names-container button')
+
+agents.forEach(agent=>{
+    agent.addEventListener('click',()=>{
+        
+        // agent.classList.add('activeButton')
+
+    })
+})

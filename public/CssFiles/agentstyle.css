@@ -12,13 +12,16 @@
 
 }
 body{
+    background-repeat: no-repeat;
     background-image: url('https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltbded518020183769/5eb26f5389bac8148a8006cc/agent-background-generic.JPG');
 
 }
 header {
     width: 100vw;
     position: relative;
-    background-color: black;
+    background-color: #161625;
+    border-bottom: 1px solid black;
+    /* background-color: black; */
 }
 
 a {
@@ -57,9 +60,9 @@ nav div:nth-child(2) {
 } */
 
 .agent-image-container {
-    top: 10px;
+    top: 12px;
     margin: auto;
-    width: 85vw;
+    width: 80vw;
     display: flex;
     position: relative;
     height: 10vh;
@@ -95,7 +98,7 @@ nav div:nth-child(2) {
     display: none;
 }
 .all-agents-names {
-    top: 10px;
+    top: 5vh;
     flex-wrap: wrap;
     align-items: center;
     display: flex;
@@ -127,21 +130,30 @@ nav div:nth-child(2) {
 .names-container button {
     
     outline: none;
-   
+   border-radius: 5px;
     border: none;
-    background-color: transparent;
+    /* background-color: transparent; */
     font-size: 0.8em;
     text-align: center;
     /* border: 1px solid yellow; */
     width: 5rem;
     height: 3em;
     padding: 10px;
-    background-color: #2f3a4851;
+    background-color: #8b008b70;
 
 
 }
 
-.names-container button:focus {
+
+/* .activeButton{
+    font-weight: bolder;
+    text-underline-offset: 4px;
+    text-decoration-line: underline;
+    text-underline-position: under;
+    text-decoration-thickness: 0.5em;
+    text-decoration-color: #CF3D4B;
+} */
+.names-container button:active {
 
     font-weight: bolder;
     text-underline-offset: 4px;
@@ -152,11 +164,14 @@ nav div:nth-child(2) {
 }
 
 .names-container button:hover {
+    transform: scale(1.1);
+    font-weight: 500;
+    color: black;
     cursor: pointer;
     background-color: rgb(238, 152, 152);
 }
 .agent-about{
-    top: 6vh;
+    top: 10vh;
     transition: transform 0.3s ease-out;
     width: auto;
     height: auto;
@@ -179,15 +194,15 @@ nav div:nth-child(2) {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-5px); /* Adjust this value for the desired movement */
+        transform: translateY(-3px); /* Adjust this value for the desired movement */
     }
 }
 .move-up {
-    transform: translateY(-30px); /* Adjust as needed */
+    transform: translateY(-20px); /* Adjust as needed */
 }
 
 .move-down {
-    transform: translateY(50px); /* Adjust as needed */
+    transform: translateY(40px); /* Adjust as needed */
 }
 .agent-full-image img{
     width: 30vw;
@@ -211,6 +226,7 @@ nav div:nth-child(2) {
     grid-column: 1/2;
 }
 .bio_details{
+    font-family: monospace;
     font-weight: lighter;
     font-size: 1.5em;
     align-self: center;
@@ -243,17 +259,21 @@ nav div:nth-child(2) {
     
 }
 .wrapper-icons{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: cadetblue;
     cursor: pointer;
     overflow: hidden;
     width: 90px;
     height: 70px;
-    background-color: transparent;
     border: 1px saddlebrown solid;
 
 }
+
 .wrapper-icons img{
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 90%;
     object-position: center;
     object-fit: contain;
 }
@@ -262,7 +282,7 @@ nav div:nth-child(2) {
     background-color: #CF3D4B;
 }
 .wrapper-icons:first-child{
-    border: 1px solid white;
+    border: 1px solid black;
 }
 .wrapper{
     align-self: center;
@@ -316,3 +336,48 @@ nav div:nth-child(2) {
 }
 /* KEYFRAMES */
 
+.footer {
+    top: 20vh;
+    height: 15vh;
+    width: 100vw;
+    background: hsl(225deg 17.39% 9.02%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.footerWrapper {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footerWrapper div span {
+    color: #9098aa;
+}
+
+.footerRow span:last-child {
+    text-decoration-thickness: 0px;
+    text-underline-offset: 4px;
+    text-decoration-line: underline;
+
+}
+
+ul {
+    gap: 35px;
+    display: flex;
+}
+
+ul li {
+    color: #9098aa;
+    ;
+    list-style: none;
+}
+
+.abilities *{
+     color: black !important;
+}

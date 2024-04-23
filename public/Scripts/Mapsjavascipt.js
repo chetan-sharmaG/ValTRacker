@@ -1,107 +1,132 @@
-let slideindex=1;
+let slideindex = 1;
 showSlides(slideindex);
-function plusSlides(n){
-    showSlides(slideindex+=n);
+function plusSlides(n) {
+    showSlides(slideindex += n);
 }
-function showSlides(n){
+function showSlides(n) {
     let i;
-    let slides=document.getElementsByClassName('mySlides');
+    let slides = document.getElementsByClassName('mySlides');
     var currentSlide = document.getElementById('currentIndex');
     var totalIndex = document.getElementById('totalIndex');
-    if(n>slides.length) { slideindex=1}
-    if(n<1){slideindex=slides.length}
-    for(i=0;i<slides.length;i++){
-        slides[i].style.display="none";
+    if (n > slides.length) { slideindex = 1 }
+    if (n < 1) { slideindex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
     }
-    slides[slideindex-1].style.display="block";
-    currentSlide.innerText='';
-    currentSlide.textContent=slideindex;
-    totalIndex.textContent=slides.length;
+    slides[slideindex - 1].style.display = "block";
+    currentSlide.innerText = '';
+    currentSlide.textContent = slideindex;
+    totalIndex.textContent = slides.length;
 
 
 }
 
-function imagesPopup(mapName){
+function imagesPopup(mapName) {
     var imageContainer = document.getElementById('imagePlayer');
     var nav = document.getElementsByTagName('header')[0];
-    if(window.innerWidth<850){
-    // imageContainer.style.display="inherit";
-    setTimeout(function() {
-        console.error('time');
-        imageContainer.classList.add('active');
-        nav.style.visibility="hidden";
-    }, 3000); //
-    }else{
-        imageContainer.style.display="inherit";
-        imageContainer.style.opacity="1";
+    if (window.innerWidth < 850) {
+        // imageContainer.style.display="inherit";
+        setTimeout(function () {
+            console.error('time');
+            imageContainer.classList.add('active');
+            nav.style.visibility = "hidden";
+        }, 3000); //
+    } else {
+        imageContainer.style.display = "inherit";
+        imageContainer.style.opacity = "1";
         console.error('adn');
     }
 }
 
-function closeImagePLayer(){
+function closeImagePLayer() {
     var imageContainer = document.getElementById('imagePlayer');
     var nav = document.getElementsByTagName('header')[0];
     // imageContainer.style.display="none";
-    if(window.innerWidth<850){
+    if (window.innerWidth < 850) {
         // imageContainer.style.display="inherit";
         imageContainer.classList.remove('active');
-        nav.style.visibility="visible";
-        }else{
-            imageContainer.style.display="none";
-            imageContainer.style.opacity="0";
-            console.error('adn');
-        }
-    
+        nav.style.visibility = "visible";
+    } else {
+        imageContainer.style.display = "none";
+        imageContainer.style.opacity = "0";
+        console.error('adn');
+    }
+
 }
+
+
 function makeHidden(element) {
 
     var ele = document.getElementById(element);
     ele.style.visibility = 'hidden';
 }
+
+
 function makeVisible(element) {
     var ele = document.getElementById(element);
     ele.style.visibility = 'visible';
 }
+
+
+const idia = document.getElementById('IN')
+const mor = document.getElementById('MA')
+const IT = document.getElementById('IT')
+const BT = document.getElementById('BT')
+const IC = document.getElementById('Icebox-location')
+const JP = document.getElementById('JP')
+const PT = document.getElementById('PT')
+const USA = document.getElementById('USP')
+
+
+
 document.getElementById('lotus').addEventListener('mouseenter', function () {
-    
-    let a= fetch('/post-data').then(data=>data.json()).then(data=>{
+
+    let a = fetch('/post-data').then(data => data.json()).then(data => {
         console.error(data)
     })
     zoomToPath('lotus');
     makeHidden('INDIA');
+
+    idia.classList.add('path1')
     var dta = document.querySelector('.lc');
     dta.style.visibility = 'visible';
     document.querySelectorAll('.indiaLine').forEach(function (line) {
         line.style.visibility = 'visible';
         line.classList.add('animate-in');
-      
+
     });
-    
+
     document.getElementById('indiaCircle').style.visibility = 'visible';
 
 });
+
+
 document.getElementById('lotus').addEventListener('mouseleave', function () {
-    
+
     zoomOut();
     makeVisible('INDIA');
+    idia.classList.remove('path1')
     var dta = document.querySelector('.lc');
     dta.style.visibility = 'hidden';
     document.querySelectorAll('.indiaLine').forEach(function (line) {
         line.style.visibility = 'hidden';
         line.classList.remove('animate-in');
-        
-    }); 
+
+    });
     document.getElementById('indiaCircle').style.visibility = 'hidden';
 });
+
+
 document.getElementById('bind').addEventListener('mouseenter', function () {
     zoomToPath('bind');
     makeHidden('Morocco');
+    mor.classList.add('path1')
     var dta = document.querySelector('.bic');
     dta.style.visibility = 'visible';
     document.querySelectorAll('.bindLine').forEach(function (line) {
         line.style.visibility = 'visible';
         line.classList.add('animate-in');
-       
+
     });
     document.getElementById('bindCircle').style.visibility = 'visible';
 
@@ -109,60 +134,67 @@ document.getElementById('bind').addEventListener('mouseenter', function () {
 document.getElementById('bind').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('Morocco');
+    mor.classList.remove('path1')
+
     var dta = document.querySelector('.bic');
-        dta.style.visibility = 'hidden';
+    dta.style.visibility = 'hidden';
     document.querySelectorAll('.bindLine').forEach(function (line) {
         line.style.visibility = 'hidden';
         line.classList.remove('animate-in');
-        
+
     });
     document.getElementById('bindCircle').style.visibility = 'hidden';
 });
 document.getElementById('ascent').addEventListener('mouseenter', function () {
     zoomToPath('ascent');
     makeHidden('Italy');
+    IT.classList.add('path1')
     var dta = document.querySelector('.ac');
-        dta.style.visibility = 'visible';
+    dta.style.visibility = 'visible';
     document.querySelectorAll('.ascentLine').forEach(function (line) {
         line.style.visibility = 'visible';
         line.classList.add('animate-in');
-        
+
     });
     document.getElementById('ascentCircle').style.visibility = 'visible';
 });
 document.getElementById('ascent').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('Italy');
+    IT.classList.remove('path1')
     var dta = document.querySelector('.ac');
-        dta.style.visibility = 'hidden';
+    dta.style.visibility = 'hidden';
     document.querySelectorAll('.ascentLine').forEach(function (line) {
         line.style.visibility = 'hidden';
         line.classList.remove('animate-in');
-        
+
     });
     document.getElementById('ascentCircle').style.visibility = 'hidden';
 });
 document.getElementById('haven').addEventListener('mouseenter', function () {
     zoomToPath('haven');
     makeHidden('BHUTAN');
+    BT.classList.add('path1')
     var dta = document.querySelector('.hc');
-        dta.style.visibility = 'visible';
+    dta.style.visibility = 'visible';
     document.querySelectorAll('.havenLine').forEach(function (line) {
         line.style.visibility = 'visible';
         line.classList.add('animate-in');
-        
+
     });
     document.getElementById('havenCircle').style.visibility = 'visible';
 });
 document.getElementById('haven').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('BHUTAN');
+    BT.classList.remove('path1')
+
     var dta = document.querySelector('.hc');
     dta.style.visibility = 'hidden';
     document.querySelectorAll('.havenLine').forEach(function (line) {
         line.style.visibility = 'hidden';
         line.classList.remove('animate-in');
-       
+
     });
     document.getElementById('havenCircle').style.visibility = 'hidden';
 });
@@ -170,11 +202,11 @@ document.getElementById('breeze').addEventListener('mouseenter', function () {
     zoomToPath('breeze');
     makeHidden('barmuda');
     var dta = document.querySelector('.bc');
-        dta.style.visibility = 'visible';
+    dta.style.visibility = 'visible';
     document.querySelectorAll('.breezeLine').forEach(function (line) {
         line.style.visibility = 'visible';
         line.classList.add('animate-in');
-        
+
     });
     document.getElementById('breezeCircle').style.visibility = 'visible';
 });
@@ -182,131 +214,149 @@ document.getElementById('breeze').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('barmuda');
     var dta = document.querySelector('.bc');
-        dta.style.visibility = 'hidden';
+    dta.style.visibility = 'hidden';
     document.querySelectorAll('.breezeLine').forEach(function (line) {
         line.style.visibility = 'hidden';
         line.classList.remove('animate-in');
-        
+
     });
     document.getElementById('breezeCircle').style.visibility = 'hidden';
 });
 document.getElementById('pearl').addEventListener('mouseenter', function () {
     zoomToPath('pearl');
     makeHidden('Portugal');
+    PT.classList.add('path1')
+
     var dta = document.querySelector('.pc');
     dta.style.visibility = 'visible';
     document.querySelectorAll('.pearlLine').forEach(function (line) {
         line.style.visibility = 'visible';
         line.classList.add('animate-in');
-       
+
     });
     document.getElementById('pearlCircle').style.visibility = 'visible';
 });
 document.getElementById('pearl').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('Portugal');
+    PT.classList.remove('path1')
+
     var dta = document.querySelector('.pc');
-        dta.style.visibility = 'hidden';
+    dta.style.visibility = 'hidden';
     document.querySelectorAll('.pearlLine').forEach(function (line) {
         line.style.visibility = 'hidden';
         line.classList.remove('animate-in');
-        
+
     });
     document.getElementById('pearlCircle').style.visibility = 'hidden';
 });
 document.getElementById('icebox').addEventListener('mouseenter', function () {
     zoomToPath('icebox')
     makeHidden('Russia');
+    IC.classList.add('path1')
+
     var dta = document.querySelector('.ic');
-        dta.style.visibility = 'visible';
+    dta.style.visibility = 'visible';
     document.querySelectorAll('.iceboxLine').forEach(function (line) {
         line.style.visibility = 'visible';
         line.classList.add('animate-in');
-        
+
     });
     document.getElementById('iceboxCircle').style.visibility = 'visible';
 });
 document.getElementById('icebox').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('Russia');
+    IC.classList.remove('path1')
     var dta = document.querySelector('.ic');
     dta.style.visibility = 'hidden';
     document.querySelectorAll('.iceboxLine').forEach(function (line) {
         line.style.visibility = 'hidden';
         line.classList.remove('animate-in');
-      
+
     });
     document.getElementById('iceboxCircle').style.visibility = 'hidden';
 });
 document.getElementById('split').addEventListener('mouseenter', function () {
     zoomToPath('split')
     makeHidden('Tokyo');
+    JP.classList.add('path1')
+
     var dta = document.querySelector('.sc');
-        dta.style.visibility = 'visible';
+    dta.style.visibility = 'visible';
     document.querySelectorAll('.splitLine').forEach(function (line) {
         line.style.visibility = 'visible';
         line.classList.add('animate-in');
-        
+
     });
     document.getElementById('splitCircle').style.visibility = 'visible';
 });
 document.getElementById('split').addEventListener('mouseleave', function () {
     zoomOut();
+    JP.classList.remove('path1')
+
     makeVisible('Tokyo')
     var dta = document.querySelector('.sc');
-        dta.style.visibility = 'hidden';
+    dta.style.visibility = 'hidden';
     document.querySelectorAll('.splitLine').forEach(function (line) {
         line.style.visibility = 'hidden';
         line.classList.remove('animate-in');
-        
+
     });
     document.getElementById('splitCircle').style.visibility = 'hidden';
 });
 document.getElementById('sunset').addEventListener('mouseenter', function () {
     zoomToPath('sunset');
     makeHidden('UsaSunset');
+    USA.classList.add('path1')
+
     var dta = document.querySelector('.suc');
-        dta.style.visibility = 'visible';
+    dta.style.visibility = 'visible';
     document.querySelectorAll('.sunsetLine').forEach(function (line) {
         line.style.visibility = 'visible';
         line.classList.add('animate-in');
-        
+
     });
     document.getElementById('sunsetCircle').style.visibility = 'visible';
 });
 document.getElementById('sunset').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('UsaSunset');
+    USA.classList.remove('path1')
+
     var dta = document.querySelector('.suc');
     dta.style.visibility = 'hidden';
     document.querySelectorAll('.sunsetLine').forEach(function (line) {
         line.style.visibility = 'hidden';
         line.classList.remove('animate-in');
-        
+
     });
     document.getElementById('sunsetCircle').style.visibility = 'hidden';
 });
 document.getElementById('fracture').addEventListener('mouseenter', function () {
     zoomToPath('fracture');
+    USA.classList.add('path1')
+
     makeHidden('UsaFracture');
     var dta = document.querySelector('.fc');
-        dta.style.visibility = 'visible';
+    dta.style.visibility = 'visible';
     document.querySelectorAll('.fractureLine').forEach(function (line) {
         line.style.visibility = 'visible';
-        line.classList.add('animate-in'); 
-        
+        line.classList.add('animate-in');
+
     });
     document.getElementById('fractureCircle').style.visibility = 'visible';
 });
 document.getElementById('fracture').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('UsaFracture');
+    USA.classList.remove('path1')
     var dta = document.querySelector('.fc');
-        dta.style.visibility = 'hidden';
+    dta.style.visibility = 'hidden';
     document.querySelectorAll('.fractureLine').forEach(function (line) {
         line.style.visibility = 'hidden';
         line.classList.remove('animate-in');
-        
+
     });
     document.getElementById('fractureCircle').style.visibility = 'hidden';
 });
@@ -396,13 +446,13 @@ document.getElementById('fracture').addEventListener('mouseleave', function () {
 
 //     requestAnimationFrame(animateZoom);
 // }
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
     var svg = document.querySelector('svg');
     if (window.innerWidth <= 600) {
-      svg.setAttribute('viewBox', '710.1619873046875 99.5 40 40');
-      console.error(this.window.innerWidth);
-    } 
-  });
+        svg.setAttribute('viewBox', '710.1619873046875 99.5 40 40');
+        console.error(this.window.innerWidth);
+    }
+});
 function zoomToPath(location) {
     var svg = document.getElementById('map');
     const locations = {
@@ -486,9 +536,9 @@ function zoomOut() {
 
     requestAnimationFrame(animateZoom);
 }
-window.addEventListener('resize', function() {
-    
+window.addEventListener('resize', function () {
+
     if (window.innerWidth <= 850) {
-      
-    } 
-  });
+
+    }
+});

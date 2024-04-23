@@ -1,243 +1,273 @@
 
-let euServer = []
-let apServer = []
-let naServer = []
-let KrServer = []
-let BrServer = []
-let topPlayers = []
-let allPlayer = []
-document.addEventListener('DOMContentLoaded', async function () {
+// let euServer = []
+// let apServer = []
+// let naServer = []
+// let KrServer = []
+// let BrServer = []
+// let topPlayers = []
+// let allPlayer = []
+// document.addEventListener('DOMContentLoaded', async function () {
 
-    fetchEuServerData()
-    fetchApServerData()
-    fetchNaServerData()
-    updateTopPlayers()
-    fetchKrServerData()
-    fetchBrServerData()
-    updateLeaderboard(euServer)
+//     fetchEuServerData()
+//     fetchApServerData()
+//     fetchNaServerData()
+//     updateTopPlayers()
+//     fetchKrServerData()
+//     fetchBrServerData()
+//     updateLeaderboard(euServer)
 
-})
-
-
-async function getTopPLayers(list) {
-    topPlayers.push(list)
+// })
 
 
-}
-async function fetchEuServerData() {
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/eu')
-        .then(response => response.json())
-        .then(data => {
-            data.players[0]['server'] = 'EU';
-            getTopPLayers(data.players[0]);
-            for (var i = 0; i < 10; i++) {
-                data.players[i]['server'] = 'eu';
-                if (euServer.length < 6 && data.players[i].IsAnonymized === false) {
-                    euServer.push(data.players[i])
-                }
-            }
-            var arr = data.players.map(obj => {
-                return {
-                    ...obj,
-                    server: "eu"
-                }
-            });
-            allPlayer.push(arr)
-            // euServer.push(data.players[0], data.players[1], data.players[2], data.players[3], data.players[4], data.players[5]);
+// async function getTopPLayers(list) {
+//     topPlayers.push(list)
 
 
-            // Passing the modified player object to getTopPLayers
-
-        }).catch(error => {
-            console.error(error)
-        })
-}
-async function fetchApServerData() {
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/ap')
-        .then(response => response.json())
-        .then(data => {
-            data.players[0]['server'] = 'AP';
-            getTopPLayers(data.players[0]);
-            for (var i = 0; i < 10; i++) {
-                data.players[i]['server'] = 'ap';
-                if (apServer.length < 6 && data.players[i].IsAnonymized === false) {
-                    apServer.push(data.players[i])
-                }
-            }
-            var arr = data.players.map(obj => {
-                return {
-                    ...obj,
-                    server: "ap"
-                }
-            });
-            allPlayer.push(arr)
+// }
+// async function fetchEuServerData() {
+//     let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/eu')
+//         .then(response => response.json())
+//         .then(data => {
+//             data.players[0]['server'] = 'EU';
+//             getTopPLayers(data.players[0]);
+//             for (var i = 0; i < 10; i++) {
+//                 data.players[i]['server'] = 'eu';
+//                 if (euServer.length < 6 && data.players[i].IsAnonymized === false) {
+//                     euServer.push(data.players[i])
+//                 }
+//             }
+//             var arr = data.players.map(obj => {
+//                 return {
+//                     ...obj,
+//                     server: "eu"
+//                 }
+//             });
+//             allPlayer.push(arr)
+//             // euServer.push(data.players[0], data.players[1], data.players[2], data.players[3], data.players[4], data.players[5]);
 
 
+//             // Passing the modified player object to getTopPLayers
 
-        }).catch(error => {
-            console.error(error)
-        })
-}
-
-async function fetchNaServerData() {
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/na')
-        .then(response => response.json())
-        .then(data => {
-            data.players[0]['server'] = 'NA';
-            getTopPLayers(data.players[0]);
-            for (var i = 0; i < 10; i++) {
-                data.players[i]['server'] = 'na';
-                if (naServer.length < 6 && data.players[i].IsAnonymized === false) {
-                    naServer.push(data.players[i])
-                }
-            }
-
-
-            var arr = data.players.map(obj => {
-                return {
-                    ...obj,
-                    server: "na"
-                }
-            });
-            allPlayer.push(arr)
-
-
-        }).catch(error => {
-            console.error(error)
-        })
-}
-async function fetchKrServerData() {
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/kr')
-        .then(response => response.json())
-        .then(data => {
-            for (var i = 0; i < 10; i++) {
-                data.players[i]['server'] = 'kr';
-                if (KrServer.length < 6 && data.players[i].IsAnonymized === false) {
-                    KrServer.push(data.players[i])
-                }
-            }
-            var arr = data.players.map(obj => {
-                return {
-                    ...obj,
-                    server: "kr"
-                }
-            });
-            allPlayer.push(arr)
-        }).catch(error => {
-            console.error(error)
-        })
-}
-async function fetchBrServerData() {
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/br')
-        .then(response => response.json())
-        .then(data => {
-            for (var i = 0; i < 10; i++) {
-                data.players[i]['server'] = 'br';
-                if (BrServer.length < 6 && data.players[i].IsAnonymized === false) {
-                    BrServer.push(data.players[i])
-                }
-            } var arr = data.players.map(obj => {
-                return {
-                    ...obj,
-                    server: "br"
-                }
-            });
-            allPlayer.push(arr)
-
-
-        }).catch(error => {
-            console.error(error)
-        })
-}
-
-
-function checkForData(server, onDataFoundCallback, spinner) {
-    if (!server || server.length === 0) {
-        // console.log("Server list is empty");
-    } else {
-        // console.log("Server list has items");
-        onDataFoundCallback();
-    }
-}
-
-function checkDataIsReady(onDataLoaded) {
-    if (topPlayers.length != 3) {
-        // console.error('waiting for data')
-    }
-    else {
-        onDataLoaded()
-    }
-}
-async function updateTopPlayers() {
-    const playersCard = document.getElementsByClassName('topPlayerCards')[0]
-    function onDataLoaded() {
-        clearInterval(inttime)
-        topPlayers.forEach((players, index) => {
-            let row
-            const server = (players.server).toLowerCase()
-            row = document.createElement('div')
-            row.className = 'players'
-            row.innerHTML = `<a class='playerRedirect' href='/profile/riot/${players.puuid}/${server}'><div><img class="playerIcon"
-            src="https://media.valorant-api.com/playercards/${players.PlayerCardID}/smallart.png" width="80px"><div class="rank"></div></div><span id="playerName">${players.gameName}</span><span id="Server"> Top ${players.server} Rating</span><span id="playerRating">${players.rankedRating}</span></a>`
-            playersCard.appendChild(row);
-
-
-        })
-    }
-    const inttime = setInterval(() => {
-        checkDataIsReady(onDataLoaded);
-    }, 2000);
-}
-function updateLeaderboard(server) {
-    var spinner = document.getElementById('load');
-    spinner.style.display = 'flex';
-    function onDataFound() {
-        clearInterval(intervalId); // Stop checking
-        spinner.style.display = 'none';
-        var defaultButton = document.getElementById('EU');
-        if (server == euServer) {
-            defaultButton.style.backgroundColor = 'red'
-        } else {
-            defaultButton.style.backgroundColor = 'white'
-        }
-
-
-        const tbody = document.querySelector('.ll table tbody');
-        server.forEach((player, index) => {
-            let row;
-
-            const server1 = player.server
-            const existingRows = tbody.querySelectorAll('tr');
-            if (index < existingRows.length) {
-                // Update existing row
-                row = existingRows[index];
-
-                row.querySelector('.playersName').innerHTML = `<a class='playerRedirect' href='/profile/riot/${player.puuid}/${server1}'><img src="https://media.valorant-api.com/playercards/${player.PlayerCardID}/smallart.png" alt="bannerPic" width="50"><span>${player.gameName}</span><span class="tooltip-text" id="right">Number of Wins -><span> ${player.numberOfWins}</span></span></a>`;
-                row.querySelectorAll('td')[2].textContent = player.rankedRating + 'RR';
-            } else {
-
-                // Create and append a new row for additional players
-                row = document.createElement('tr');
-                row.innerHTML = `<td><img src="/assets/images/Ranks_Medals/${index + 1}.png" width="70" alt="${index + 1}.png"></td><td class="playersName"><a class='playerRedirect' href='/profile/riot/${player.puuid}/${server1}'><img src="https://media.valorant-api.com/playercards/${player.PlayerCardID}/smallart.png" alt="bannerPic" width="50"><span>${player.gameName}</span><span class="tooltip-text" id="right">Number of Wins -><span> ${player.numberOfWins}</span></span></a></td><td>${player.rankedRating} RR</td>`;
-                tbody.appendChild(row);
-            }
-        });
+//         }).catch(error => {
+//             console.error(error)
+//         })
+// }
+// async function fetchApServerData() {
+//     let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/ap')
+//         .then(response => response.json())
+//         .then(data => {
+//             data.players[0]['server'] = 'AP';
+//             getTopPLayers(data.players[0]);
+//             for (var i = 0; i < 10; i++) {
+//                 data.players[i]['server'] = 'ap';
+//                 if (apServer.length < 6 && data.players[i].IsAnonymized === false) {
+//                     apServer.push(data.players[i])
+//                 }
+//             }
+//             var arr = data.players.map(obj => {
+//                 return {
+//                     ...obj,
+//                     server: "ap"
+//                 }
+//             });
+//             allPlayer.push(arr)
 
 
 
-    }
+//         }).catch(error => {
+//             console.error(error)
+//         })
+// }
 
-    // Start checking for data
-    const intervalId = setInterval(() => {
-        checkForData(server, onDataFound, spinner);
-    }, 1000);
-}
+// async function fetchNaServerData() {
+//     let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/na')
+//         .then(response => response.json())
+//         .then(data => {
+//             data.players[0]['server'] = 'NA';
+//             getTopPLayers(data.players[0]);
+//             for (var i = 0; i < 10; i++) {
+//                 data.players[i]['server'] = 'na';
+//                 if (naServer.length < 6 && data.players[i].IsAnonymized === false) {
+//                     naServer.push(data.players[i])
+//                 }
+//             }
 
-document.getElementById('AP').addEventListener('click', () => updateLeaderboard(apServer));
-document.getElementById('EU').addEventListener('click', () => updateLeaderboard(euServer));
-document.getElementById('BR').addEventListener('click', () => updateLeaderboard(BrServer));
-document.getElementById('KR').addEventListener('click', () => updateLeaderboard(KrServer));
-document.getElementById('NA').addEventListener('click', () => updateLeaderboard(naServer));
+
+//             var arr = data.players.map(obj => {
+//                 return {
+//                     ...obj,
+//                     server: "na"
+//                 }
+//             });
+//             allPlayer.push(arr)
+
+
+//         }).catch(error => {
+//             console.error(error)
+//         })
+// }
+// async function fetchKrServerData() {
+//     let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/kr')
+//         .then(response => response.json())
+//         .then(data => {
+//             data.players[0]['server'] = 'KR';
+//             getTopPLayers(data.players[0]);
+//             for (var i = 0; i < 10; i++) {
+//                 data.players[i]['server'] = 'kr';
+//                 if (KrServer.length < 6 && data.players[i].IsAnonymized === false) {
+//                     KrServer.push(data.players[i])
+//                 }
+//             }
+//             var arr = data.players.map(obj => {
+//                 return {
+//                     ...obj,
+//                     server: "kr"
+//                 }
+//             });
+//             allPlayer.push(arr)
+//         }).catch(error => {
+//             console.error(error)
+//         })
+// }
+// async function fetchBrServerData() {
+//     let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/br')
+//         .then(response => response.json())
+//         .then(data => {
+//             data.players[0]['server'] = 'BR';
+//             getTopPLayers(data.players[0]);
+//             for (var i = 0; i < 10; i++) {
+//                 data.players[i]['server'] = 'br';
+//                 if (BrServer.length < 6 && data.players[i].IsAnonymized === false) {
+//                     BrServer.push(data.players[i])
+//                 }
+//             } var arr = data.players.map(obj => {
+//                 return {
+//                     ...obj,
+//                     server: "br"
+//                 }
+//             });
+//             allPlayer.push(arr)
+
+
+//         }).catch(error => {
+//             console.error(error)
+//         })
+// }
+
+
+// function checkForData(server, onDataFoundCallback, spinner) {
+//     if (!server || server.length === 0) {
+//         // console.log("Server list is empty");
+//     } else {
+//         // console.log("Server list has items");
+//         onDataFoundCallback();
+//     }
+// }
+
+// function checkDataIsReady(onDataLoaded) {
+//     if (topPlayers.length >= 3) {
+//         onDataLoaded()
+//     }
+//     else {
+//         // console.error('waiting for data')
+//     }
+// }
+// async function updateTopPlayers() {
+//     const playersCard = document.getElementsByClassName('topPlayerCards')[0]
+
+//     function onDataLoaded() {
+//         clearInterval(inttime)
+//         topPlayers.forEach((players, index) => {
+//             let row
+//             const server = (players.server).toLowerCase()
+//             var existingCard = playersCard.querySelectorAll('.players')
+//             if (index < existingCard.length) {
+//                 row = existingCard[index]
+
+//                 row.setAttribute('onclick', `redirectUser('${players.puuid}','${server}')`)
+//                 row.querySelector('.imgsContainer').innerHTML = `<img class="playerIcon"
+//                      src="https://media.valorant-api.com/playercards/${players.PlayerCardID}/smallart.png" width="60px"><div class="rank"></div>`
+//                 row.querySelector('#playerName').innerHTML = `${players.gameName}`
+//                 row.querySelector('#Server').innerHTML = `Top ${players.server.toUpperCase()} Rating`
+//                 row.querySelector('#playerRating').innerHTML = `${players.rankedRating}`
+//                 row.querySelector('.imgsContainer').classList.remove('shimmerBG')
+//                 row.querySelector('.imgsContainer').classList.remove('r-50')
+//                 row.querySelector('#playerName').classList.remove('shimmerBG')
+//                 row.querySelector('#playerName').classList.remove('name')
+//                 row.querySelector('#Server').classList.remove('shimmerBG')
+//                 row.querySelector('#Server').classList.remove('server')
+//                 row.querySelector('#playerRating').classList.remove('shimmerBG')
+//                 row.querySelector('#playerRating').classList.remove('ratings')
+//             }
+
+
+//             // row = document.createElement('div')
+//             // row.className = 'players'
+//             // row.innerHTML = `<a class='playerRedirect' href='/profile/riot/${players.puuid}/${server}'><div><img class="playerIcon"
+//             // src="https://media.valorant-api.com/playercards/${players.PlayerCardID}/smallart.png" width="80px"><div class="rank"></div></div><span id="playerName">${players.gameName}</span><span id="Server"> Top ${players.server} Rating</span><span id="playerRating">${players.rankedRating}</span></a>`
+//             // playersCard.appendChild(row);
+
+
+//         })
+//     }
+//     const inttime = setInterval(() => {
+//         checkDataIsReady(onDataLoaded);
+//     }, 2000);
+// }
+
+// function redirectUser(puuid, server) {
+//     window.open(`/profile/riot/${puuid}/${server}`, '_self')
+// }
+// function updateLeaderboard(server) {
+//     var spinner = document.getElementById('load');
+//     spinner.style.display = 'flex';
+//     function onDataFound() {
+//         clearInterval(intervalId); // Stop checking
+//         spinner.style.display = 'none';
+//         var defaultButton = document.getElementById('EU');
+//         if (server == euServer) {
+//             defaultButton.style.backgroundColor = 'red'
+//         } else {
+//             defaultButton.style.backgroundColor = 'white'
+//         }
+
+
+//         const tbody = document.querySelector('.ll table tbody');
+//         server.forEach((player, index) => {
+//             let row;
+
+//             const server1 = player.server
+//             const existingRows = tbody.querySelectorAll('tr');
+//             if (index < existingRows.length) {
+//                 // Update existing row
+//                 row = existingRows[index];
+
+//                 row.querySelector('.playersName').innerHTML = `<a class='playerRedirect' href='/profile/riot/${player.puuid}/${server1}'><img src="https://media.valorant-api.com/playercards/${player.PlayerCardID}/smallart.png" alt="bannerPic" width="50"><span>${player.gameName}</span><span class="tooltip-text" id="right">Number of Wins -><span> ${player.numberOfWins}</span></span></a>`;
+//                 row.querySelectorAll('td')[2].textContent = player.rankedRating + 'RR';
+//             } else {
+
+//                 // Create and append a new row for additional players
+//                 row = document.createElement('tr');
+//                 row.innerHTML = `<td><img src="/assets/images/Ranks_Medals/${index + 1}.png" width="70" alt="${index + 1}.png"></td><td class="playersName"><a class='playerRedirect' href='/profile/riot/${player.puuid}/${server1}'><img src="https://media.valorant-api.com/playercards/${player.PlayerCardID}/smallart.png" alt="bannerPic" width="50"><span>${player.gameName}</span><span class="tooltip-text" id="right">Number of Wins -><span> ${player.numberOfWins}</span></span></a></td><td>${player.rankedRating} RR</td>`;
+//                 tbody.appendChild(row);
+//             }
+//         });
+
+
+
+//     }
+
+//     // Start checking for data
+//     const intervalId = setInterval(() => {
+//         checkForData(server, onDataFound, spinner);
+//     }, 1000);
+// }
+
+// document.getElementById('AP').addEventListener('click', () => updateLeaderboard(apServer));
+// document.getElementById('EU').addEventListener('click', () => updateLeaderboard(euServer));
+// document.getElementById('BR').addEventListener('click', () => updateLeaderboard(BrServer));
+// document.getElementById('KR').addEventListener('click', () => updateLeaderboard(KrServer));
+// document.getElementById('NA').addEventListener('click', () => updateLeaderboard(naServer));
 // // Call this function whenever you need to update the leaderboard
 let reString = localStorage.getItem('recentPlayer')
 let recentPlayer = []
@@ -248,7 +278,7 @@ if (reString) {
     // recentPlayer = recentPlayer.map(function(item) {
     //     return JSON.parse(item);
     //   })
-    console.error(recentPlayer)
+    // console.error(recentPlayer)
 }
 
 document.getElementById('searchbar').addEventListener('focusin', () => {
@@ -257,7 +287,9 @@ document.getElementById('searchbar').addEventListener('focusin', () => {
 
     searchboxContainer.style.visibility = 'visible'
 })
-// document.getElementById('searchbar').addEventListener('focusout',()=>{
+
+
+// document.getElementsByClassName('searchCon')[0].addEventListener('click',()=>{
 //     const searchboxContainer = document.getElementsByClassName('searchboxContainer')[0]
 //     searchboxContainer.style.visibility = 'hidden'
 // })
@@ -294,19 +326,11 @@ let searchedPlayerColumn = document.getElementsByClassName('searchedPlayerColumn
 
 
 
-SearchedPlayerDiv.addEventListener('click',()=>{
+SearchedPlayerDiv.addEventListener('click', () => {
     searchPlayer()
 })
 clearButton.addEventListener('click', () => {
     searchText.value = ''
-    // var errorDivTag=document.getElementsByClassName('errorSearch')[0];
-    // errorDivTag.innerHTML=''
-    // errorDivTag.textContent='11'
-    // if (searchText.value.length === 0) {
-    //     searchText.value = ''
-    //     // displayText.innerHTML = ''
-    //     // playersWrapper.innerHTML = ''
-    // }
 })
 
 
@@ -479,13 +503,18 @@ seachedPlayerSideBar.addEventListener('click', () => {
 
 
 function addPlayer(name, tag, server, puuid) {
-    recentPlayer.push({
-        "name": name,
-        "tag": tag,
-        "server": server,
-        "puuid": puuid
-    });
-    localStorage.setItem('recentPlayer', JSON.stringify(recentPlayer))
+    const isObjectPresent = recentPlayer.find((o) => o.puuid === puuid);
+    if (!isObjectPresent) {
+        recentPlayer.push({ name: username, tag: tagline, server: data.data.region, puuid: data.data.puuid })
+        localStorage.setItem('recentPlayer', JSON.stringify(recentPlayer))
+    }
+    // recentPlayer.push({
+    //     "name": name,
+    //     "tag": tag,
+    //     "server": server,
+    //     "puuid": puuid
+    // });
+    // localStorage.setItem('recentPlayer', JSON.stringify(recentPlayer))
 }
 searchText.addEventListener('keydown', async function (event) {
     if (event.key === 'Enter') {
@@ -502,12 +531,12 @@ searchText.addEventListener('keydown', async function (event) {
         }
         else {
             searchPlayer()
-           
+
         }
     }
 })
 
-async function searchPlayer(){
+async function searchPlayer() {
     clearButton.classList.add('Searchloading')
     clearButton.innerText = ''
     const enteredText = searchText.value.split('#')
@@ -527,10 +556,23 @@ async function searchPlayer(){
 
             }
             else {
-                recentPlayer.push({ name: username, tag: tagline, server: data.data.region, puuid: data.data.puuid })
+                const isObjectPresent = recentPlayer.find((o) => o.puuid === data.data.puuid);
+                if (!isObjectPresent) {
+                    recentPlayer.push({ name: username, tag: tagline, server: data.data.region, puuid: data.data.puuid })
+                    localStorage.setItem('recentPlayer', JSON.stringify(recentPlayer))
+                }
+                // recentPlayer.forEach(p=>{
+                //     const isObjectPresent = arr.find((o) => o.puuid === '4838165f-102b-5cc7-a261-616ea821bfcc');
+                //     if(!p.puuid===data.data.puuid){
+                //         console.log('not exists')
+                //         recentPlayer.push({ name: username, tag: tagline, server: data.data.region, puuid: data.data.puuid })
+
+                //     }
+                // })
+
                 // var getPlayers = localStorage.getItem('recentPlayer')
                 // getPlayers.push(`{name: ${username},tag:${tagline},server:${data.data.region},puuid:${data.data.puuid}}`)
-                localStorage.setItem('recentPlayer', JSON.stringify(recentPlayer))
+
                 window.open(`/profile/riot/${data.data.puuid}/${data.data.region}`, '_self')
                 clearButton.classList.remove('Searchloading')
                 clearButton.innerText = 'X'
@@ -558,23 +600,49 @@ recentSearchSpan.addEventListener('click', () => {
     seachedPlayerSideBar.classList.remove('addLeftBorder')
     recentSearchSpan.classList.add('addLeftBorder')
     if (recentPlayer != null) {
-        // SearchedPlayerDiv.classList.remove('displayFlex')
 
-        // recent.classList.remove('displayNone')
+        updateRecentPlayersList()
 
-        const uniqueRecentPlayer = Array.from(new Set(recentPlayer.map(JSON.stringify))).map(JSON.parse);
-        if (uniqueRecentPlayer.length > 1) {
-            searchboxContainer.classList.add('searchContainerHeight')
-        }
-        uniqueRecentPlayer.forEach(individual => {
-            var MatchingPlayers = document.createElement('div')
-            MatchingPlayers.classList.add('MatchingPlayers')
-            MatchingPlayers.innerHTML = `<a href='/profile/riot/${individual.puuid}/${individual.server}' onclick="addPlayer('${individual.name}','${individual.tag}','${individual.server}','${individual.puuid}');" ><img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${individual.name}</span><span class=tagLine>#${individual.tag}</span></a>`
-            recent.appendChild(MatchingPlayers)
-            console.log(recent)
-        })
 
 
     }
 
 })
+
+
+
+
+function removePlayer(receivedPuuid) {
+    var index = receivedPuuid
+    console.log(index)
+    recentPlayer = recentPlayer.filter(player => {
+        console.log(index)
+        console.log(player.puuid)
+        if (!(player.puuid === index)) {
+            return player
+        }
+
+    })
+
+    localStorage.setItem('recentPlayer', JSON.stringify(recentPlayer))
+    updateRecentPlayersList()
+}
+
+
+function updateRecentPlayersList() {
+
+    recent.innerHTML = ''
+    const uniqueRecentPlayer = Array.from(new Set(recentPlayer.map(JSON.stringify))).map(JSON.parse);
+    if (uniqueRecentPlayer.length > 1) {
+        searchboxContainer.classList.add('searchContainerHeight')
+    }
+    uniqueRecentPlayer.forEach((individual, index) => {
+        var MatchingPlayers = document.createElement('div')
+        MatchingPlayers.classList.add('MatchingPlayers')
+        MatchingPlayers.innerHTML = `<a href='/profile/riot/${individual.puuid}/${individual.server}' onclick="addPlayer('${individual.name}','${individual.tag}','${individual.server}','${individual.puuid}');" ><img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${individual.name}</span><span class=tagLine>#${individual.tag}</span></a><div class='removeRecentP' onclick="removePlayer('${individual.puuid}');" data-index=${individual.puuid}>X</div>`
+        recent.appendChild(MatchingPlayers)
+
+    })
+}
+
+
