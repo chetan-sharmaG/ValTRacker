@@ -62,6 +62,13 @@ app.use('*.css', function (req, res, next) {
   res.header('Content-Type', 'text/css');
   next();
 });
+
+app.get('/home/privacy',(req,res)=>{
+  res.sendFile(path.join(__dirname, 'views/privacy.html'));
+})
+app.get('/home/tos',(req,res)=>{
+  res.sendFile(path.join(__dirname, 'views/tac.html'));
+})
 app.get('/agents', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/agents.html'));
 })

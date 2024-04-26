@@ -54,7 +54,13 @@ function closeImagePLayer() {
 
 }
 
+document.body.addEventListener('keydown', function(e) {
+    console.error("yo")
+    if (e.key == "Escape") {
 
+      closeImagePLayer()
+    }
+  });
 function makeHidden(element) {
 
     var ele = document.getElementById(element);

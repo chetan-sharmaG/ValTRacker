@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 //Updating the Rank Container with the c
 async function updateRankInUI(region, uuid, season = currentSeason) {
+
     let request = fetch('https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/' + region + '/' + uuid)
         .then(response => response.json())
         .then(response => {
@@ -361,8 +362,15 @@ async function getData(data, desiredSeason) {
 
 }
 
-
+// let adToArr
 async function updateTopAgents(adToArr) {
+
+    if(adToArr.length===0){
+        alert("No Data Available for the Selected Episode/Season");
+    }
+    else{
+
+    
     // Fetch data about the top agent
         let imageHolder =document.getElementsByClassName('bannerImg')[0]
         if (imageHolder) {
@@ -461,7 +469,8 @@ async function updateTopAgents(adToArr) {
     // const headshotspercent = ((adToArr[0].headshots / (adToArr[0].headshots + adToArr[0].bodyshots + adToArr[0].legshots)) * 100).toFixed(1)
     // const tkills = document.getElementsByClassName('abilityCountContainer')[0]
     // tkills.innerHTML = `<span>${adToArr[0].kills}</span><span>${adToArr[0].assists}</span><span>${headshotspercent}%</span>`
-    loadingCounter += 1
+    
+    }    loadingCounter += 1
 }
 
 function convertToHoursMinutes(num) {

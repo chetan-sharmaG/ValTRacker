@@ -261,13 +261,12 @@ svg {
     /* transform: translateX(-50%); */
     animation: smooth-appear 1s ease forwards;
     left: 1vw;
-    right: 1vw;
+    /* right: 1vw; */
     /* flex-wrap: inherit; */
     overflow-x: auto;
     z-index: 40;
     /* width: 90vw; */
-    height: 10vh;
-
+    /* height: 10vh; */
     border: 0.1px solid #737850;
 
 }
@@ -287,15 +286,14 @@ svg {
 
 .mapbox {
     opacity: 1;
-    /* color: yellow; */
-    background-color: #232323;
+    color: white;
+    background-color: #80808085;
     padding: 15px 25px;
     text-align: center;
-    font-size: 26px;
+    /* font-size: 26px; */
     font-family: valoFont;
     /* border: 0.2px solid lightgreen; */
     cursor: pointer;
-    /* justify-self: baseline; */
 
 }
 

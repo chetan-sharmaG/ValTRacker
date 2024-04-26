@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Montserrat', Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    color: white;
+    background: #060708;
+    ;
+}
+
+h1 {
+    margin: 21.44px 0px;
+}
+
+p {
+    margin: 16px 0px;
+}
+
+header {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    position: relative;
+    background-color: #161625 !important;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+nav {
+
+    font-weight: 600;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+nav div:nth-child(1) {
+    font-size: 24;
+    position: relative;
+    left: 100px;
+
+}
+
+div.logoText {
+    display: none;
+    /* justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: 10px; */
+    top: 2%;
+    left: 2%;
+    /* color: red; */
+    z-index: 1;
+    position: absolute;
+    /* justify-content: center; */
+    align-items: center;
+    display: flex;
+    gap: 0px;
+}
+
+nav div:nth-child(2) {
+    font-size: large;
+    position: relative;
+    right: 250px;
+    display: flex;
+    gap: 100px;
+}
+
+p a {
+    text-decoration: none;
+    color: white;
+    text-decoration: underline;
+}
+
+.trn-container {
+    width: 60%;
+    height: 100%;
+    margin: auto;
+}
+
+.legal-sublist {
+    counter-reset: item;
+    list-style-type: none;
+}
+
+.legal-sublist>li {
+    margin: 1em 0;
+}
+
+.legal-sublist>li:before {
+    content: attr(data-id) '.' counter(item, decimal) '.';
+    counter-increment: item;
+    display: inline;
+    padding-right: 1em;
+}
+
+.legal-sublist-roman {
+    list-style: lower-roman;
+    list-style-position: inside;
+}
+
+.legal-sublist-latin {
+    list-style: lower-latin;
+    list-style-position: inside;
+}
+
+.legal-sublist-roman li,
+.legal-sublist-latin li {
+    margin: .5em 0;
+}
+
+.legal-sublist-roman li::before,
+.legal-sublist-latin li::before {
+    content: '';
+    padding-right: 1em;
+}
+
+.legal-sublist-roman p,
+.legal-sublist-latin p {
+    display: inline;
+}
+
+.footer {
+    height: 15vh;
+    width: 100vw;
+    background: hsl(225deg 17.39% 9.02%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footerWrapper {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footerWrapper div span {
+    color: #9098aa;
+}
+
+.footerRow span:last-child {
+    text-decoration-thickness: 0px;
+    text-underline-offset: 4px;
+    text-decoration-line: underline;
+    text-decoration: underline;
+}
+.noDecor{
+    text-decoration: none !important;
+
+}
+ul {
+    gap: 35px;
+    display: flex;
+}
+
+ul li {
+    color: #9098aa;
+    ;
+    list-style: none;
+}

@@ -355,7 +355,7 @@ searchText.addEventListener('input', function (event) {
     var splitCode = text.split('#')
 
 
-    if (text.length > 0) {
+    if (text.length > 1) {
         console.error('test')
         // column1.style.display.height='auto'
         seachedPlayerSideBar.style.display = 'flex'
@@ -365,10 +365,10 @@ searchText.addEventListener('input', function (event) {
         clearButton.style.visibility = 'visible'
         SearchedPlayerDiv.style.backgroundColor = '#323d48'
         if (splitCode[1]) {
-            SearchedPlayerDiv.innerHTML = `<img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${splitCode[0]}</span><span class='tagLine'>#${splitCode[1]}</span>`
+            SearchedPlayerDiv.innerHTML = `<img src="https://static.developer.riotgames.com/img/logo.png" width="40"><span class="textHolder">${splitCode[0]}</span><span class='tagLine'>#${splitCode[1]}</span>`
         }
         else {
-            SearchedPlayerDiv.innerHTML = `<img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${text}</span>`
+            SearchedPlayerDiv.innerHTML = `<img src="https://static.developer.riotgames.com/img/logo.png" width="40"><span class="textHolder">${text}</span>`
         }
 
         // const arrayOfArrays = allPlayer
@@ -409,7 +409,7 @@ searchText.addEventListener('input', function (event) {
         //     startswithName.forEach(individual => {
         //         const MatchingPlayers = document.createElement('div')
         //         MatchingPlayers.classList.add('MatchingPlayers')
-        //         MatchingPlayers.innerHTML = `<a href='/profile/riot/${individual.puuid}/${individual.server}' onclick="addPlayer('${individual.name}','${individual.tag}','${individual.server}','${individual.puuid}');" ><img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${individual.name}</span><span class=tagLine>#${individual.tag}</span></a>`
+        //         MatchingPlayers.innerHTML = `<a href='/profile/riot/${individual.puuid}/${individual.server}' onclick="addPlayer('${individual.name}','${individual.tag}','${individual.server}','${individual.puuid}');" ><img src="https://static.developer.riotgames.com/img/logo.png" width="40"><span class="textHolder">${individual.name}</span><span class=tagLine>#${individual.tag}</span></a>`
         //         DbPlayersBox.appendChild(MatchingPlayers)
         //     })
         // }
@@ -447,10 +447,10 @@ seachedPlayerSideBar.addEventListener('click', () => {
         clearButton.style.visibility = 'visible'
         SearchedPlayerDiv.style.backgroundColor = '#323d48'
         if (splitCode[1]) {
-            SearchedPlayerDiv.innerHTML = `<img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${splitCode[0]}</span><span class='tagLine'>#${splitCode[1]}</span>`
+            SearchedPlayerDiv.innerHTML = `<img src="https://static.developer.riotgames.com/img/logo.png" width="40"><span class="textHolder">${splitCode[0]}</span><span class='tagLine'>#${splitCode[1]}</span>`
         }
         else {
-            SearchedPlayerDiv.innerHTML = `<img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${text}</span>`
+            SearchedPlayerDiv.innerHTML = `<img src="https://static.developer.riotgames.com/img/logo.png" width="40"><span class="textHolder">${text}</span>`
         }
 
         // const arrayOfArrays = allPlayer
@@ -491,7 +491,7 @@ seachedPlayerSideBar.addEventListener('click', () => {
         //     startswithName.forEach(individual => {
         //         const MatchingPlayers = document.createElement('div')
         //         MatchingPlayers.classList.add('MatchingPlayers')
-        //         MatchingPlayers.innerHTML = `<a href='/profile/riot/${individual.puuid}/${individual.server}' onclick="addPlayer('${individual.name}','${individual.tag}','${individual.server}','${individual.puuid}');" ><img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${individual.name}</span><span class=tagLine>#${individual.tag}</span></a>`
+        //         MatchingPlayers.innerHTML = `<a href='/profile/riot/${individual.puuid}/${individual.server}' onclick="addPlayer('${individual.name}','${individual.tag}','${individual.server}','${individual.puuid}');" ><img src="https://static.developer.riotgames.com/img/logo.png" width="40"><span class="textHolder">${individual.name}</span><span class=tagLine>#${individual.tag}</span></a>`
         //         DbPlayersBox.appendChild(MatchingPlayers)
         //     })
         // }
@@ -505,7 +505,7 @@ seachedPlayerSideBar.addEventListener('click', () => {
 function addPlayer(name, tag, server, puuid) {
     const isObjectPresent = recentPlayer.find((o) => o.puuid === puuid);
     if (!isObjectPresent) {
-        recentPlayer.push({ name: username, tag: tagline, server: data.data.region, puuid: data.data.puuid })
+        recentPlayer.push({ name: name, tag: tag, server: server, puuid: data.data.puuid })
         localStorage.setItem('recentPlayer', JSON.stringify(recentPlayer))
     }
     // recentPlayer.push({
@@ -558,7 +558,7 @@ async function searchPlayer() {
             else {
                 const isObjectPresent = recentPlayer.find((o) => o.puuid === data.data.puuid);
                 if (!isObjectPresent) {
-                    recentPlayer.push({ name: username, tag: tagline, server: data.data.region, puuid: data.data.puuid })
+                    recentPlayer.push({ card:data.data.card.small,name: username, tag: tagline, server: data.data.region, puuid: data.data.puuid })
                     localStorage.setItem('recentPlayer', JSON.stringify(recentPlayer))
                 }
                 // recentPlayer.forEach(p=>{
@@ -639,7 +639,7 @@ function updateRecentPlayersList() {
     uniqueRecentPlayer.forEach((individual, index) => {
         var MatchingPlayers = document.createElement('div')
         MatchingPlayers.classList.add('MatchingPlayers')
-        MatchingPlayers.innerHTML = `<a href='/profile/riot/${individual.puuid}/${individual.server}' onclick="addPlayer('${individual.name}','${individual.tag}','${individual.server}','${individual.puuid}');" ><img src="../assets/images/extras/killbanner__1_-removebg-preview.png" width="40"><span class="textHolder">${individual.name}</span><span class=tagLine>#${individual.tag}</span></a><div class='removeRecentP' onclick="removePlayer('${individual.puuid}');" data-index=${individual.puuid}>X</div>`
+        MatchingPlayers.innerHTML = `<a href='/profile/riot/${individual.puuid}/${individual.server}' onclick="addPlayer('${individual.name}','${individual.tag}','${individual.server}','${individual.puuid}');" ><div class="card-holder"><img src=${individual.card}></div><img src="https://static.developer.riotgames.com/img/logo.png" width="40"><span class="textHolder">${individual.name}</span><span class=tagLine>#${individual.tag}</span></a><div class='removeRecentP' onclick="removePlayer('${individual.puuid}');" data-index=${individual.puuid}>X</div>`
         recent.appendChild(MatchingPlayers)
 
     })
