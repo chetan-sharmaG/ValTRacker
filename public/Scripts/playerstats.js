@@ -38,19 +38,19 @@ let region
 document.addEventListener('DOMContentLoaded', async function () {
 
     //Fetching random facts from DB
-    let facts = await fetch('/facts')
-        .then(response => {
-            return response.text(); // Parse response body as JSON
-        })
-        .then(data => {
-            const fact = document.getElementById('funfact')
-            fact.innerText = data
-            console.log(data); // Process the parsed JSON data
-        })
-        .catch(error => {
-            const fact = document.getElementById('funfact')
-            fact.innerText = 'Running with a gold gun is faster than running with a tactical knife.'
-        });
+    // let facts = await fetch('/facts')
+    //     .then(response => {
+    //         return response.text(); // Parse response body as JSON
+    //     })
+    //     .then(data => {
+    //         const fact = document.getElementById('funfact')
+    //         fact.innerText = data
+    //         console.log(data); // Process the parsed JSON data
+    //     })
+    //     .catch(error => {
+    //         const fact = document.getElementById('funfact')
+    //         fact.innerText = 'Running with a gold gun is faster than running with a tactical knife.'
+    //     });
 
     //Getting the url paths for Puuid and region
     const path = window.location.pathname;
@@ -396,14 +396,23 @@ async function updateTopAgents(adToArr) {
     const thirdAgent = document.getElementById('third_top_img')
     thirdAgent.src = 'https://media.valorant-api.com/agents/' + adToArr[2].agentId + '/fullportrait.png'
 
-    let topAgent = document.getElementsByClassName('nameTime')[0]
+    let topAgent = document.getElementsByClassName('nameTime')
     topAgent.innerHTML = ''
-    const housPlayed = convertToHoursMinutes(adToArr[0].hoursPlayed)
-    let updatedData = `<span>${adToArr[0].agent}</span><span>PLAYED ${housPlayed}</span>`
-    topAgent.innerHTML = updatedData
+    // const housPlayedAgent0 = convertToHoursMinutes(adToArr[0].hoursPlayed)
+    // const housPlayedAgent1 = convertToHoursMinutes(adToArr[1].hoursPlayed)
+    // const housPlayedAgent2 = convertToHoursMinutes(adToArr[2].hoursPlayed)
+    
+    for(var i=0;i<3;i++){
+        const updatedData = `<span>${adToArr[i].agent}</span><span>PLAYED ${convertToHoursMinutes(adToArr[i].hoursPlayed)}</span>`
+        topAgent[i].innerHTML = updatedData
+    }
+    // topAgent[0].innerHTML = updatedData
+    // topAgent[1].innerHTML = updatedData
+    // topAgent[2].innerHTML = updatedData
 
     // Update the names of the second and third top agents on the webpage
     let AgentName = document.getElementsByClassName('agent_name')
+    let NameTime = document.getElementsByClassName('nameTime')
     AgentName.innerHTML = ''
     const SecondAgent = `<span id="second_top">${adToArr[1].agent}</span>`
     const ThirdAgent = `<span id="third_top">${adToArr[2].agent}</span>`
@@ -419,25 +428,39 @@ async function updateTopAgents(adToArr) {
     agentWin[1].innerText = ThirdAgentWin
 
     //update the win percentage of the top agent
-    const winpercent = document.getElementsByClassName('Win_Ratio_data')[0]
+    const dmg = document.getElementsByClassName('dmgData')
+    dmg.innerText = ''
+    const kd = document.getElementsByClassName('KdRatio_data')
+    kd.innerText = ''
+    const winpercent = document.getElementsByClassName('Win_Ratio_data')
     winpercent.innerText = ''
-    winpercent.innerText = adToArr[0].winPercentage.toFixed(1) + '%'
+    const tkills = document.getElementsByClassName('abilityCountContainer')
+    tkills.innerHTML=''
+    for(var i=0;i<3;i++){
+        const headshotspercent = ((adToArr[i].headshots / (adToArr[i].headshots + adToArr[i].bodyshots + adToArr[i].legshots)) * 100).toFixed(1)
+        winpercent[i].innerText = adToArr[i].winPercentage.toFixed(1) + '%'
+        kd[i].innerText = adToArr[i].kd.toFixed(2)
+        dmg[i].innerText = adToArr[i].avgDmg.toFixed(2)
+        tkills[i].innerHTML = `<span>${adToArr[i].kills}</span><span>${adToArr[i].assists}</span><span>${headshotspercent}%</span>`
+
+    }
+    // winpercent.innerText = adToArr[0].winPercentage.toFixed(1) + '%'
 
     //update the kd of first 
-    const kd = document.getElementsByClassName('KdRatio_data')[0]
-    kd.innerText = ''
-    kd.innerText = adToArr[0].kd.toFixed(2)
+    // const kd = document.getElementsByClassName('KdRatio_data')
+    // kd.innerText = ''
+   
 
     //update the dmg of firstAgent
-
-    const dmg = document.getElementsByClassName('dmgData')[0]
-    dmg.innerText = ''
-    dmg.innerText = adToArr[0].avgDmg.toFixed(2)
+    // const dmg = document.getElementsByClassName('dmgData')
+    // dmg.innerText = ''
+    
+    // dmg.innerText = adToArr[0].avgDmg.toFixed(2)
 
     //total kills of topAgent
-    const headshotspercent = ((adToArr[0].headshots / (adToArr[0].headshots + adToArr[0].bodyshots + adToArr[0].legshots)) * 100).toFixed(1)
-    const tkills = document.getElementsByClassName('abilityCountContainer')[0]
-    tkills.innerHTML = `<span>${adToArr[0].kills}</span><span>${adToArr[0].assists}</span><span>${headshotspercent}%</span>`
+    // const headshotspercent = ((adToArr[0].headshots / (adToArr[0].headshots + adToArr[0].bodyshots + adToArr[0].legshots)) * 100).toFixed(1)
+    // const tkills = document.getElementsByClassName('abilityCountContainer')[0]
+    // tkills.innerHTML = `<span>${adToArr[0].kills}</span><span>${adToArr[0].assists}</span><span>${headshotspercent}%</span>`
     loadingCounter += 1
 }
 
