@@ -63,10 +63,10 @@ app.use('*.css', function (req, res, next) {
   next();
 });
 
-app.get('/home/privacy',(req,res)=>{
+app.get('/home/privacy', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/privacy.html'));
 })
-app.get('/home/tos',(req,res)=>{
+app.get('/home/tos', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/tac.html'));
 })
 app.get('/agents', (req, res) => {
@@ -100,6 +100,42 @@ app.get('/encrypt', (req, res) => {
   res.send(matchid)
 });
 
+app.get('/:region/:puuid', async (req, res) => {
+  try {
+    const region = req.params.region
+    const uuid = req.params.puuid
+    let a = await fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/lifetime/matches/' + region + '/' + uuid + '?page=1&size=500')
+    let response = await a.json();
+    res.json(response);
+  } catch (error) {
+    res.json(response);
+  }
+
+})
+
+app.get('/rank/:region/:puuid',async(req,res)=>{
+
+  try{
+    const region = req.params.region
+    const uuid = req.params.puuid
+    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/' + region + '/' + uuid)
+    let response = await a.json();
+    res.json(response);
+  } catch (error) {
+    res.json(response);
+  }
+})
+app.get('/account/:puuid',async(req,res)=>{
+
+  try{
+    const uuid = req.params.puuid
+    let a = await  fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/account/' + uuid)
+    let response = await a.json();
+    res.json(response);
+  } catch (error) {
+    res.json(response);
+  }
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
