@@ -1,19 +1,56 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-const MongoClient = require('mongodb').MongoClient
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
+// const  ServerApiVersion  = require('mongodb').MongoClient
+// const MongoClient = require('mongodb').MongoClient
 const http = require("http").createServer(app);
 var favicon = require('serve-favicon');
 const port = process.env.PORT || 3000;
 
+
+// const mongoURI = 'mongodb://localhost:27017';
+const mongoURI = 'mongodb+srv://cs7804:cs7804@cluster0.aqk4ehm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
+
+// const client = new MongoClient(mongoURI);
+const client = new MongoClient(mongoURI, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+async function connectToDb(){
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
+}
+async function performDatabaseOperations(agentName) {
+  try {
+    const database = client.db('valo'); 
+    const collection = database.collection('agents'); 
+
+    
+    const result = await collection.findOne({ displayName: agentName });
+    console.log(result)
+    return result
+  } catch (error) {
+    return error
+  }
+}
 async function getRandomFact() {
-  const uri = 'mongodb://localhost:27017'; // Your MongoDB URI
-  const client = new MongoClient(uri);
+  // const uri = 'mongodb://localhost:27017'; // Your MongoDB URI
+  // const client = new MongoClient(uri);
 
   try {
     await client.connect();
-
-    const database = client.db('testing'); // Replace 'your_database_name' with your actual database name
+    const database = client.db('valo'); // Replace 'your_database_name' with your actual database name
     const collection = database.collection('funFacts');
 
     const count = await collection.countDocuments();
@@ -43,6 +80,7 @@ function encryptMatchID(matchId) {
 
   return encryptedId;
 }
+
 // app.use(express.static(path.join(__dirname, '../VALO TRACKER/public')));
 app.use(express.static('public'));
 app.use(favicon(__dirname + '/public/assets/images/extras/favicon.ico'))
@@ -54,10 +92,24 @@ app.get('/facts', (req, res) => {
   })
 
 })
-
+connectToDb()
+app.use('/', (req, res,next) => {
+  
+ next()
+})
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/Html/index.html'));
 })
+
+app.get('/agent/:agent',async(req,res)=>{
+  const agentName = req.params.agent
+  console.log(agentName)
+  const response = await performDatabaseOperations(agentName)
+  res.send(response)
+
+})
+
+
 app.use('*.css', function (req, res, next) {
   res.header('Content-Type', 'text/css');
   next();
@@ -122,7 +174,8 @@ app.get('/rank/:region/:puuid',async(req,res)=>{
     let response = await a.json();
     res.json(response);
   } catch (error) {
-    res.json(response);
+    console.log(error)
+    res.json(error);
   }
 })
 app.get('/account/:puuid',async(req,res)=>{

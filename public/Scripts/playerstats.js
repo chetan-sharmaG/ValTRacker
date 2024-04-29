@@ -8,15 +8,17 @@ const modes = document.querySelectorAll(".mode-holder .mode")
 
 modes.forEach((mode)=>{
     mode.addEventListener('click',()=>{
-        getData(matchesDetails,'Unrated')
+        modes.forEach(m=>{
+            m.classList.remove('active')
+        })
+        console.error(matchesDetails)
+        mode.classList.add('active')
+        getData(matchesDetails,currentSeason,mode.getAttribute('mode'))
         updateRankInUI(region, uuid, currentSeason)
     })
 })
 
-function mode(mode){
-    getData(matchesDetails, currentSeason,'Unrated')
-    updateRankInUI(region, uuid, currentSeason)
-}
+
 //show & hide options list
 select.addEventListener("click", () => {
     options_list.classList.toggle("active");
@@ -33,7 +35,8 @@ options.forEach((option) => {
         // console.info(option.getAttribute('season'));
         const seasonText = option.innerText; // Retrieve season text
         const seasonValue = option.getAttribute('season'); // Retrieve season value
-        getData(matchesDetails, option.getAttribute('season'))
+        const activeMode = document.getElementsByClassName('active')[0]
+        getData(matchesDetails, option.getAttribute('season'),activeMode.getAttribute('mode'))
         updateRankInUI(region, uuid, option.getAttribute('season'))
         option.classList.add("selected");
         optionsList.classList.toggle("active");
@@ -49,20 +52,20 @@ let region
 
 document.addEventListener('DOMContentLoaded', async function () {
 
-    //Fetching random facts from DB
-    // let facts = await fetch('/facts')
-    //     .then(response => {
-    //         return response.text(); // Parse response body as JSON
-    //     })
-    //     .then(data => {
-    //         const fact = document.getElementById('funfact')
-    //         fact.innerText = data
-    //         console.log(data); // Process the parsed JSON data
-    //     })
-    //     .catch(error => {
-    //         const fact = document.getElementById('funfact')
-    //         fact.innerText = 'Running with a gold gun is faster than running with a tactical knife.'
-    //     });
+    // Fetching random facts from DB
+    let facts = await fetch('/facts')
+        .then(response => {
+            return response.text(); // Parse response body as JSON
+        })
+        .then(data => {
+            const fact = document.getElementById('funfact')
+            fact.innerText = data
+            console.log(data); // Process the parsed JSON data
+        })
+        .catch(error => {
+            const fact = document.getElementById('funfact')
+            fact.innerText = 'Running with a gold gun is faster than running with a tactical knife.'
+        });
 
     //Getting the url paths for Puuid and region
     const path = window.location.pathname;
@@ -70,7 +73,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     region = path.split('/')[4];
     console.error(region)
     updateTagsInUI(uuid)
-
+    // getWeapon()
     //Fetching Current Season Data from DB
     let response = await fetch('/currentSeason')
     let season = await response.text()
@@ -610,7 +613,7 @@ async function getBestMap(ad) {
 
 }
 
-// async function getWeapon() {
+async function getWeapon() {
 
 //     // let a = await fetch('https://api.henrikdev.xyz/valorant/v2/match/b8b2740d-6095-4936-b3aa-cd3775602187')
 //     // let a = await fetch('https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/ap/4838165f-102b-5cc7-a261-616ea821bfcc')
@@ -669,56 +672,55 @@ async function getBestMap(ad) {
 //     //     console.log(b)
 
 //     // })
-//     const ab = await fetch('https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/ap/d3a5b563-f19b-5587-987a-36e49effeef5?size=10')
-//         .then(data => data.json())
-//         .then(data => {
-//             const results = data.data.map(match => {
-//                 const kills = match.kills;
-//                 // console.error(kills)
-//                 const result = kills.reduce((acc, cur) => {
-//                     let userpuuid = cur.killer_puuid;
-//                     let damagegun = cur.damage_weapon_name;
+  const ab = await fetch('https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/ap/d3a5b563-f19b-5587-987a-36e49effeef5?size=10')
+    .then(data => data.json())
+    .then(data => {
+        const results = data.data.map(match => {
+            const kills = match.kills;
+            const result = kills.reduce((acc, cur) => {
+                let userpuuid = cur.killer_puuid;
+                let damagegun = cur.damage_weapon_name;
+                // let display_icon= cur.damage_weapon_assets.display_icon
+                console.log(display_icon)
+                if (userpuuid === 'd3a5b563-f19b-5587-987a-36e49effeef5') {
+                    if (acc[damagegun]) {
+                        acc[damagegun].kills += 1;
+                    } else {
+                        acc[damagegun] = { kills: 1, display_icon: display_icon};
+                    }
+                }
 
-//                     if (userpuuid === 'd3a5b563-f19b-5587-987a-36e49effeef5') {
-//                         if (acc[userpuuid]) {
-//                             if (damagegun in acc[userpuuid]) {
-//                                 acc[userpuuid][damagegun] += 1;
-//                                 // console.error(acc[userpuuid])
-//                             } else {
-//                                 acc[userpuuid][damagegun] = 1;
-//                                 // console.error(acc[userpuuid])
-//                             }
-//                         } else {
-//                             acc[userpuuid] = {};
-//                             acc[userpuuid][damagegun] = 1;
+                return acc;
+            }, {});
+            return result;
+        });
 
-//                         }
-//                     }
+        let totalWeaponCounts = {};
+        let maxKills = 0;
+        let maxKillsWeapon = '';
 
-//                     return acc;
-//                 }, {});
-//                 return result;
-//             });
-//             const totalWeaponCounts = {};
-//             results.forEach(obj => {
-//                 // Iterate over the keys (user IDs) in each object
-//                 for (let userId in obj) {
-//                     // Iterate over the weapons and their counts in each user's object
-//                     for (let weapon in obj[userId]) {
-//                         // Add the count of each weapon to the totalWeaponCounts object
-//                         if (totalWeaponCounts[weapon]) {
-//                             totalWeaponCounts[weapon] += obj[userId][weapon];
-//                         } else {
-//                             totalWeaponCounts[weapon] = obj[userId][weapon];
-//                         }
-//                     }
-//                 }
-//             });
+        results.forEach(obj => {
+            for (let weapon in obj) {
+                if (totalWeaponCounts[weapon]) {
+                    totalWeaponCounts[weapon] += obj[weapon].kills;
+                } else {
+                    totalWeaponCounts[weapon] = obj[weapon].kills;
+                }
 
-//             console.log(totalWeaponCounts);
-//         });
+                if (obj[weapon].kills > maxKills) {
+                    maxKills = obj[weapon].kills;
+                    maxKillsWeapon = weapon;
+                }
+            }
+        });
+       
+        console.log("Total Kills by each gun:", totalWeaponCounts);
+        console.log("Gun with the highest kills:", maxKillsWeapon);
+        // console.log("Display Icon URL of the gun with the highest kills:", results[maxKillsWeapon].display_icon);
+    });
 
-// }
+
+ }
 
 // getWeapon()
 let currentSeasonStartDate = '2024-03-25'
@@ -821,8 +823,7 @@ async function fetchData(arrids) {
 
 //  scrollToNaveen()
 
-
-document.getElementById('closeConatiner').addEventListener('click', () => {
+function closeMatchWindow(){
     const naveenElement = document.getElementsByClassName('matchHighlights')[0];
     const stats = document.getElementsByClassName('season_stats_container')[0]
     const gun = document.getElementsByClassName('top_gun_container')[0]
@@ -845,7 +846,19 @@ document.getElementById('closeConatiner').addEventListener('click', () => {
     roundDetailsWrapper.classList.add('roundDetailsWrapper')
     const roundBox = document.createElement('div')
     roundBox.classList.add('roundBox')
+}
+document.getElementById('closeConatiner').addEventListener('click', () => {
+
+    closeMatchWindow()
+   
 })
+document.body.addEventListener('keydown', function(e) {
+    
+    if (e.key == "Escape") {
+
+      closeMatchWindow()
+    }
+  });
 // Attach the event listener to the parent of all .matchesGrid elements
 
 

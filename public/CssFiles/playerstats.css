@@ -259,13 +259,13 @@ nav div:nth-child(2) {
 
 }
 
-.mode-holder button:hover,
+/* .mode-holder button:hover,
 .mode-holder button:focus {
 
     background-color: #2C3143;
     color: white;
 
-}
+} */
 
 .grid-container {
     /* overflow: hidden; */
@@ -1190,6 +1190,10 @@ option:active {
     margin: 1vh 0vh 0vh 0vh;
 }
 
+.active{
+    background-color: #2C3143 !important;
+    color: white !important;
+}
 .marker {
     border-right: rgb(255 255 255 / 12%) 1px solid;
     margin-top: auto;
@@ -1431,11 +1435,15 @@ option:active {
 .box2 div:last-child {
     font-size: large;
 }
-
+/* .matchHighlights .closeFlex:first-child{
+    grid-row: 1/2;
+    grid-column: 1/2;
+    text-align: end;
+} */
 #closeConatiner {
     padding: 0;
     font-size: large;
-
+    cursor: pointer;
     border: none;
     background: none;
     background-color: transparent;
