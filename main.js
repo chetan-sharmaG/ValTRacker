@@ -15,15 +15,16 @@ const mongoURI = 'mongodb+srv://cs7804:cs7804@cluster0.aqk4ehm.mongodb.net/?retr
 
 
 // const client = new MongoClient(mongoURI);
-const client = new MongoClient(mongoURI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
+const client = new MongoClient(mongoURI)
+//   , {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   }
+// });
 
-async function connectToDb(){
+async function connectToDb() {
   try {
     await client.connect();
     console.log('Connected to MongoDB');
@@ -33,10 +34,10 @@ async function connectToDb(){
 }
 async function performDatabaseOperations(agentName) {
   try {
-    const database = client.db('valo'); 
-    const collection = database.collection('agents'); 
+    const database = client.db('valo');
+    const collection = database.collection('agents');
 
-    
+
     const result = await collection.findOne({ displayName: agentName });
     console.log(result)
     return result
@@ -93,15 +94,16 @@ app.get('/facts', (req, res) => {
 
 })
 connectToDb()
-app.use('/', (req, res,next) => {
-  
- next()
+app.use('/', (req, res, next) => {
+
+  next()
 })
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/Html/index.html'));
 })
 
-app.get('/agent/:agent',async(req,res)=>{
+
+app.get('/agentData/:agent', async (req, res) => {
   const agentName = req.params.agent
   console.log(agentName)
   const response = await performDatabaseOperations(agentName)
@@ -121,6 +123,7 @@ app.get('/home/privacy', (req, res) => {
 app.get('/home/tos', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/tac.html'));
 })
+
 app.get('/agents', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/agents.html'));
 })
@@ -165,9 +168,9 @@ app.get('/:region/:puuid', async (req, res) => {
 
 })
 
-app.get('/rank/:region/:puuid',async(req,res)=>{
+app.get('/rank/:region/:puuid', async (req, res) => {
 
-  try{
+  try {
     const region = req.params.region
     const uuid = req.params.puuid
     let a = await fetch('https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/' + region + '/' + uuid)
@@ -178,11 +181,11 @@ app.get('/rank/:region/:puuid',async(req,res)=>{
     res.json(error);
   }
 })
-app.get('/account/:puuid',async(req,res)=>{
+app.get('/account/:puuid', async (req, res) => {
 
-  try{
+  try {
     const uuid = req.params.puuid
-    let a = await  fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/account/' + uuid)
+    let a = await fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/account/' + uuid)
     let response = await a.json();
     res.json(response);
   } catch (error) {

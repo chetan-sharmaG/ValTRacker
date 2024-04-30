@@ -12,27 +12,28 @@
 <body>
   <header>
     <nav>
-      <div>
-        <h3>VALTRACKER</h3>
-      </div>
-      <div>
-        <a href="/">HOME</a>
-        <a href="/agents">AGENTS</a>
-        <a href="/maps">MAPS</a>
-        <a href="#aa">GUNS</a>
-      </div>
+        <div class="logoText">
+            <img src="assets/images/extras/logo.png" width="70">
+            <h3>VALTRACKER</h3>
+        </div>
+        <div>
+            <a href="#aa">HOME</a>
+            <a href="/agents">AGENTS</a>
+            <a href="/maps">MAPS</a>
+            <a href="#aa">GUNS</a>
+        </div>
     </nav>
-  </header>
+</header>
   <main>
     <section>
       
       <div class="agent-image-container">
         <div class="agent-pfp-container">
-          <img class="img-agent" src="https://vgraphs.com/images/agents/brimstone-avatar.jpg" alt="agent">
+          <img class="img-agent" src="https://media.valorant-api.com/agents/9f0d8ba9-4140-b941-57d3-a7ad57c6b417/displayicon.png" alt="agent">
         </div>
         <div class="agent-pfp-details">
-          <span>BRIMSTONE</span>
-          <span><img
+          <span class="AgentName">BRIMSTONE</span>
+          <span class="role"><img class="roleIcon"
               src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt63e21ca9443dce8e/5eb270f43b09c042ddca1353/Controller.png"
               width="15"> Controller</span>
         </div>
@@ -47,27 +48,27 @@
         <div class="names-container">
           <button class="agent" agent_name="Brimstone">Brimstone</button>
           <button class="agent" agent_name="Viper">Viper</button>
-          <button class="agent">Omen</button>
-          <button class="agent">Breach</button>
-          <button class="agent">Cypher</button>
-          <button class="agent">Sova</button>
-          <button class="agent">Sage</button>
-          <button class="agent">Phoenix</button>
-          <button class="agent">Jett</button>
-          <button class="agent">Reyna</button>
-          <button class="agent">Raze</button>
-          <button class="agent">Killjoy</button>
-          <button class="agent">Skye</button>
-          <button class="agent">Yoru</button>
-          <button class="agent">Astra</button>
-          <button class="agent">KAY/O</button>
-          <button class="agent">Chamber</button>
-          <button class="agent">Neon</button>
-          <button class="agent">Fade</button>
-          <button class="agent">Harbor</button>
-          <button class="agent">Gekko</button>
-          <button class="agent">Iso</button>
-          <button class="agent">Deadlock</button>
+          <button class="agent" agent_name="Omen">Omen</button>
+          <button class="agent" agent_name="Breach">Breach</button>
+          <button class="agent" agent_name="Cypher">Cypher</button>
+          <button class="agent" agent_name="Sova">Sova</button>
+          <button class="agent" agent_name="Sage">Sage</button>
+          <button class="agent" agent_name="Pheonix">Phoenix</button>
+          <button class="agent" agent_name="Jett">Jett</button>
+          <button class="agent" agent_name="Reyna">Reyna</button>
+          <button class="agent" agent_name="Raze">Raze</button>
+          <button class="agent" agent_name="Killjoy">Killjoy</button>
+          <button class="agent" agent_name="Skye">Skye</button>
+          <button class="agent" agent_name="Yoru">Yoru</button>
+          <button class="agent" agent_name="Astra">Astra</button>
+          <button class="agent" agent_name="KAYO">KAY/O</button>
+          <button class="agent" agent_name="Chamber">Chamber</button>
+          <button class="agent" agent_name="Neon">Neon</button>
+          <button class="agent" agent_name="Fade">Fade</button>
+          <button class="agent" agent_name="Harbor">Harbor</button>
+          <button class="agent" agent_name="">Gekko</button>
+          <button class="agent" agent_name="Iso">Iso</button>
+          <button class="agent" agent_name="Deadlock">Deadlock</button>
 
 
         </div>
@@ -77,7 +78,7 @@
       <div class="agent-about">
         <div class="agent-full-image">
           <img id="agentImage"
-            src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt26fcf1b5752514ee/5eb7cdbfc1dc88298d5d3799/V_AGENTS_587x900_Brimstone.png">
+            src="https://media.valorant-api.com/agents/9f0d8ba9-4140-b941-57d3-a7ad57c6b417/fullportrait.png">
         </div>
         <div class="agent_about_details">
           <span class="bio">//BIOGRAPHY</span>
@@ -94,31 +95,32 @@
 
         <div class="ability_container">
           <h1><span class="underline"> SPECIAL ABILITIES</span></h1>
-          <div class="wrapper">
-            <div class="wrapper-icons" id="ab">
-              <img src="/assets/images/brimstione/Property 1=q-Brimstone_Incendiary.png">
+          <div class="wrapper" >
+            <div class="wrapper-icons active1" key="Q" >
+              <img id="ability1"  src="/assets/images/brimstione/Property 1=q-Brimstone_Incendiary.png">
             </div>
-            <div class="wrapper-icons">
-              <img src="/assets/images/brimstione/Property 1=e-Brimstone_Sky_Smoke.png">
+            <div class="wrapper-icons" key="E">
+              <img id="ability2"  src="/assets/images/brimstione/Property 1=e-Brimstone_Sky_Smoke.png">
             </div>
-            <div class="wrapper-icons">
-              <img src="/assets/images/brimstione/Property 1=c-Brimstone_Stim_Beacon.png">
+            <div class="wrapper-icons" key="C">
+              <img id="ability3"  src="/assets/images/brimstione/Property 1=c-Brimstone_Stim_Beacon.png">
             </div>
-            <div class="wrapper-icons">
-              <img src="/assets/images/brimstione/Property 1=x-Brimstone_Orbital_Strike.png">
+            <div class="wrapper-icons" key="X">
+              <img id="ability4" src="/assets/images/brimstione/Property 1=x-Brimstone_Orbital_Strike.png">
             </div>
           </div>
           <div class="abilities_box">
             <div class="abilities-description-wrapper">
               <h1> Q - CURVEBALL</h1>
-              <span>EQUIP a flare orb that takes a curving path and detonates shortly after throwing. FIRE to curve the
+              <span class="abilityDesc">EQUIP a flare orb that takes a curving path and detonates shortly after throwing. FIRE to curve the
                 flare orb to the left, detonating and blinding any player who sees the orb. ALTERNATE FIRE to curve the
                 flare orb to the right.</span>
             </div>
           </div>
           <div class="ability_player">
-            <video preload="true" autoplay muted loop>
-              <source
+            <!-- preload="true" -->
+            <video id="abiltyVideo"  autoplay muted loop>
+              <source 
                 src="https://assets.contentstack.io/v3/assets/bltb6530b271fddd0b1/blte2b9eb1923ef64fa/5ecad7d0f5bd13348a6cac75/Brimstone_Q_v001_web.mp4"
                 type="video/mp4">
             </video>

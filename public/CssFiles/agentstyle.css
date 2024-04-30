@@ -17,11 +17,44 @@ body{
 
 }
 header {
+    /* Newly added */
+    /* display: none; */
     width: 100vw;
     position: relative;
     background-color: #161625;
     border-bottom: 1px solid black;
-    /* background-color: black; */
+    /* outline: 1px solid black; */
+}
+
+a {
+    text-decoration: none;
+}
+
+nav {
+
+    font-weight: 600;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+div.logoText{
+    display: none;
+    /* justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: 10px; */
+    top: 2%;
+    left: 2%;
+    /* color: red; */
+    z-index: 1;
+    position: absolute;
+    /* justify-content: center; */
+    align-items: center;
+    display: flex;
+    gap: 0px;
 }
 #agentImage{
     object-fit: cover;
@@ -39,23 +72,16 @@ a {
     text-decoration: none;
 }
 
-nav {
-
-    font-weight: 600;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-}
-
 nav div:nth-child(1) {
     font-size: 24;
     position: relative;
     left: 100px;
 
 }
-
+.agent-number::first-letter{
+    color: yellow;
+    font-size: x-large;
+}
 nav div:nth-child(2) {
     font-size: large;
     position: relative;
@@ -137,7 +163,10 @@ nav div:nth-child(2) {
     /* border: 1px solid yellow; */
 
 }
-
+.active1{
+    border: 1px solid orange !important;
+    background-color: #CF3D4B !important;
+}
 .names-container button {
     
     outline: none;
