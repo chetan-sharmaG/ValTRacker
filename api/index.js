@@ -17,14 +17,14 @@ console.log(process.env.mongoDb)
 
 
 // const client = new MongoClient(mongoURI);
-const client = new MongoClient(mongoURI)
-//   , {
-//   serverApi: {
-//     version: ServerApiVersion.v1,
-//     strict: true,
-//     deprecationErrors: true,
-//   }
-// });
+const client = new MongoClient(mongoURI
+  , {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });
 
 async function connectToDb() {
   try {
