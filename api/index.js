@@ -13,6 +13,7 @@ dotenv.config();
 
 // const mongoURI = 'mongodb://localhost:27017';
 const mongoURI = process.env.mongoDb
+console.log(process.env.mongoDb)
 
 
 // const client = new MongoClient(mongoURI);
@@ -120,18 +121,18 @@ app.use('*.css', function (req, res, next) {
 });
 
 app.get('/home/privacy', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views/privacy.html'));
+  res.sendFile(path.join(__dirname, '../views/privacy.html'));
 })
 app.get('/home/tos', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views/tac.html'));
+  res.sendFile(path.join(__dirname, '../views/tac.html'));
 })
 
 app.get('/agents', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views/agents.html'));
+  res.sendFile(path.join(__dirname, '../views/agents.html'));
 })
 
 app.get('/maps', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views/maps.html'));
+  res.sendFile(path.join(__dirname, '../views/maps.html'));
 })
 
 app.get('/post-data', (req, res) => {
@@ -141,7 +142,7 @@ app.get('/post-data', (req, res) => {
 
 app.get('/profile/riot/:puuid/:region', (req, res) => {
 
-  res.sendFile(path.join(__dirname, 'views/playerstats.html'));
+  res.sendFile(path.join(__dirname, '../views/playerstats.html'));
 })
 
 app.get('/currentSeason', (req, res) => {
