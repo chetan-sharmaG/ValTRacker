@@ -93,7 +93,7 @@ app.get('/facts', (req, res) => {
   })
 
 })
-connectToDb()
+// connectToDb()
 app.use('/', (req, res, next) => {
 
   next()
