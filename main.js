@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const app = express()
+const dotenv = require('dotenv');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 // const  ServerApiVersion  = require('mongodb').MongoClient
@@ -8,10 +9,10 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const http = require("http").createServer(app);
 var favicon = require('serve-favicon');
 const port = process.env.PORT || 3000;
-
+dotenv.config();
 
 // const mongoURI = 'mongodb://localhost:27017';
-const mongoURI = 'mongodb+srv://cs7804:cs7804@cluster0.aqk4ehm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoURI = process.env.mongoDb
 
 
 // const client = new MongoClient(mongoURI);
