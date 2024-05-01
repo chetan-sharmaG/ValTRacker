@@ -84,8 +84,8 @@ function encryptMatchID(matchId) {
 }
 
 // app.use(express.static(path.join(__dirname, '../VALO TRACKER/public')));
-app.use(express.static('public'));
-// app.use(favicon('ValTracker/public/assets/images/extras/favicon.ico'))
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(favicon(path.join(__dirname, '../public/assets/images/extras/favicon.ico')))
 app.get('/facts', (req, res) => {
 
   getRandomFact().then((fact) => {
