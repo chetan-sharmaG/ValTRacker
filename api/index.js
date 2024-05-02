@@ -40,6 +40,7 @@ async function getAllAgentsData() {
       const database = client.db('valo');
       const collection = database.collection('agents');
       allAgentsData = await collection.find({}).toArray();
+      await client.close()
     } catch (error) {
       console.error("Error fetching all agents data:", error);
       throw error; // Re-throwing error to be handled by caller
