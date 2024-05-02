@@ -1,4 +1,6 @@
 function cron(){
+    const now = new Date();
+
     const options = {
         timeZone: 'Asia/Kolkata', // Set timezone to IST
         hour12: false, // Use 24-hour format
@@ -13,7 +15,7 @@ function cron(){
       // Format the date according to IST
       const istDateString = now.toLocaleString('en-IN', options);
       
-      console.warn(istDateString);
+      console.error(istDateString);
     
 }
 
