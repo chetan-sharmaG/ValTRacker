@@ -12,7 +12,7 @@ const port = process.env.PORT || 4000;
 dotenv.config();
 
 // const mongoURI = 'mongodb://localhost:27017';
-const mongoURI = process.env.mongoDb
+const mongoURI = process.env.MONGODB
 console.log(process.env.mongoDb)
 
 
