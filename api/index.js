@@ -119,9 +119,24 @@ function encryptMatchID(matchId) {
   return encryptedId;
 }
 
-app.get('/cron', (req, res) => {
-  cron(); // Call the cron job function
-  res.send('Cron job executed');
+app.get('/cron', async(req, res) => {
+  console.error('Cron job executing');
+  // cron(); // Call the cron job function
+  console.warn('Inside PushData')
+  connectToDb()
+  console.warn('Connected to DB')
+  try {
+    const db = client.db('valo');
+    await UploadData(db, 'EUDATA', 'eu');
+    await UploadData(db, 'NADATA', 'na');
+    await UploadData(db, 'APDATA', 'ap');
+    await UploadData(db, 'KRDATA', 'kr');
+    await UploadData(db, 'BRDATA', 'br');
+} catch (error) {
+    console.log(error);
+    // res.send('Error');
+}
+  
 });
 // app.use(express.static(path.join(__dirname, '../VALO TRACKER/public')));
 app.use(express.static(path.join(__dirname, '../public')));
