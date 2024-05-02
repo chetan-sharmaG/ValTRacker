@@ -12,7 +12,7 @@ dotenv.config();
 
 // const mongoURI = 'mongodb://localhost:27017';
 const mongoURI = process.env.MONGODB
-console.log(process.env.mongoDb)
+console.log(process.env.MONGODB)
 
 
 // const client = new MongoClient(mongoURI);
