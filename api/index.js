@@ -273,16 +273,20 @@ async function UploadData(db, collectionName, server) {
   console.warn(` 1 - inside ${collectionName}`)
   try {
     const collection = db.collection(collectionName);
-    const count = await collection.countDocuments();
-    if (count === 0) {
+    const collectionExists = await collection.listIndexes().toArray().length > 0;
+
+    if (!collectionExists) {
       await db.createCollection(collectionName, {});
-      console.warn(" 2 - Creating colection:" + collectionName)
+      console.warn(" 2 - Creating collection:" + collectionName);
     } else {
       await collection.deleteMany({});
-      console.warn(" 2 - Deleting colection data :" + collectionName)
+      console.warn(" 2 - Deleting collection data :" + collectionName);
     }
     console.warn(` 3 -fetching Data`)
     const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data for ${server}: ${response.statusText}`);
+  }
     const data = await response.json();
     await collection.insertMany([data]);
     console.warn(` 4 - loaded the Data Data`)
