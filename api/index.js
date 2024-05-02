@@ -3,9 +3,7 @@ const path = require('path')
 const app = express()
 const dotenv = require('dotenv');
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
-// const  ServerApiVersion  = require('mongodb').MongoClient
-// const MongoClient = require('mongodb').MongoClient
+const { cron } = require('./cron.js');
 const http = require("http").createServer(app);
 var favicon = require('serve-favicon');
 const port = process.env.PORT || 4000;
@@ -119,6 +117,9 @@ function encryptMatchID(matchId) {
   return encryptedId;
 }
 
+app.use('/cron', (req,res)=>{
+  cron()
+});
 // app.use(express.static(path.join(__dirname, '../VALO TRACKER/public')));
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(favicon(path.join(__dirname, '../public/assets/images/extras/favicon.ico')))
