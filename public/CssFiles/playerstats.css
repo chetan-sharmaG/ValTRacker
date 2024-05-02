@@ -95,9 +95,9 @@ main {
     overflow: hidden;
 }
 
-/* .visiblity {
+.visiblity {
     display: none;
-} */
+}
 
 
 @property --p {

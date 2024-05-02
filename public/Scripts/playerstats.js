@@ -416,15 +416,33 @@ async function updateTopAgents(adToArr) {
         } else {
             console.error("No element with class 'img-holder' found.");
         }
-
-        const agentImgTag = document.getElementById('first_top_img')
-        agentImgTag.src = 'https://media.valorant-api.com/agents/' + adToArr[0].agentId + '/fullportrait.png'
-        const secondAgent = document.getElementById('second_top_img')
-        secondAgent.src = 'https://media.valorant-api.com/agents/' + adToArr[1].agentId + '/fullportrait.png'
-        const thirdAgent = document.getElementById('third_top_img')
-        thirdAgent.src = 'https://media.valorant-api.com/agents/' + adToArr[2].agentId + '/fullportrait.png'
-
         let topAgent = document.getElementsByClassName('nameTime')
+        let AgentName = document.getElementsByClassName('agent_name')
+        let NameTime = document.getElementsByClassName('nameTime')
+        AgentName.innerHTML = ''
+        const SecondAgent = `<span id="second_top">${adToArr[1].agent}</span>`
+        const ThirdAgent = `<span id="third_top">${adToArr[2].agent}</span>`
+        try{
+            const agentImgTag = document.getElementById('first_top_img')
+            agentImgTag.src = 'https://media.valorant-api.com/agents/' + adToArr[0].agentId + '/fullportrait.png'
+            const secondAgent = document.getElementById('second_top_img')
+            secondAgent.src = 'https://media.valorant-api.com/agents/' + adToArr[1].agentId + '/fullportrait.png'
+            const thirdAgent = document.getElementById('third_top_img')
+            thirdAgent.src = 'https://media.valorant-api.com/agents/' + adToArr[2].agentId + '/fullportrait.png'
+    
+        }
+        catch(error){
+            console.error(error)
+            if(adToArr.length<2){
+                const agentImgTag = document.getElementById('first_top_img')
+                agentImgTag.src = 'https://media.valorant-api.com/agents/' + adToArr[0].agentId + '/fullportrait.png'
+                const secondAgent = document.getElementById('second_top_img')
+                secondAgent.src = 'https://media.valorant-api.com/agents/' + adToArr[1].agentId + '/fullportrait.png'
+                const thirdAgent = document.getElementById('third_top_img')
+            }
+        }
+        
+        
         topAgent.innerHTML = ''
         // const housPlayedAgent0 = convertToHoursMinutes(adToArr[0].hoursPlayed)
         // const housPlayedAgent1 = convertToHoursMinutes(adToArr[1].hoursPlayed)
@@ -439,11 +457,8 @@ async function updateTopAgents(adToArr) {
         // topAgent[2].innerHTML = updatedData
 
         // Update the names of the second and third top agents on the webpage
-        let AgentName = document.getElementsByClassName('agent_name')
-        let NameTime = document.getElementsByClassName('nameTime')
-        AgentName.innerHTML = ''
-        const SecondAgent = `<span id="second_top">${adToArr[1].agent}</span>`
-        const ThirdAgent = `<span id="third_top">${adToArr[2].agent}</span>`
+       
+        
         AgentName[0].innerHTML = SecondAgent
         AgentName[1].innerHTML = ThirdAgent
 
