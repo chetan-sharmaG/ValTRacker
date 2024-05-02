@@ -1,5 +1,5 @@
 function cron(){
-    console.error('Fetch Method');
+    console.error(Date.now());
     
 }
 

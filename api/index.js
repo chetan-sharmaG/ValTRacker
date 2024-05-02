@@ -121,10 +121,9 @@ function encryptMatchID(matchId) {
 
 app.get('/cron', async(req, res) => {
   console.error('Cron job executing');
-  // cron(); // Call the cron job function
+  cron(); // Call the cron job function
   console.warn('Inside PushData')
   await connectToDb()
-  console.warn('Connected to DB')
   try {
     const db = client.db('valo');
     await UploadData(db, 'EUDATA', 'eu');
@@ -136,6 +135,7 @@ app.get('/cron', async(req, res) => {
     console.log(error);
     // res.send('Error');
 }
+console.error('Cron job executed');
   
 });
 // app.use(express.static(path.join(__dirname, '../VALO TRACKER/public')));
@@ -250,23 +250,23 @@ app.get('/account/:puuid', async (req, res) => {
   }
 })
 
-app.get('/pushData',async(req,res)=>{
-  console.warn('Inside PushData')
-  connectToDb()
-  console.warn('Connected to DB')
-  try {
-    const db = client.db('valo');
-    await UploadData(db, 'EUDATA', 'eu');
-    await UploadData(db, 'NADATA', 'na');
-    await UploadData(db, 'APDATA', 'ap');
-    await UploadData(db, 'KRDATA', 'kr');
-    await UploadData(db, 'BRDATA', 'br');
-} catch (error) {
-    console.log(error);
-    res.send('Error');
-}
+// app.get('/pushData',async(req,res)=>{
+//   console.warn('Inside PushData')
+//   connectToDb()
+//   console.warn('Connected to DB')
+//   try {
+//     const db = client.db('valo');
+//     await UploadData(db, 'EUDATA', 'eu');
+//     await UploadData(db, 'NADATA', 'na');
+//     await UploadData(db, 'APDATA', 'ap');
+//     await UploadData(db, 'KRDATA', 'kr');
+//     await UploadData(db, 'BRDATA', 'br');
+// } catch (error) {
+//     console.log(error);
+//     res.send('Error');
+// }
 
-})
+// })
 
 async function UploadData(db , collectionName,server){
   console.warn(`inside ${collectionName}`)
