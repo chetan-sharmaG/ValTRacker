@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // updateTopPlayers()
     // fetchKrServerData()
     // fetchBrServerData()
-    updateLeaderboard(euServer)
+    // updateLeaderboard(euServer)
 
 })
 
@@ -35,9 +35,10 @@ async function getTopPLayers(list) {
 
 }
 async function fetchEuServerData() {
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/eu')
+    let a = await fetch('/EuServer')
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             data.players[0]['server'] = 'EU';
             getTopPLayers(data.players[0]);
             for (var i = 0; i < 10; i++) {
@@ -63,7 +64,7 @@ async function fetchEuServerData() {
         })
 }
 async function fetchApServerData() {
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/ap')
+    let a = await fetch('/ApServer')
         .then(response => response.json())
         .then(data => {
             data.players[0]['server'] = 'AP';
@@ -90,7 +91,7 @@ async function fetchApServerData() {
 }
 
 async function fetchNaServerData() {
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/na')
+    let a = await fetch('/NaServer')
         .then(response => response.json())
         .then(data => {
             data.players[0]['server'] = 'NA';
@@ -117,7 +118,7 @@ async function fetchNaServerData() {
         })
 }
 async function fetchKrServerData() {
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/kr')
+    let a = await fetch('/KrServer')
         .then(response => response.json())
         .then(data => {
             data.players[0]['server'] = 'KR';
@@ -140,7 +141,7 @@ async function fetchKrServerData() {
         })
 }
 async function fetchBrServerData() {
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/br')
+    let a = await fetch('/BrServer')
         .then(response => response.json())
         .then(data => {
             data.players[0]['server'] = 'BR';

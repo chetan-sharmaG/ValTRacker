@@ -132,7 +132,7 @@ app.get('/cron', async (req, res) => {
       UploadDataAP(db, 'APDATA', 'ap'),
       UploadDataKR(db, 'KRDATA', 'kr'),
       UploadDataBR(db, 'BRDATA', 'br')
-  ]);
+    ]);
   } catch (error) {
     console.log(`Error occured during method calss ${error}`);
     // res.send('Error');
@@ -295,7 +295,7 @@ async function UploadDataEU(db, collectionName, server) {
 
     if (!response.ok) {
       throw new Error(`Failed to fetch data for ${server}: ${response.statusText}`);
-    
+
     }
     const data = await response.json();
     await collection.insertMany([data]);
@@ -304,9 +304,9 @@ async function UploadDataEU(db, collectionName, server) {
   } catch (error) {
     if (error.name === 'AbortError') {
       console.log(`Request aborted for ${server}`);
-  } else {
+    } else {
       console.log(" 6 - Some Error came" + error);
-  }
+    }
   }
 }
 async function UploadDataNA(db, collectionName, server) {
@@ -334,7 +334,7 @@ async function UploadDataNA(db, collectionName, server) {
 
     if (!response.ok) {
       throw new Error(`Failed to fetch data for ${server}: ${response.statusText}`);
-    
+
     }
     const data = await response.json();
     await collection.insertMany([data]);
@@ -343,9 +343,9 @@ async function UploadDataNA(db, collectionName, server) {
   } catch (error) {
     if (error.name === 'AbortError') {
       console.log(`Request aborted for ${server}`);
-  } else {
+    } else {
       console.log(" 6 - Some Error came" + error);
-  }
+    }
   }
 }
 async function UploadDataAP(db, collectionName, server) {
@@ -373,7 +373,7 @@ async function UploadDataAP(db, collectionName, server) {
 
     if (!response.ok) {
       throw new Error(`Failed to fetch data for ${server}: ${response.statusText}`);
-    
+
     }
     const data = await response.json();
     await collection.insertMany([data]);
@@ -382,9 +382,9 @@ async function UploadDataAP(db, collectionName, server) {
   } catch (error) {
     if (error.name === 'AbortError') {
       console.log(`Request aborted for ${server}`);
-  } else {
+    } else {
       console.log(" 6 - Some Error came" + error);
-  }
+    }
   }
 }
 async function UploadDataKR(db, collectionName, server) {
@@ -412,7 +412,7 @@ async function UploadDataKR(db, collectionName, server) {
 
     if (!response.ok) {
       throw new Error(`Failed to fetch data for ${server}: ${response.statusText}`);
-    
+
     }
     const data = await response.json();
     await collection.insertMany([data]);
@@ -421,9 +421,9 @@ async function UploadDataKR(db, collectionName, server) {
   } catch (error) {
     if (error.name === 'AbortError') {
       console.log(`Request aborted for ${server}`);
-  } else {
+    } else {
       console.log(" 6 - Some Error came" + error);
-  }
+    }
   }
 }
 async function UploadDataBR(db, collectionName, server) {
@@ -451,7 +451,7 @@ async function UploadDataBR(db, collectionName, server) {
 
     if (!response.ok) {
       throw new Error(`Failed to fetch data for ${server}: ${response.statusText}`);
-    
+
     }
     const data = await response.json();
     await collection.insertMany([data]);
@@ -460,11 +460,69 @@ async function UploadDataBR(db, collectionName, server) {
   } catch (error) {
     if (error.name === 'AbortError') {
       console.log(`Request aborted for ${server}`);
-  } else {
+    } else {
       console.log(" 6 - Some Error came" + error);
-  }
+    }
   }
 }
+
+
+app.get('/EuServer', async (req, res) => {
+  try {
+    await connectToDb()
+    const db = client.db('valo');
+    const collection = db.collection('EUDATA')
+    const data = await collection.find({}).toArray()
+    res.send(data[0])
+  } catch (error) {
+    console.error('Error at /EUServer ' + error)
+  }
+})
+app.get('/NaServer', async (req, res) => {
+  try {
+    await connectToDb()
+    const db = client.db('valo');
+    const collection = db.collection('NADATA')
+    const data = await collection.find({}).toArray()
+    res.send(data[0])
+  } catch (error) {
+    console.error('Error at /NAServer ' + error)
+  }
+})
+app.get('/ApServer', async (req, res) => {
+  try {
+    await connectToDb()
+    const db = client.db('valo');
+    const collection = db.collection('APDATA')
+    const data = await collection.find({}).toArray()
+    res.send(data[0])
+  } catch (error) {
+    console.error('Error at /EUServer ' + error)
+  }
+})
+app.get('/KrServer', async (req, res) => {
+  try {
+    await connectToDb()
+    const db = client.db('valo');
+    const collection = db.collection('KRDATA')
+    const data = await collection.find({}).toArray()
+    res.send(data[0])
+  } catch (error) {
+    console.error('Error at /KRServer ' + error)
+  }
+})
+app.get('/BrServer', async (req, res) => {
+  try {
+    await connectToDb()
+    const db = client.db('valo');
+    const collection = db.collection('BRDATA')
+    const data = await collection.find({}).toArray()
+    res.send(data[0])
+  } catch (error) {
+    console.error('Error at /BRServer ' + error)
+  }
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

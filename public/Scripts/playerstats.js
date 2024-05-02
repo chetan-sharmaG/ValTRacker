@@ -1,6 +1,5 @@
 
 
-
 const select = document.querySelector(".select");
 const options_list = document.querySelector(".options-list");
 const options = document.querySelectorAll(".option");
@@ -149,8 +148,7 @@ async function updateTagsInUI(uuid) {
 
     let tags = fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/account/' + uuid)
         .then(response => response.json())
-        .then(response => {
-
+        .then(response=>{
             const name = response.data.name
             const tag = response.data.tag
             const lvl = response.data.account_level
@@ -161,6 +159,8 @@ async function updateTagsInUI(uuid) {
             tagElement.innerHTML = name + '#' + tag
             levelElement.innerHTML = 'Lvl:' + lvl
             playerCard.src = bannerSrc
+        }).catch(error=>{
+            console.error(error)
         })
 }
 function checkDataIsReady(onDataLoaded) {

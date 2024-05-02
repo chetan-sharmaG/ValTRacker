@@ -7,10 +7,10 @@
 
 }
 
-@font-face {
+/* @font-face {
     font-family: mono;
     src: url(/public/assets/External_Fonts/mono/Google-Sans-Mono-Regular.ttf);
-}
+} */
 
 * {
     scroll-behavior: smooth;
