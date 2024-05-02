@@ -6,6 +6,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const  cron  = require('./cron.js');
 const http = require("http").createServer(app);
 var favicon = require('serve-favicon');
+const { error } = require('console');
 const port = process.env.PORT || 4000;
 dotenv.config();
 
@@ -234,6 +235,38 @@ app.get('/account/:puuid', async (req, res) => {
   }
 })
 
+app.get('/pushData',async(req,res)=>{
+
+  try {
+    const db = client.db('valo');
+    await UploadData(db, 'EUDATA', 'eu', res);
+    await UploadData(db, 'NADATA', 'na', res);
+    await UploadData(db, 'APDATA', 'ap', res);
+    await UploadData(db, 'KRDATA', 'kr', res);
+    await UploadData(db, 'BRDATA', 'br', res);
+} catch (error) {
+    console.log(error);
+    res.send('Error');
+}
+
+})
+
+async function UploadData(db , collection,server){
+  try {
+    const collection = db.collection(collection);
+    const count = await collection.countDocuments();
+    if (count === 0) {
+        await db.createCollection(collection, {});
+    }
+    await collection.deleteMany({});
+    const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server);
+    const data = await response.json();
+    await collection.insertMany([data]);
+   
+} catch (error) {
+    console.log(error);
+}
+}
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
