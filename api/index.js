@@ -123,7 +123,7 @@ app.get('/cron', async(req, res) => {
   console.error('Cron job executing');
   // cron(); // Call the cron job function
   console.warn('Inside PushData')
-  connectToDb()
+  await connectToDb()
   console.warn('Connected to DB')
   try {
     const db = client.db('valo');
