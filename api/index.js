@@ -117,8 +117,9 @@ function encryptMatchID(matchId) {
   return encryptedId;
 }
 
-app.use('/cron', (req,res)=>{
-  cron()
+app.get('/cron', (req, res) => {
+  cron(); // Call the cron job function
+  res.send('Cron job executed');
 });
 // app.use(express.static(path.join(__dirname, '../VALO TRACKER/public')));
 app.use(express.static(path.join(__dirname, '../public')));
