@@ -126,13 +126,15 @@ app.get('/cron', async (req, res) => {
   await connectToDb()
   try {
     const db = client.db('valo');
-    await UploadData(db, 'EUDATA', 'eu');
-    await UploadData(db, 'NADATA', 'na');
-    await UploadData(db, 'APDATA', 'ap');
-    await UploadData(db, 'KRDATA', 'kr');
-    await UploadData(db, 'BRDATA', 'br');
+    await Promise.all([
+      UploadDataEU(db, 'EUDATA', 'eu'),
+      UploadDataNA(db, 'NADATA', 'na'),
+      UploadDataAP(db, 'APDATA', 'ap'),
+      UploadDataKR(db, 'KRDATA', 'kr'),
+      UploadDataBR(db, 'BRDATA', 'br')
+  ]);
   } catch (error) {
-    console.log(error);
+    console.log(`Error occured during method calss ${error}`);
     // res.send('Error');
   }
   console.error('Cron job executed');
@@ -268,7 +270,163 @@ app.get('/account/:puuid', async (req, res) => {
 
 // })
 
-async function UploadData(db, collectionName, server) {
+async function UploadDataEU(db, collectionName, server) {
+  console.warn(`--------------------------${collectionName}-----------------------`)
+  console.warn(` 1 - inside ${collectionName}`)
+  try {
+    const collection = db.collection(collectionName);
+    const count = await collection.countDocuments();
+    if (count === 0) {
+      await db.createCollection(collectionName, {});
+      console.warn(" 2 - Creating colection:" + collectionName)
+    } else {
+      await collection.deleteMany({});
+      console.warn(" 2 - Deleting colection data :" + collectionName)
+    }
+    console.warn(` 3 -fetching Data frpm https://api.henrikdev.xyz/valorant/v2/leaderboard/${server}`)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout after 10 seconds
+
+    const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server, {
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data for ${server}: ${response.statusText}`);
+    
+    }
+    const data = await response.json();
+    await collection.insertMany([data]);
+    console.warn(` 4 - loaded the Data Data`)
+
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log(`Request aborted for ${server}`);
+  } else {
+      console.log(" 6 - Some Error came" + error);
+  }
+  }
+}
+async function UploadDataNA(db, collectionName, server) {
+  console.warn(`--------------------------${collectionName}-----------------------`)
+  console.warn(` 1 - inside ${collectionName}`)
+  try {
+    const collection = db.collection(collectionName);
+    const count = await collection.countDocuments();
+    if (count === 0) {
+      await db.createCollection(collectionName, {});
+      console.warn(" 2 - Creating colection:" + collectionName)
+    } else {
+      await collection.deleteMany({});
+      console.warn(" 2 - Deleting colection data :" + collectionName)
+    }
+    console.warn(` 3 -fetching Data frpm https://api.henrikdev.xyz/valorant/v2/leaderboard/${server}`)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout after 10 seconds
+
+    const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server, {
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data for ${server}: ${response.statusText}`);
+    
+    }
+    const data = await response.json();
+    await collection.insertMany([data]);
+    console.warn(` 4 - loaded the Data Data`)
+
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log(`Request aborted for ${server}`);
+  } else {
+      console.log(" 6 - Some Error came" + error);
+  }
+  }
+}
+async function UploadDataAP(db, collectionName, server) {
+  console.warn(`--------------------------${collectionName}-----------------------`)
+  console.warn(` 1 - inside ${collectionName}`)
+  try {
+    const collection = db.collection(collectionName);
+    const count = await collection.countDocuments();
+    if (count === 0) {
+      await db.createCollection(collectionName, {});
+      console.warn(" 2 - Creating colection:" + collectionName)
+    } else {
+      await collection.deleteMany({});
+      console.warn(" 2 - Deleting colection data :" + collectionName)
+    }
+    console.warn(` 3 -fetching Data frpm https://api.henrikdev.xyz/valorant/v2/leaderboard/${server}`)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout after 10 seconds
+
+    const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server, {
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data for ${server}: ${response.statusText}`);
+    
+    }
+    const data = await response.json();
+    await collection.insertMany([data]);
+    console.warn(` 4 - loaded the Data Data`)
+
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log(`Request aborted for ${server}`);
+  } else {
+      console.log(" 6 - Some Error came" + error);
+  }
+  }
+}
+async function UploadDataKR(db, collectionName, server) {
+  console.warn(`--------------------------${collectionName}-----------------------`)
+  console.warn(` 1 - inside ${collectionName}`)
+  try {
+    const collection = db.collection(collectionName);
+    const count = await collection.countDocuments();
+    if (count === 0) {
+      await db.createCollection(collectionName, {});
+      console.warn(" 2 - Creating colection:" + collectionName)
+    } else {
+      await collection.deleteMany({});
+      console.warn(" 2 - Deleting colection data :" + collectionName)
+    }
+    console.warn(` 3 -fetching Data frpm https://api.henrikdev.xyz/valorant/v2/leaderboard/${server}`)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout after 10 seconds
+
+    const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server, {
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data for ${server}: ${response.statusText}`);
+    
+    }
+    const data = await response.json();
+    await collection.insertMany([data]);
+    console.warn(` 4 - loaded the Data Data`)
+
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log(`Request aborted for ${server}`);
+  } else {
+      console.log(" 6 - Some Error came" + error);
+  }
+  }
+}
+async function UploadDataBR(db, collectionName, server) {
   console.warn(`--------------------------${collectionName}-----------------------`)
   console.warn(` 1 - inside ${collectionName}`)
   try {
