@@ -149,7 +149,7 @@ app.get('/facts', (req, res) => {
   })
 
 })
-await connectToDb()
+connectToDb()
 app.use('/', (req, res, next) => {
 
   next()
