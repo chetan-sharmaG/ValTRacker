@@ -236,7 +236,7 @@ app.get('/account/:puuid', async (req, res) => {
 })
 
 app.get('/pushData',async(req,res)=>{
-
+  connectToDb()
   try {
     const db = client.db('valo');
     await UploadData(db, 'EUDATA', 'eu', res);
