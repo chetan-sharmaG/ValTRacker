@@ -120,9 +120,9 @@ function encryptMatchID(matchId) {
 }
 
 app.get('/cron', async(req, res) => {
-  console.error('Cron job executing');
+  console.error(' 1 - Cron job executing');
   cron(); // Call the cron job function
-  console.warn('Inside PushData')
+  console.warn(' 2 -Inside PushData')
   await connectToDb()
   try {
     const db = client.db('valo');
@@ -269,20 +269,28 @@ app.get('/account/:puuid', async (req, res) => {
 // })
 
 async function UploadData(db , collectionName,server){
-  console.warn(`inside ${collectionName}`)
+  console.warn(` 3 - inside ${collectionName}`)
   try {
     const collection = db.collection(collectionName);
     const count = await collection.countDocuments();
     if (count === 0) {
         await db.createCollection(collectionName, {});
+        console.warn(" 4 - Creating colection:"+collectionName)
+    }else{
+      await collection.deleteMany({});
+      console.warn(" 4 - Deleting colection data :"+collectionName)
     }
-    await collection.deleteMany({});
-    const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server);
-    const data = await response.json();
-    await collection.insertMany([data]);
+    console.warn(` 5 -fetching Data`)
+    const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server)
+    .then(data=>data.json())
+    .then(async(data)=>{
+      await collection.insertMany([data]);
+      console.warn(` 6 - loaded the Data Data`)
+    })
+    
    
 } catch (error) {
-    console.log(error);
+    console.log(" 6 - Some Error came"+error);
 }
 }
 app.listen(port, () => {
