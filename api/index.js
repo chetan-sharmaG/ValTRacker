@@ -182,7 +182,7 @@ app.get('/profile/riot/:puuid/:region', (req, res) => {
 
 app.get('/currentSeason', (req, res) => {
 
-  var season = 'e8a2'
+  var season = 'e8a3'
   res.send(season)
 
 });

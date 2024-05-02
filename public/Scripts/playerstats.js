@@ -45,7 +45,7 @@ options.forEach((option) => {
 });
 let matchesDetails = {}
 let loadingCounter = 0
-let currentSeason = 'e8a2'
+let currentSeason = 'e8a3'
 let uuid
 let region
 

@@ -7,13 +7,23 @@ let BrServer = []
 let topPlayers = []
 let allPlayer = []
 document.addEventListener('DOMContentLoaded', async function () {
-
-    fetchEuServerData()
-    fetchApServerData()
-    fetchNaServerData()
     updateTopPlayers()
-    fetchKrServerData()
-    fetchBrServerData()
+    const promises = [
+        fetchEuServerData(),
+        fetchApServerData(),
+        fetchNaServerData(),
+        fetchKrServerData(),
+        fetchBrServerData()
+    ];
+
+    // Wait for all fetch operations to complete
+    await Promise.all(promises);
+    // fetchEuServerData()
+    // fetchApServerData()
+    // fetchNaServerData()
+    // updateTopPlayers()
+    // fetchKrServerData()
+    // fetchBrServerData()
     updateLeaderboard(euServer)
 
 })
@@ -212,7 +222,7 @@ async function updateTopPlayers() {
     }
     const inttime = setInterval(() => {
         checkDataIsReady(onDataLoaded);
-    }, 2000);
+    }, 1000);
 }
 
 function redirectUser(puuid, server) {
