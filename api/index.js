@@ -236,14 +236,16 @@ app.get('/account/:puuid', async (req, res) => {
 })
 
 app.get('/pushData',async(req,res)=>{
+  console.warn('Inside PushData')
   connectToDb()
+  console.warn('Connected to DB')
   try {
     const db = client.db('valo');
-    await UploadData(db, 'EUDATA', 'eu', res);
-    await UploadData(db, 'NADATA', 'na', res);
-    await UploadData(db, 'APDATA', 'ap', res);
-    await UploadData(db, 'KRDATA', 'kr', res);
-    await UploadData(db, 'BRDATA', 'br', res);
+    await UploadData(db, 'EUDATA', 'eu');
+    await UploadData(db, 'NADATA', 'na');
+    await UploadData(db, 'APDATA', 'ap');
+    await UploadData(db, 'KRDATA', 'kr');
+    await UploadData(db, 'BRDATA', 'br');
 } catch (error) {
     console.log(error);
     res.send('Error');
@@ -251,12 +253,13 @@ app.get('/pushData',async(req,res)=>{
 
 })
 
-async function UploadData(db , collection,server){
+async function UploadData(db , collectionName,server){
+  console.warn(`inside ${collectionName}`)
   try {
-    const collection = db.collection(collection);
+    const collection = db.collection(collectionName);
     const count = await collection.countDocuments();
     if (count === 0) {
-        await db.createCollection(collection, {});
+        await db.createCollection(collectionName, {});
     }
     await collection.deleteMany({});
     const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server);
