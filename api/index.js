@@ -3,7 +3,7 @@ const path = require('path')
 const app = express()
 const dotenv = require('dotenv');
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const  cron  = require('./cron.js');
+const cron = require('./cron.js');
 const http = require("http").createServer(app);
 var favicon = require('serve-favicon');
 const { error } = require('console');
@@ -16,7 +16,7 @@ console.log(process.env.MONGODB)
 
 
 // const client = new MongoClient(mongoURI);
-const client = new MongoClient(mongoURI
+let client = new MongoClient(mongoURI
   , {
     serverApi: {
       version: ServerApiVersion.v1,
@@ -55,13 +55,13 @@ async function performDatabaseOperations(agentName) {
     if (!allAgentsData) {
       await getAllAgentsData();
     }
-    
+
     const agentData = allAgentsData.find(agent => agent.displayName === agentName);
     if (!agentData) {
       console.error(`Agent with name ${agentName} not found.`);
       return null; // Or handle the case of agent not found as needed
     }
-    
+
     console.log(agentData);
     return agentData;
   } catch (error) {
@@ -119,7 +119,7 @@ function encryptMatchID(matchId) {
   return encryptedId;
 }
 
-app.get('/cron', async(req, res) => {
+app.get('/cron', async (req, res) => {
   console.error(' 1 - Cron job executing');
   cron(); // Call the cron job function
   console.warn(' 2 -Inside PushData')
@@ -131,12 +131,12 @@ app.get('/cron', async(req, res) => {
     await UploadData(db, 'APDATA', 'ap');
     await UploadData(db, 'KRDATA', 'kr');
     await UploadData(db, 'BRDATA', 'br');
-} catch (error) {
+  } catch (error) {
     console.log(error);
     // res.send('Error');
-}
-console.error('Cron job executed');
-  
+  }
+  console.error('Cron job executed');
+
 });
 // app.use(express.static(path.join(__dirname, '../VALO TRACKER/public')));
 app.use(express.static(path.join(__dirname, '../public')));
@@ -268,30 +268,28 @@ app.get('/account/:puuid', async (req, res) => {
 
 // })
 
-async function UploadData(db , collectionName,server){
-  console.warn(` 3 - inside ${collectionName}`)
+async function UploadData(db, collectionName, server) {
+  console.warn(`--------------------------${collectionName}-----------------------`)
+  console.warn(` 1 - inside ${collectionName}`)
   try {
     const collection = db.collection(collectionName);
     const count = await collection.countDocuments();
     if (count === 0) {
-        await db.createCollection(collectionName, {});
-        console.warn(" 4 - Creating colection:"+collectionName)
-    }else{
+      await db.createCollection(collectionName, {});
+      console.warn(" 2 - Creating colection:" + collectionName)
+    } else {
       await collection.deleteMany({});
-      console.warn(" 4 - Deleting colection data :"+collectionName)
+      console.warn(" 2 - Deleting colection data :" + collectionName)
     }
-    console.warn(` 5 -fetching Data`)
-    const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server)
-    .then(data=>data.json())
-    .then(async(data)=>{
-      await collection.insertMany([data]);
-      console.warn(` 6 - loaded the Data Data`)
-    })
-    
-   
-} catch (error) {
-    console.log(" 6 - Some Error came"+error);
-}
+    console.warn(` 3 -fetching Data`)
+    const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server);
+    const data = await response.json();
+    await collection.insertMany([data]);
+    console.warn(` 4 - loaded the Data Data`)
+
+  } catch (error) {
+    console.log(" 4 - Some Error came" + error);
+  }
 }
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
