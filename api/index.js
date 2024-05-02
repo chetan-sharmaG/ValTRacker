@@ -34,19 +34,54 @@ async function connectToDb() {
     console.error('Error connecting to MongoDB:', error);
   }
 }
+let allAgentsData = null;
+
+async function getAllAgentsData() {
+  if (!allAgentsData) {
+    try {
+      const database = client.db('valo');
+      const collection = database.collection('agents');
+      allAgentsData = await collection.find({}).toArray();
+    } catch (error) {
+      console.error("Error fetching all agents data:", error);
+      throw error; // Re-throwing error to be handled by caller
+    }
+  }
+  return allAgentsData;
+}
+
 async function performDatabaseOperations(agentName) {
   try {
-    const database = client.db('valo');
-    const collection = database.collection('agents');
-
-
-    const result = await collection.findOne({ displayName: agentName });
-    console.log(result)
-    return result
+    if (!allAgentsData) {
+      await getAllAgentsData();
+    }
+    
+    const agentData = allAgentsData.find(agent => agent.displayName === agentName);
+    if (!agentData) {
+      console.error(`Agent with name ${agentName} not found.`);
+      return null; // Or handle the case of agent not found as needed
+    }
+    
+    console.log(agentData);
+    return agentData;
   } catch (error) {
-    return error
+    console.error("Error performing database operations:", error);
+    throw error; // Re-throwing error to be handled by caller
   }
 }
+// async function performDatabaseOperations(agentName) {
+//   try {
+//     const database = client.db('valo');
+//     const collection = database.collection('agents');
+
+
+//     const result = await collection.findOne({ displayName: agentName });
+//     console.log(result)
+//     return result
+//   } catch (error) {
+//     return error
+//   }
+// }
 async function getRandomFact() {
   // const uri = 'mongodb://localhost:27017'; // Your MongoDB URI
   // const client = new MongoClient(uri);
