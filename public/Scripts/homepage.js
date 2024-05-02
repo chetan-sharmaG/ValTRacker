@@ -505,7 +505,7 @@ seachedPlayerSideBar.addEventListener('click', () => {
 function addPlayer(name, tag, server, puuid) {
     const isObjectPresent = recentPlayer.find((o) => o.puuid === puuid);
     if (!isObjectPresent) {
-        recentPlayer.push({ name: name, tag: tag, server: server, puuid: data.data.puuid })
+        recentPlayer.push({ name: name, tag: tag, server: server, puuid: puuid })
         localStorage.setItem('recentPlayer', JSON.stringify(recentPlayer))
     }
     // recentPlayer.push({
