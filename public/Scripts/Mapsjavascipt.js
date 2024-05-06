@@ -20,10 +20,38 @@ function showSlides(n) {
 
 
 }
-
-function imagesPopup(mapName) {
+// document.addEventListener('DOMContentLoaded', async function () {
+//    let maps =  fetch('/loadMap')
+    
+// })
+async function updateMapdetails(map){
+    let a = await fetch('/mapData/'+map)
+    let response = await a.json()
+    console.log(response)
+    const mapdetails = document.getElementsByClassName('mapdetails')[0]
+    const imgContainer = document.getElementsByClassName('imgContainer')[0]
+    const mapLocation = document.getElementById('mapLocation')
+    imgContainer.innerHTML=''
+    var imgPath
+    response.mapImages.forEach(img=>{
+        var row = document.createElement('div');
+        row.classList.add('mySlides')
+        row.classList.add('fade')
+        row.innerHTML=`<img
+        src=${img.img}>`
+        imgContainer.appendChild(row)
+    })
+    mapdetails.innerHTML=''
+    mapLocation.innerText=response.mapLocation
+    mapdetails.innerHTML=`<div id="mapNameTitle">${response.mapName.toUpperCase()}</div><div id="mapDescription">${response.mapDescription}</div>`
+    showSlides(1)
+    // imgContainer.innerHTML=imgPath
+}
+async function imagesPopup(mapName) {
+    slideindex=1
     var imageContainer = document.getElementById('imagePlayer');
     var nav = document.getElementsByTagName('header')[0];
+    await updateMapdetails(mapName)
     if (window.innerWidth < 850) {
         // imageContainer.style.display="inherit";
         setTimeout(function () {
@@ -39,6 +67,7 @@ function imagesPopup(mapName) {
 }
 
 function closeImagePLayer() {
+    slideindex=1
     var imageContainer = document.getElementById('imagePlayer');
     var nav = document.getElementsByTagName('header')[0];
     // imageContainer.style.display="none";
@@ -126,7 +155,7 @@ document.getElementById('lotus').addEventListener('mouseleave', function () {
 document.getElementById('bind').addEventListener('mouseenter', function () {
     zoomToPath('bind');
     makeHidden('Morocco');
-    mor.classList.add('path1')
+    mor.classList.add('pat')
     var dta = document.querySelector('.bic');
     dta.style.visibility = 'visible';
     document.querySelectorAll('.bindLine').forEach(function (line) {
@@ -140,7 +169,7 @@ document.getElementById('bind').addEventListener('mouseenter', function () {
 document.getElementById('bind').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('Morocco');
-    mor.classList.remove('path1')
+    mor.classList.remove('pat')
 
     var dta = document.querySelector('.bic');
     dta.style.visibility = 'hidden';
@@ -154,7 +183,7 @@ document.getElementById('bind').addEventListener('mouseleave', function () {
 document.getElementById('ascent').addEventListener('mouseenter', function () {
     zoomToPath('ascent');
     makeHidden('Italy');
-    IT.classList.add('path1')
+    IT.classList.add('pat')
     var dta = document.querySelector('.ac');
     dta.style.visibility = 'visible';
     document.querySelectorAll('.ascentLine').forEach(function (line) {
@@ -167,7 +196,7 @@ document.getElementById('ascent').addEventListener('mouseenter', function () {
 document.getElementById('ascent').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('Italy');
-    IT.classList.remove('path1')
+    IT.classList.remove('pat')
     var dta = document.querySelector('.ac');
     dta.style.visibility = 'hidden';
     document.querySelectorAll('.ascentLine').forEach(function (line) {
@@ -180,7 +209,7 @@ document.getElementById('ascent').addEventListener('mouseleave', function () {
 document.getElementById('haven').addEventListener('mouseenter', function () {
     zoomToPath('haven');
     makeHidden('BHUTAN');
-    BT.classList.add('path1')
+    BT.classList.add('pat')
     var dta = document.querySelector('.hc');
     dta.style.visibility = 'visible';
     document.querySelectorAll('.havenLine').forEach(function (line) {
@@ -193,7 +222,7 @@ document.getElementById('haven').addEventListener('mouseenter', function () {
 document.getElementById('haven').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('BHUTAN');
-    BT.classList.remove('path1')
+    BT.classList.remove('pat')
 
     var dta = document.querySelector('.hc');
     dta.style.visibility = 'hidden';
@@ -231,7 +260,7 @@ document.getElementById('breeze').addEventListener('mouseleave', function () {
 document.getElementById('pearl').addEventListener('mouseenter', function () {
     zoomToPath('pearl');
     makeHidden('Portugal');
-    PT.classList.add('path1')
+    PT.classList.add('pat')
 
     var dta = document.querySelector('.pc');
     dta.style.visibility = 'visible';
@@ -245,7 +274,7 @@ document.getElementById('pearl').addEventListener('mouseenter', function () {
 document.getElementById('pearl').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('Portugal');
-    PT.classList.remove('path1')
+    PT.classList.remove('pat')
 
     var dta = document.querySelector('.pc');
     dta.style.visibility = 'hidden';
@@ -259,7 +288,7 @@ document.getElementById('pearl').addEventListener('mouseleave', function () {
 document.getElementById('icebox').addEventListener('mouseenter', function () {
     zoomToPath('icebox')
     makeHidden('Russia');
-    IC.classList.add('path1')
+    IC.classList.add('pat')
 
     var dta = document.querySelector('.ic');
     dta.style.visibility = 'visible';
@@ -273,7 +302,7 @@ document.getElementById('icebox').addEventListener('mouseenter', function () {
 document.getElementById('icebox').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('Russia');
-    IC.classList.remove('path1')
+    IC.classList.remove('pat')
     var dta = document.querySelector('.ic');
     dta.style.visibility = 'hidden';
     document.querySelectorAll('.iceboxLine').forEach(function (line) {
@@ -286,7 +315,7 @@ document.getElementById('icebox').addEventListener('mouseleave', function () {
 document.getElementById('split').addEventListener('mouseenter', function () {
     zoomToPath('split')
     makeHidden('Tokyo');
-    JP.classList.add('path1')
+    JP.classList.add('pat')
 
     var dta = document.querySelector('.sc');
     dta.style.visibility = 'visible';
@@ -299,7 +328,7 @@ document.getElementById('split').addEventListener('mouseenter', function () {
 });
 document.getElementById('split').addEventListener('mouseleave', function () {
     zoomOut();
-    JP.classList.remove('path1')
+    JP.classList.remove('pat')
 
     makeVisible('Tokyo')
     var dta = document.querySelector('.sc');
@@ -314,7 +343,7 @@ document.getElementById('split').addEventListener('mouseleave', function () {
 document.getElementById('sunset').addEventListener('mouseenter', function () {
     zoomToPath('sunset');
     makeHidden('UsaSunset');
-    USA.classList.add('path1')
+    USA.classList.add('path2')
 
     var dta = document.querySelector('.suc');
     dta.style.visibility = 'visible';
@@ -328,7 +357,7 @@ document.getElementById('sunset').addEventListener('mouseenter', function () {
 document.getElementById('sunset').addEventListener('mouseleave', function () {
     zoomOut();
     makeVisible('UsaSunset');
-    USA.classList.remove('path1')
+    USA.classList.remove('path2')
 
     var dta = document.querySelector('.suc');
     dta.style.visibility = 'hidden';
@@ -341,7 +370,7 @@ document.getElementById('sunset').addEventListener('mouseleave', function () {
 });
 document.getElementById('fracture').addEventListener('mouseenter', function () {
     zoomToPath('fracture');
-    USA.classList.add('path1')
+    USA.classList.add('path2')
 
     makeHidden('UsaFracture');
     var dta = document.querySelector('.fc');

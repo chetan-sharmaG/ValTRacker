@@ -34,7 +34,7 @@ async function connectToDb() {
   }
 }
 let allAgentsData = null;
-
+let allMapsData = null
 async function getAllAgentsData() {
   if (!allAgentsData) {
     try {
@@ -48,6 +48,21 @@ async function getAllAgentsData() {
     }
   }
   return allAgentsData;
+}
+async function getAllMapssData() {
+  if (!allMapsData) {
+    try {
+      const database = client.db('valo');
+      const collection = database.collection('maps');
+      allMapsData = await collection.find({}).toArray();
+      console.log(allAgentsData)
+      await client.close()
+    } catch (error) {
+      console.error("Error fetching all maps data:", error);
+      throw error; // Re-throwing error to be handled by caller
+    }
+  }
+  return allMapsData;
 }
 
 async function performDatabaseOperations(agentName) {
@@ -64,6 +79,25 @@ async function performDatabaseOperations(agentName) {
 
     console.log(agentData);
     return agentData;
+  } catch (error) {
+    console.error("Error performing database operations:", error);
+    throw error; // Re-throwing error to be handled by caller
+  }
+}
+async function performDatabaseOperationsOnMap(mapname) {
+  try {
+    if (!allMapsData) {
+      await getAllMapssData();
+    }
+
+    const mapdd = allMapsData.find(map => map.mapName === mapname);
+    if (!mapdd) {
+      console.error(`Map with name ${mapname} not found.`);
+      return null; // Or handle the case of agent not found as needed
+    }
+
+    console.log(mapdd);
+    return mapdd;
   } catch (error) {
     console.error("Error performing database operations:", error);
     throw error; // Re-throwing error to be handled by caller
@@ -140,6 +174,7 @@ app.get('/cron', async (req, res) => {
   console.error('Cron job executed');
 
 });
+let mapData
 // app.use(express.static(path.join(__dirname, '../VALO TRACKER/public')));
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(favicon(path.join(__dirname, '../public/assets/images/extras/favicon.ico')))
@@ -169,6 +204,13 @@ app.get('/agentData/:agent', async (req, res) => {
   res.send(response)
 
 })
+app.get('/mapData/:map', async (req, res) => {
+  const MapName = req.params.map
+  console.log(MapName)
+  const response = await performDatabaseOperationsOnMap(MapName)
+  res.send(response)
+
+})
 
 
 app.use('*.css', function (req, res, next) {
@@ -187,7 +229,12 @@ app.get('/agents', (req, res) => {
   res.sendFile(path.join(__dirname, '../views/agents.html'));
 })
 
-app.get('/maps', (req, res) => {
+app.get('/maps', async(req, res) => {
+  connectToDb()
+  await connectToDb()
+  const db = client.db('valo');
+  const collection = db.collection('maps')
+  mapData = await collection.find({}).toArray()
   res.sendFile(path.join(__dirname, '../views/maps.html'));
 })
 
@@ -522,6 +569,8 @@ app.get('/BrServer', async (req, res) => {
     console.error('Error at /BRServer ' + error)
   }
 })
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

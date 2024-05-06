@@ -85,7 +85,39 @@ circle {
     stroke-dashoffset: 1000;
     animation: dash 5s linear alternate-reverse infinite;
 }
+.pat {
+    /* stroke: #ff671f; */
+    stroke-width: .7px;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: dash1 2s linear alternate-reverse infinite;
+}
+.path2 {
+    /* stroke: #ff671f; */
+    stroke-width: .7px;
+    stroke-dasharray: 1500;
+    stroke-dashoffset: 1500;
+    animation: dash2 2s linear alternate-reverse infinite;
+}
 
+@keyframes dash2 {
+    from {
+        stroke-dashoffset: 1500;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes dash1 {
+    from {
+        stroke-dashoffset: 400;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
 @keyframes dash {
     from {
         stroke-dashoffset: 1000;

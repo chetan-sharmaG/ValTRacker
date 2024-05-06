@@ -5,14 +5,14 @@ const options_list = document.querySelector(".options-list");
 const options = document.querySelectorAll(".option");
 const modes = document.querySelectorAll(".mode-holder .mode")
 
-modes.forEach((mode)=>{
-    mode.addEventListener('click',()=>{
-        modes.forEach(m=>{
+modes.forEach((mode) => {
+    mode.addEventListener('click', () => {
+        modes.forEach(m => {
             m.classList.remove('active')
         })
         console.error(matchesDetails)
         mode.classList.add('active')
-        getData(matchesDetails,currentSeason,mode.getAttribute('mode'))
+        getData(matchesDetails, currentSeason, mode.getAttribute('mode'))
         updateRankInUI(region, uuid, currentSeason)
     })
 })
@@ -35,7 +35,7 @@ options.forEach((option) => {
         const seasonText = option.innerText; // Retrieve season text
         const seasonValue = option.getAttribute('season'); // Retrieve season value
         const activeMode = document.getElementsByClassName('active')[0]
-        getData(matchesDetails, option.getAttribute('season'),activeMode.getAttribute('mode'))
+        getData(matchesDetails, option.getAttribute('season'), activeMode.getAttribute('mode'))
         updateRankInUI(region, uuid, option.getAttribute('season'))
         option.classList.add("selected");
         optionsList.classList.toggle("active");
@@ -146,9 +146,14 @@ async function updateRankInUI(region, uuid, season = currentSeason) {
 //Updating the USerName ,level and tag
 async function updateTagsInUI(uuid) {
 
-    let tags = fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/account/' + uuid)
+    let tags = fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/account/' + uuid, {
+        method: "GET", // or 'PUT'
+        headers: {
+            "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+        }
+    })
         .then(response => response.json())
-        .then(response=>{
+        .then(response => {
             const name = response.data.name
             const tag = response.data.tag
             const lvl = response.data.account_level
@@ -159,7 +164,7 @@ async function updateTagsInUI(uuid) {
             tagElement.innerHTML = name + '#' + tag
             levelElement.innerHTML = 'Lvl:' + lvl
             playerCard.src = bannerSrc
-        }).catch(error=>{
+        }).catch(error => {
             console.error(error)
         })
 }
@@ -321,9 +326,9 @@ function groupMatchesByStartTime(matches) {
 
 
 
-async function getData(data, desiredSeason,desiredMode='Competitive') {
+async function getData(data, desiredSeason, desiredMode = 'Competitive') {
     let ad = {};
-    if(data.length===0){
+    if (data.length === 0) {
         data = matchesDetails
     }
     let highestKill = 0;
@@ -417,19 +422,19 @@ async function updateTopAgents(adToArr) {
             console.error("No element with class 'img-holder' found.");
         }
         let topAgent = document.getElementsByClassName('nameTime')
-        
-        try{
+
+        try {
             const agentImgTag = document.getElementById('first_top_img')
             agentImgTag.src = 'https://media.valorant-api.com/agents/' + adToArr[0].agentId + '/fullportrait.png'
             const secondAgent = document.getElementById('second_top_img')
             secondAgent.src = 'https://media.valorant-api.com/agents/' + adToArr[1].agentId + '/fullportrait.png'
             const thirdAgent = document.getElementById('third_top_img')
             thirdAgent.src = 'https://media.valorant-api.com/agents/' + adToArr[2].agentId + '/fullportrait.png'
-    
+
         }
-        catch(error){
+        catch (error) {
             console.error(error)
-            if(adToArr.length<2){
+            if (adToArr.length < 2) {
                 const agentImgTag = document.getElementById('first_top_img')
                 agentImgTag.src = 'https://media.valorant-api.com/agents/' + adToArr[0].agentId + '/fullportrait.png'
                 const secondAgent = document.getElementById('second_top_img')
@@ -437,8 +442,8 @@ async function updateTopAgents(adToArr) {
                 const thirdAgent = document.getElementById('third_top_img')
             }
         }
-        
-        
+
+
         topAgent.innerHTML = ''
         // const housPlayedAgent0 = convertToHoursMinutes(adToArr[0].hoursPlayed)
         // const housPlayedAgent1 = convertToHoursMinutes(adToArr[1].hoursPlayed)
@@ -629,112 +634,112 @@ async function getBestMap(ad) {
 
 async function getWeapon() {
 
-//     // let a = await fetch('https://api.henrikdev.xyz/valorant/v2/match/b8b2740d-6095-4936-b3aa-cd3775602187')
-//     // let a = await fetch('https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/ap/4838165f-102b-5cc7-a261-616ea821bfcc')
-//     // .then(data=>data.json())
-//     // .then(data=>{
+    //     // let a = await fetch('https://api.henrikdev.xyz/valorant/v2/match/b8b2740d-6095-4936-b3aa-cd3775602187')
+    //     // let a = await fetch('https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/ap/4838165f-102b-5cc7-a261-616ea821bfcc')
+    //     // .then(data=>data.json())
+    //     // .then(data=>{
 
-//     //     // const kills = data.data.kills
-//     //     const kill = data.data
-//     //     console.error(kill)
+    //     //     // const kills = data.data.kills
+    //     //     const kill = data.data
+    //     //     console.error(kill)
 
-//     //     // const result = kills.reduce((acc,cur)=>{
+    //     //     // const result = kills.reduce((acc,cur)=>{
 
-//     //     //     let userpuuid = cur.killer_puuid
-//     //     //     let damagegun;
+    //     //     //     let userpuuid = cur.killer_puuid
+    //     //     //     let damagegun;
 
-//     //     //     if(userpuuid==='b8b2740d-6095-4936-b3aa-cd3775602187')
-//     //     //     {
-//     //     //         damagegun=cur.damage_weapon_name
-//     //     //         if(userpuuid in acc){
-//     //     //             acc[userpuuid].damagegun+=1;
+    //     //     //     if(userpuuid==='b8b2740d-6095-4936-b3aa-cd3775602187')
+    //     //     //     {
+    //     //     //         damagegun=cur.damage_weapon_name
+    //     //     //         if(userpuuid in acc){
+    //     //     //             acc[userpuuid].damagegun+=1;
 
-//     //     //         }
-//     //     //         else{
-//     //     //             acc[userpuuid][damagegun]=1
-//     //     //         }
-//     //     //     }
+    //     //     //         }
+    //     //     //         else{
+    //     //     //             acc[userpuuid][damagegun]=1
+    //     //     //         }
+    //     //     //     }
 
-//     //     //     return acc;
+    //     //     //     return acc;
 
-//     //     // },{});
-//     //     const result = kill.reduce((acc, cur) => {
+    //     //     // },{});
+    //     //     const result = kill.reduce((acc, cur) => {
 
-//     //         let userpuuid = cur.killer_puuid;
-//     //         let damagegun = cur.damage_weapon_name;
+    //     //         let userpuuid = cur.killer_puuid;
+    //     //         let damagegun = cur.damage_weapon_name;
 
-//     //         if (userpuuid === '4838165f-102b-5cc7-a261-616ea821bfcc') {
-//     //             if (acc[userpuuid]) {
-//     //                 if (damagegun in acc[userpuuid]) {
-//     //                     acc[userpuuid][damagegun] += 1;
-//     //                 } else {
-//     //                     acc[userpuuid][damagegun] = 1;
-//     //                 }
-//     //             } else {
-//     //                 acc[userpuuid] = {};
-//     //                 acc[userpuuid][damagegun] = 1;
-//     //             }
-//     //         }
+    //     //         if (userpuuid === '4838165f-102b-5cc7-a261-616ea821bfcc') {
+    //     //             if (acc[userpuuid]) {
+    //     //                 if (damagegun in acc[userpuuid]) {
+    //     //                     acc[userpuuid][damagegun] += 1;
+    //     //                 } else {
+    //     //                     acc[userpuuid][damagegun] = 1;
+    //     //                 }
+    //     //             } else {
+    //     //                 acc[userpuuid] = {};
+    //     //                 acc[userpuuid][damagegun] = 1;
+    //     //             }
+    //     //         }
 
-//     //         return acc;
-//     //     }, {});
-//     //     const b = kill.kills.reduce((acc1,cur1)=>{
+    //     //         return acc;
+    //     //     }, {});
+    //     //     const b = kill.kills.reduce((acc1,cur1)=>{
 
-//     //     },{});
+    //     //     },{});
 
 
-//     //     console.log(b)
+    //     //     console.log(b)
 
-//     // })
-  const ab = await fetch('https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/ap/d3a5b563-f19b-5587-987a-36e49effeef5?size=10')
-    .then(data => data.json())
-    .then(data => {
-        const results = data.data.map(match => {
-            const kills = match.kills;
-            const result = kills.reduce((acc, cur) => {
-                let userpuuid = cur.killer_puuid;
-                let damagegun = cur.damage_weapon_name;
-                // let display_icon= cur.damage_weapon_assets.display_icon
-                console.log(display_icon)
-                if (userpuuid === 'd3a5b563-f19b-5587-987a-36e49effeef5') {
-                    if (acc[damagegun]) {
-                        acc[damagegun].kills += 1;
+    //     // })
+    const ab = await fetch('https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/ap/d3a5b563-f19b-5587-987a-36e49effeef5?size=10')
+        .then(data => data.json())
+        .then(data => {
+            const results = data.data.map(match => {
+                const kills = match.kills;
+                const result = kills.reduce((acc, cur) => {
+                    let userpuuid = cur.killer_puuid;
+                    let damagegun = cur.damage_weapon_name;
+                    // let display_icon= cur.damage_weapon_assets.display_icon
+                    console.log(display_icon)
+                    if (userpuuid === 'd3a5b563-f19b-5587-987a-36e49effeef5') {
+                        if (acc[damagegun]) {
+                            acc[damagegun].kills += 1;
+                        } else {
+                            acc[damagegun] = { kills: 1, display_icon: display_icon };
+                        }
+                    }
+
+                    return acc;
+                }, {});
+                return result;
+            });
+
+            let totalWeaponCounts = {};
+            let maxKills = 0;
+            let maxKillsWeapon = '';
+
+            results.forEach(obj => {
+                for (let weapon in obj) {
+                    if (totalWeaponCounts[weapon]) {
+                        totalWeaponCounts[weapon] += obj[weapon].kills;
                     } else {
-                        acc[damagegun] = { kills: 1, display_icon: display_icon};
+                        totalWeaponCounts[weapon] = obj[weapon].kills;
+                    }
+
+                    if (obj[weapon].kills > maxKills) {
+                        maxKills = obj[weapon].kills;
+                        maxKillsWeapon = weapon;
                     }
                 }
+            });
 
-                return acc;
-            }, {});
-            return result;
+            console.log("Total Kills by each gun:", totalWeaponCounts);
+            console.log("Gun with the highest kills:", maxKillsWeapon);
+            // console.log("Display Icon URL of the gun with the highest kills:", results[maxKillsWeapon].display_icon);
         });
 
-        let totalWeaponCounts = {};
-        let maxKills = 0;
-        let maxKillsWeapon = '';
 
-        results.forEach(obj => {
-            for (let weapon in obj) {
-                if (totalWeaponCounts[weapon]) {
-                    totalWeaponCounts[weapon] += obj[weapon].kills;
-                } else {
-                    totalWeaponCounts[weapon] = obj[weapon].kills;
-                }
-
-                if (obj[weapon].kills > maxKills) {
-                    maxKills = obj[weapon].kills;
-                    maxKillsWeapon = weapon;
-                }
-            }
-        });
-       
-        console.log("Total Kills by each gun:", totalWeaponCounts);
-        console.log("Gun with the highest kills:", maxKillsWeapon);
-        // console.log("Display Icon URL of the gun with the highest kills:", results[maxKillsWeapon].display_icon);
-    });
-
-
- }
+}
 
 // getWeapon()
 let currentSeasonStartDate = '2024-03-25'
@@ -837,7 +842,7 @@ async function fetchData(arrids) {
 
 //  scrollToNaveen()
 
-function closeMatchWindow(){
+function closeMatchWindow() {
     const naveenElement = document.getElementsByClassName('matchHighlights')[0];
     const stats = document.getElementsByClassName('season_stats_container')[0]
     const gun = document.getElementsByClassName('top_gun_container')[0]
@@ -864,15 +869,15 @@ function closeMatchWindow(){
 document.getElementById('closeConatiner').addEventListener('click', () => {
 
     closeMatchWindow()
-   
+
 })
-document.body.addEventListener('keydown', function(e) {
-    
+document.body.addEventListener('keydown', function (e) {
+
     if (e.key == "Escape") {
 
-      closeMatchWindow()
+        closeMatchWindow()
     }
-  });
+});
 // Attach the event listener to the parent of all .matchesGrid elements
 
 
