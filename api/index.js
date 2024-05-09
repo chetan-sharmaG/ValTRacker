@@ -9,11 +9,25 @@ var favicon = require('serve-favicon');
 const { error } = require('console');
 const port = process.env.PORT || 4000;
 dotenv.config();
-
+const nodemailer = require('nodemailer');
 // const mongoURI = 'mongodb://localhost:27017';
 const mongoURI = process.env.MONGODB
 console.log(process.env.MONGODB)
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_ID,
+    pass: process.env.PASSWORD
+  }
+});
+
+const mailOptions = {
+  from: process.env.EMAIL_ID,
+  to: process.envEMAIL_ID2,
+  subject: 'Sending Email using Node.js for cron job',
+  text: 'Cron job executed!'
+};
 
 // const client = new MongoClient(mongoURI);
 let client = new MongoClient(mongoURI
@@ -159,6 +173,13 @@ app.get('/cron', async (req, res) => {
   console.warn(' 2 -Inside PushData')
   await connectToDb()
   try {
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
     const db = client.db('valo');
     await Promise.all([
       UploadDataEU(db, 'EUDATA', 'eu'),
@@ -187,11 +208,18 @@ app.get('/facts', (req, res) => {
 
 })
 connectToDb()
-app.use('/', (req, res, next) => {
+// app.use('/', (req, res, next) => {
 
-  next()
-})
+//   next()
+// })
 app.get('/', (req, res) => {
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
   res.sendFile(path.join(__dirname, '../public/Html/index.html'));
   // res.sendFile('/public/Html/index.html');
 })
