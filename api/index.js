@@ -16,16 +16,24 @@ console.log(process.env.MONGODB)
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
+  port:465,
+  secure:true,
+  logger:true,
+  debug:true,
+  secureConnection:false,
   auth: {
     user: process.env.EMAIL_ID,
     pass: process.env.PASSWORD
+  },
+  tls:{
+    rejectUnauthorized:true
   }
 });
 
 const mailOptions = {
   from: process.env.EMAIL_ID,
-  to: process.envEMAIL_ID2,
-  subject: 'Sending Email using Node.js for cron job',
+  to: process.env.EMAIL_RECEIVER,
+  subject: 'Sending Email using Node.js for cron job time ='+Date.now(),
   text: 'Cron job executed!'
 };
 
@@ -213,13 +221,7 @@ connectToDb()
 //   next()
 // })
 app.get('/', (req, res) => {
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
+  
   res.sendFile(path.join(__dirname, '../public/Html/index.html'));
   // res.sendFile('/public/Html/index.html');
 })
