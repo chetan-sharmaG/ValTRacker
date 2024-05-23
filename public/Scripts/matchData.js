@@ -60,7 +60,7 @@ let firstBloods = [];
 // loadMatchData('0056293a-99a9-40c0-be29-f77aacb8c09e')
 async function loadMatchData(matchId) {
 
-    let matchCall = fetch('https://api.henrikdev.xyz/valorant/v2/match/' + matchId)
+    let matchCall =await  fetch('/riot/profile/user/match/' + matchId)
         .then(response => response.json())
         .then(response => {
             globalResponse = response
@@ -620,7 +620,7 @@ async function updateRoundCount(response) {
             }
         }
     });
-    console.log(roundData);
+    // console.log(roundData);
     roundBox.innerHTML = roundData;
     roundDetailsWrapper.appendChild(roundBox);
     root.appendChild(roundDetailsWrapper);

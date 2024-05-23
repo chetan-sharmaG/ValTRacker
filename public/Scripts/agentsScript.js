@@ -33,12 +33,12 @@ prom1.then((a) => {
 document.addEventListener('DOMContentLoaded', async function () {
     const path = window.location.pathname;
     var brim = document.getElementsByClassName('agent')[0]
-    
     brim.classList.add('active')
     updateAgent('Brimstone')
   
 })
 async function updateAgent(agentName){
+    document.title = agentName
     let getAgent = await fetch('/agentData/' + agentName)
     let response = await getAgent.json()
     console.log(response)

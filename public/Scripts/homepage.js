@@ -13,11 +13,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         fetchApServerData(),
         fetchNaServerData(),
         fetchKrServerData(),
-        fetchBrServerData()
+        fetchBrServerData(),
+       
     ];
 
     // Wait for all fetch operations to complete
     await Promise.all(promises);
+    updateLeaderboard(euServer)
     // fetchEuServerData()
     // fetchApServerData()
     // fetchNaServerData()
@@ -238,6 +240,7 @@ function updateLeaderboard(server) {
         var defaultButton = document.getElementById('EU');
         if (server == euServer) {
             defaultButton.style.backgroundColor = 'red'
+            // defaultButton.click()
         } else {
             defaultButton.style.backgroundColor = 'white'
         }
@@ -553,7 +556,7 @@ async function searchPlayer() {
     const enteredText = searchText.value.split('#')
     const username = enteredText[0]
     const tagline = enteredText[1]
-    let getUser = fetch('https://api.henrikdev.xyz/valorant/v1/account/' + username + '/' + tagline)
+    let getUser = fetch( `/${username}/getPlayer/${tagline}`)
         .then(data => data.json())
         .then(data => {
             if (data.status === 404) {

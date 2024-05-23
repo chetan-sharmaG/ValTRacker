@@ -89,8 +89,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         })
         .then(data => {
             // updateTagName
+            console.log(data)
             matchesDetails = data
-            var currentSeason = 'e8a2'
+            var currentSeason = 'e8a3'
             getData(data, currentSeason)
             updateRankInUI(region, uuid, currentSeason)
             // updateMatchesBox(data)
@@ -146,14 +147,10 @@ async function updateRankInUI(region, uuid, season = currentSeason) {
 //Updating the USerName ,level and tag
 async function updateTagsInUI(uuid) {
 
-    let tags = fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/account/' + uuid, {
-        method: "GET", // or 'PUT'
-        headers: {
-            "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
-        }
-    })
+    let tags = await fetch('/profile/user/updateTags/' + uuid)
         .then(response => response.json())
         .then(response => {
+            console.log(response)
             const name = response.data.name
             const tag = response.data.tag
             const lvl = response.data.account_level

@@ -273,6 +273,9 @@ app.get('/post-data', (req, res) => {
   res.send({ "name": "chetan" })
 })
 
+
+
+
 app.get('/profile/riot/:puuid/:region', (req, res) => {
 
   res.sendFile(path.join(__dirname, '../views/playerstats.html'));
@@ -295,7 +298,11 @@ app.get('/:region/:puuid', async (req, res) => {
   try {
     const region = req.params.region
     const uuid = req.params.puuid
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/lifetime/matches/' + region + '/' + uuid + '?page=1&size=500')
+    let a = await fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/lifetime/matches/' + region + '/' + uuid + '?page=1&size=500',{
+      method: "GET",
+      headers: {
+          "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+      }})
     let response = await a.json();
     res.json(response);
   } catch (error) {
@@ -304,12 +311,72 @@ app.get('/:region/:puuid', async (req, res) => {
 
 })
 
+app.get('/:name/getPlayer/:tag',async(req,res)=>{
+  try{
+    let username = req.params.name
+    let tagline = req.params.tag
+    let getUser = await fetch('https://api.henrikdev.xyz/valorant/v1/account/' + username + '/' + tagline,{
+      method: "GET",
+      headers: {
+          "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+      }
+  })
+  let response = await getUser.json();
+  console.log(response)
+  res.json(response);
+  }catch(error){
+    console.log(error)
+    res.json(error)
+  }
+})
+app.get('/riot/profile/user/match/:matchid',async (req,res)=>{
+
+  try{
+
+    let matchId =req.params.matchid
+    let matchCall =await fetch('https://api.henrikdev.xyz/valorant/v2/match/' + matchId,{
+        method: "GET",
+        headers: {
+            "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+        }
+    })
+    let response = await matchCall.json();
+    res.json(response);
+  }catch(error){
+    console.log(error)
+    res.json(error);
+  }
+
+
+})
+
+app.get('/profile/user/updateTags/:puuid',async(req,res)=>{
+
+   try{
+    const uuid = req.params.puuid
+    let a = await fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/account/' + uuid,{
+      method: "GET",
+      headers: {
+          "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+      }})
+    let response = await a.json();
+    res.json(response);
+   }catch(error){
+    console.log(error)
+    res.json(error);
+   }
+})
+
 app.get('/rank/:region/:puuid', async (req, res) => {
 
   try {
     const region = req.params.region
     const uuid = req.params.puuid
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/' + region + '/' + uuid)
+    let a = await fetch('https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/' + region + '/' + uuid,{
+      method: "GET",
+      headers: {
+          "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+      }})
     let response = await a.json();
     res.json(response);
   } catch (error) {
@@ -321,7 +388,11 @@ app.get('/account/:puuid', async (req, res) => {
 
   try {
     const uuid = req.params.puuid
-    let a = await fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/account/' + uuid)
+    let a = await fetch('https://api.henrikdev.xyz/valorant/v1/by-puuid/account/' + uuid,{
+      method: "GET",
+      headers: {
+          "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+      }})
     let response = await a.json();
     res.json(response);
   } catch (error) {
@@ -365,7 +436,12 @@ async function UploadDataEU(db, collectionName, server) {
     const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout after 10 seconds
 
     const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server, {
-      signal: controller.signal
+      signal: controller.signal,
+      method: "GET",
+      headers: {
+          "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+      }  
+       
     });
 
     clearTimeout(timeoutId);
@@ -404,7 +480,11 @@ async function UploadDataNA(db, collectionName, server) {
     const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout after 10 seconds
 
     const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server, {
-      signal: controller.signal
+      signal: controller.signal,
+      method: "GET",
+      headers: {
+          "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+      }  
     });
 
     clearTimeout(timeoutId);
@@ -443,7 +523,11 @@ async function UploadDataAP(db, collectionName, server) {
     const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout after 10 seconds
 
     const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server, {
-      signal: controller.signal
+      signal: controller.signal,
+      method: "GET",
+      headers: {
+          "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+      }  
     });
 
     clearTimeout(timeoutId);
@@ -482,7 +566,11 @@ async function UploadDataKR(db, collectionName, server) {
     const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout after 10 seconds
 
     const response = await fetch('https://api.henrikdev.xyz/valorant/v2/leaderboard/' + server, {
-      signal: controller.signal
+      signal: controller.signal,
+      method: "GET",
+      headers: {
+          "Authorization": "HDEV-2f4795d1-3f40-4cd3-bc23-cb3ab76655af",
+      }  
     });
 
     clearTimeout(timeoutId);
