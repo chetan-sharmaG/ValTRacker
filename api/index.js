@@ -7,8 +7,13 @@ const cron = require('./cron.js');
 const http = require("http").createServer(app);
 var favicon = require('serve-favicon');
 const { error } = require('console');
+
+
+
 const port = process.env.PORT || 4000;
 dotenv.config();
+
+
 const nodemailer = require('nodemailer');
 // const mongoURI = 'mongodb://localhost:27017';
 const mongoURI = process.env.MONGODB
@@ -283,7 +288,7 @@ app.get('/profile/riot/:puuid/:region', (req, res) => {
 
 app.get('/currentSeason', (req, res) => {
 
-  var season = 'e8a3'
+  var season = 'e10a6'
   res.send(season)
 
 });

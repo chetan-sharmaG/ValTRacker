@@ -661,7 +661,7 @@ span.SearchedResult {
 }
 
 #section2 {
-    background-image: url("https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltbded518020183769/5eb26f5389bac8148a8006cc/agent-background-generic.JPG");
+    background-image: url(../assets/images/extras/valovalo.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     width: 100vw;
@@ -680,7 +680,7 @@ span.SearchedResult {
 
 .leadandline {
     position: relative;
-    top: 29px;
+    top: -32px;
     max-width: 100vw;
     height: 80vh;
     display: flex;

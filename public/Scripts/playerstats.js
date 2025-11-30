@@ -44,8 +44,7 @@ options.forEach((option) => {
 });
 let matchesDetails = {}
 let loadingCounter = 0
-let currentSeason = 'e8a3'
-let uuid
+let currentSeason = 'e10a6';
 let region
 
 
@@ -91,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             // updateTagName
             console.log(data)
             matchesDetails = data
-            var currentSeason = 'e8a3'
+            var currentSeason = 'e10a6'
             getData(data, currentSeason)
             updateRankInUI(region, uuid, currentSeason)
             // updateMatchesBox(data)

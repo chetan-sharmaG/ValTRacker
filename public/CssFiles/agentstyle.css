@@ -12,8 +12,8 @@
 
 }
 body{
-    background-repeat: no-repeat;
-    background-image: url('https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/bltbded518020183769/5eb26f5389bac8148a8006cc/agent-background-generic.JPG');
+    /* background-repeat: no-repeat; */
+    background-image: url('https://w0.peakpx.com/wallpaper/280/848/HD-wallpaper-video-game-valorant-logo.jpg');
 
 }
 header {
@@ -179,7 +179,8 @@ nav div:nth-child(2) {
     width: 5rem;
     height: 3em;
     padding: 10px;
-    background-color: #8b008b70;
+    font-weight: 700;
+    background-color: #8b008b;
 
 
 }
@@ -428,5 +429,5 @@ ul li {
 }
 
 .abilities *{
-     color: black !important;
+     /* color: black !important; */
 }
